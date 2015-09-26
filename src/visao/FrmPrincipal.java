@@ -73,7 +73,7 @@ public class FrmPrincipal extends JFrame {
 				new FrmProdutos().setVisible(true);
 			}
 		});
-		button_1.setIcon(new ImageIcon(getClass().getResource("/imagens/pimenta.jpg")));
+		button_1.setIcon(new ImageIcon(getClass().getResource("/imagens/pimenta.png")));
 		button_1.setBounds(264, 25, 105, 100);
 		panel.add(button_1);
 		
