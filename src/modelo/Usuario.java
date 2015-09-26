@@ -1,10 +1,34 @@
 package modelo;
 
 public class Usuario {
+
+	private int codigo;
 	private String nome;
 	private String email;
 	private String login;
 	private String senha;
+	
+	public Usuario(int codigo) {
+		this.setCodigo(codigo);
+	}
+	
+	public Usuario(String login, String senha) {
+		this.setLogin(login);
+		this.setSenha(senha);
+	}
+	
+	public Usuario(int codigo, String nome) {
+		this(codigo);
+		this.setNome(nome);
+	}
+
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
 
 	public String getNome() {
 		return nome;

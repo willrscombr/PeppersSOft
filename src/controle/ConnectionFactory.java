@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 
 import javax.swing.JOptionPane;
 
-public class Conection {
+public class ConnectionFactory {
 
 	private static String sqlString = "jdbc:mysql://localhost:3306/peepe";
 	private static String usuario = "root";
