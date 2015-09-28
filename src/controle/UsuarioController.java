@@ -12,15 +12,15 @@ public class UsuarioController {
 
 	public boolean cadastrar(Usuario usuario) throws Exception {
 
-		// Primeiro faz uma consulta pra ver se já está cadastrado
+		// Primeiro faz uma consulta pra ver se jï¿½ estï¿½ cadastrado
 		if (this.consultar(usuario) == true) {
 			return false;
 		} else {
 
-			// A ? é o campo que vai ser preenchido
-			String sql = "INSERT INO usuarios(?, ?, ?, ?)";
+			// A ? ï¿½ o campo que vai ser preenchido
+			String sql = "INSERT INTO usuarios(?, ?, ?, ?)";
 
-			// Abre a conexão
+			// Abre a conexï¿½o
 			Connection connection = ConnectionFactory.getConnection();
 
 			// Executa comando SQL
@@ -35,7 +35,7 @@ public class UsuarioController {
 			stmt.executeUpdate();
 			stmt.close();
 
-			// Fecha a conexão
+			// Fecha a conexï¿½o
 			ConnectionFactory.closeConnection(connection);
 
 			return true;

@@ -7,10 +7,10 @@ import javax.swing.JOptionPane;
 
 public class ConnectionFactory {
 
-	private static String sqlString = "jdbc:mysql://localhost:3306/peepe";
+	private static String sqlString = "jdbc:mysql://localhost:3306/pepper";
 	private static String usuario = "root";
-	private static String senha = ""; // no laboratório da Unifieo não tem
-											// senha, deixar em branco “ ”
+	private static String senha = ""; // no laboratï¿½rio da Unifieo nï¿½o tem
+											// senha, deixar em branco ï¿½ ï¿½
 
 	public static Connection getConnection() throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
