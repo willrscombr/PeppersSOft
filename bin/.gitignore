@@ -1,6 +1,6 @@
 /controle/
-/view/
 /imagens/
 /modelo/
 /visao/
-/persistencia/
+/interfaces/
+/fabrica/
