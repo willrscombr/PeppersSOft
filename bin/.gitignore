@@ -1,6 +1,5 @@
-/controle/
-/view/
 /imagens/
+/controle/
 /modelo/
 /visao/
-/persistencia/
+/dao/

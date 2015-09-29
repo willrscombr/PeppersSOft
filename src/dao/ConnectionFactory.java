@@ -1,4 +1,4 @@
-package controle;
+package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,8 +9,7 @@ public class ConnectionFactory {
 
 	private static String sqlString = "jdbc:mysql://localhost:3306/pepper";
 	private static String usuario = "root";
-	private static String senha = ""; // no laborat�rio da Unifieo n�o tem
-											// senha, deixar em branco � �
+	private static String senha = "";
 
 	public static Connection getConnection() throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
