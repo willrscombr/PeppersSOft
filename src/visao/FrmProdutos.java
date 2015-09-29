@@ -1,7 +1,6 @@
 package visao;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
@@ -15,28 +14,21 @@ public class FrmProdutos extends JFrame {
 
 	private JPanel contentPane;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FrmProdutos frame = new FrmProdutos();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	public FrmProdutos() {
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 739, 486);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+		try {
+			setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		JButton btnNewButton = new JButton("");
 		btnNewButton.setBackground(Color.WHITE);
 		btnNewButton.setIcon(new ImageIcon(getClass().getResource("/imagens/adicionar.jpg")));
@@ -46,7 +38,7 @@ public class FrmProdutos extends JFrame {
 		});
 		btnNewButton.setBounds(10, 357, 89, 80);
 		contentPane.add(btnNewButton);
-		
+
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -56,7 +48,7 @@ public class FrmProdutos extends JFrame {
 		button.setBackground(Color.WHITE);
 		button.setBounds(111, 357, 89, 80);
 		contentPane.add(button);
-		
+
 		JButton button_1 = new JButton("");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -66,7 +58,7 @@ public class FrmProdutos extends JFrame {
 		button_1.setBackground(Color.WHITE);
 		button_1.setBounds(214, 357, 89, 80);
 		contentPane.add(button_1);
-		
+
 		JButton button_2 = new JButton("");
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
