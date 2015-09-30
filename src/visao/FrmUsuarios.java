@@ -3,7 +3,6 @@ package visao;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,10 +15,10 @@ import java.awt.Font;
 public class FrmUsuarios extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_4;
+	private JTextField textPesquisa;
+	private JTextField textNome;
+	private JTextField textUsuario;
+	private JTextField textSenha;
 
 	private JButton btnSalvar;
 	private JButton btnCancel;
@@ -51,6 +50,12 @@ public class FrmUsuarios extends JFrame {
 				btnSalvar.setEnabled(true);
 				btnCancel.setEnabled(true);
 				btnIncluir.setEnabled(false);
+				textNome.setEnabled(true);
+				textNome.setEditable(true);
+				textUsuario.setEnabled(true);
+				textUsuario.setEditable(true);
+				textSenha.setEnabled(true);
+				textSenha.setEditable(true);
 			}
 		});
 		btnIncluir.setBounds(10, 394, 89, 43);
@@ -71,6 +76,15 @@ public class FrmUsuarios extends JFrame {
 		btnCancel.setEnabled(false);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				btnSalvar.setEnabled(false);
+				btnCancel.setEnabled(false);
+				btnIncluir.setEnabled(true);
+				textNome.setEnabled(false);
+				textNome.setEditable(false);
+				textUsuario.setEnabled(false);
+				textUsuario.setEditable(false);
+				textSenha.setEnabled(false);
+				textSenha.setEditable(false);
 			}
 		});
 		btnCancel.setIcon(null);
@@ -91,32 +105,37 @@ public class FrmUsuarios extends JFrame {
 		
 		JLabel lblPesquisa = new JLabel("Pesquisa");
 		lblPesquisa.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblPesquisa.setBounds(26, 39, 73, 14);
+		lblPesquisa.setBounds(69, 39, 73, 14);
 		contentPane.add(lblPesquisa);
 		
-		textField = new JTextField();
-		textField.setBounds(155, 38, 272, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		textPesquisa = new JTextField();
+		textPesquisa.setBounds(178, 38, 224, 20);
+		contentPane.add(textPesquisa);
+		textPesquisa.setColumns(10);
 		
 		btnLocalizar = new JButton("Localizar");
+		btnLocalizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		btnLocalizar.setBackground(Color.WHITE);
 		btnLocalizar.setBounds(437, 33, 89, 31);
 		contentPane.add(btnLocalizar);
 		
-		textField_1 = new JTextField();
-		textField_1.setEnabled(false);
-		textField_1.setEditable(false);
-		textField_1.setColumns(10);
-		textField_1.setBounds(178, 125, 249, 20);
-		contentPane.add(textField_1);
+		textNome = new JTextField();
+		textNome.setEnabled(false);
+		textNome.setEditable(false);
+		textNome.setColumns(10);
+		textNome.setBounds(178, 125, 249, 20);
+		contentPane.add(textNome);
 		
-		textField_2 = new JTextField();
-		textField_2.setEditable(false);
-		textField_2.setEnabled(false);
-		textField_2.setColumns(10);
-		textField_2.setBounds(178, 181, 249, 20);
-		contentPane.add(textField_2);
+		textUsuario = new JTextField();
+		textUsuario.setEditable(false);
+		textUsuario.setEnabled(false);
+		textUsuario.setColumns(10);
+		textUsuario.setBounds(178, 181, 249, 20);
+		contentPane.add(textUsuario);
 		
 		JLabel lblNome = new JLabel("Nome");
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -133,11 +152,11 @@ public class FrmUsuarios extends JFrame {
 		lblSenha_1.setBounds(69, 235, 73, 14);
 		contentPane.add(lblSenha_1);
 		
-		textField_4 = new JTextField();
-		textField_4.setEditable(false);
-		textField_4.setEnabled(false);
-		textField_4.setColumns(10);
-		textField_4.setBounds(178, 234, 249, 20);
-		contentPane.add(textField_4);
+		textSenha = new JTextField();
+		textSenha.setEditable(false);
+		textSenha.setEnabled(false);
+		textSenha.setColumns(10);
+		textSenha.setBounds(178, 234, 249, 20);
+		contentPane.add(textSenha);
 	}
 }

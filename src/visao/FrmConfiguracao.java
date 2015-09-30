@@ -8,8 +8,8 @@ import javax.swing.JOptionPane;
 import dao.ConnectionFactory;
 
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class FrmConfiguracao {
@@ -42,6 +42,7 @@ public class FrmConfiguracao {
 		
 		JButton btnTestaConexo = new JButton("Testa Conex\u00E3o");
 		btnTestaConexo.addActionListener(new ActionListener() {
+			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent arg0) {
 				ConnectionFactory conn = new ConnectionFactory();
 				try {
