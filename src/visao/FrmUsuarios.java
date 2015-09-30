@@ -8,14 +8,27 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class FrmUsuarios extends JFrame {
 
 	private JPanel contentPane;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_4;
 
+	private JButton btnSalvar;
+	private JButton btnCancel;
+	private JButton btnExcluir;
+	private JButton btnIncluir;
+	private JButton btnLocalizar;
 
 	public FrmUsuarios() {
+		setTitle("PepperSoft - Cadastro de Usu\u00E1rios");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 739, 486);
 		setLocationRelativeTo(null);
@@ -30,45 +43,101 @@ public class FrmUsuarios extends JFrame {
 			e.printStackTrace();
 		}
 		
-		JButton btnNewButton = new JButton("");
-		btnNewButton.setBackground(Color.WHITE);
-		btnNewButton.setIcon(new ImageIcon(getClass().getResource("/imagens/adicionar.jpg")));
-		btnNewButton.addActionListener(new ActionListener() {
+		btnIncluir = new JButton("Incluir");
+		btnIncluir.setBackground(Color.WHITE);
+		btnIncluir.setIcon(null);
+		btnIncluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				btnSalvar.setEnabled(true);
+				btnCancel.setEnabled(true);
+				btnIncluir.setEnabled(false);
 			}
 		});
-		btnNewButton.setBounds(10, 357, 89, 80);
-		contentPane.add(btnNewButton);
+		btnIncluir.setBounds(10, 394, 89, 43);
+		contentPane.add(btnIncluir);
 		
-		JButton button = new JButton("");
-		button.addActionListener(new ActionListener() {
+		btnSalvar = new JButton("Salvar");
+		btnSalvar.setEnabled(false);
+		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		button.setIcon(new ImageIcon(getClass().getResource("/imagens/excluir.jpg")));
-		button.setBackground(Color.WHITE);
-		button.setBounds(111, 357, 89, 80);
-		contentPane.add(button);
+		btnSalvar.setIcon(null);
+		btnSalvar.setBackground(Color.WHITE);
+		btnSalvar.setBounds(111, 394, 89, 43);
+		contentPane.add(btnSalvar);
 		
-		JButton button_1 = new JButton("");
-		button_1.addActionListener(new ActionListener() {
+		btnCancel = new JButton("Cancelar");
+		btnCancel.setEnabled(false);
+		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		button_1.setIcon(new ImageIcon(getClass().getResource("/imagens/salvar.jpg")));
-		button_1.setBackground(Color.WHITE);
-		button_1.setBounds(214, 357, 89, 80);
-		contentPane.add(button_1);
+		btnCancel.setIcon(null);
+		btnCancel.setBackground(Color.WHITE);
+		btnCancel.setBounds(214, 394, 89, 43);
+		contentPane.add(btnCancel);
 		
-		JButton button_2 = new JButton("");
-		button_2.addActionListener(new ActionListener() {
+		btnExcluir = new JButton("Excluir");
+		btnExcluir.setEnabled(false);
+		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		button_2.setIcon(new ImageIcon(getClass().getResource("/imagens/cancelar.jpg")));
-		button_2.setBackground(Color.WHITE);
-		button_2.setBounds(313, 357, 89, 80);
-		contentPane.add(button_2);
+		btnExcluir.setIcon(null);
+		btnExcluir.setBackground(Color.WHITE);
+		btnExcluir.setBounds(313, 394, 89, 43);
+		contentPane.add(btnExcluir);
+		
+		JLabel lblPesquisa = new JLabel("Pesquisa");
+		lblPesquisa.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblPesquisa.setBounds(26, 39, 73, 14);
+		contentPane.add(lblPesquisa);
+		
+		textField = new JTextField();
+		textField.setBounds(155, 38, 272, 20);
+		contentPane.add(textField);
+		textField.setColumns(10);
+		
+		btnLocalizar = new JButton("Localizar");
+		btnLocalizar.setBackground(Color.WHITE);
+		btnLocalizar.setBounds(437, 33, 89, 31);
+		contentPane.add(btnLocalizar);
+		
+		textField_1 = new JTextField();
+		textField_1.setEnabled(false);
+		textField_1.setEditable(false);
+		textField_1.setColumns(10);
+		textField_1.setBounds(178, 125, 249, 20);
+		contentPane.add(textField_1);
+		
+		textField_2 = new JTextField();
+		textField_2.setEditable(false);
+		textField_2.setEnabled(false);
+		textField_2.setColumns(10);
+		textField_2.setBounds(178, 181, 249, 20);
+		contentPane.add(textField_2);
+		
+		JLabel lblNome = new JLabel("Nome");
+		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNome.setBounds(69, 131, 73, 14);
+		contentPane.add(lblNome);
+		
+		JLabel lblUsuario = new JLabel("Usuario");
+		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblUsuario.setBounds(69, 182, 73, 14);
+		contentPane.add(lblUsuario);
+		
+		JLabel lblSenha_1 = new JLabel("Senha");
+		lblSenha_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblSenha_1.setBounds(69, 235, 73, 14);
+		contentPane.add(lblSenha_1);
+		
+		textField_4 = new JTextField();
+		textField_4.setEditable(false);
+		textField_4.setEnabled(false);
+		textField_4.setColumns(10);
+		textField_4.setBounds(178, 234, 249, 20);
+		contentPane.add(textField_4);
 	}
-
 }
