@@ -1,21 +1,37 @@
 package modelo;
 
-public class Juridica extends Pessoa {
+import interfaces.Cliente;
+
+public class Juridica extends Pessoa implements Cliente {
 	
 	private int ie;
 	private int cnpj;
 	
-	public int getIe() {
-		return ie;
+	
+	@Override
+	public String getTipoPessoa() {
+		// TODO Auto-generated method stub
+		return this.getClass().getName();
 	}
-	public void setIe(int ie) {
-		this.ie = ie;
+	@Override
+	public int getNumCadNacional() {
+		// TODO Auto-generated method stub
+		return this.cnpj;
 	}
-	public int getCnpj() {
-		return cnpj;
+	@Override
+	public int getNumCadEstadual() {
+		// TODO Auto-generated method stub
+		return this.ie;
 	}
-	public void setCnpj(int cnpj) {
-		this.cnpj = cnpj;
+	@Override
+	public void setNumCadNacional(int num) {
+		this.cnpj = num;
+		
+	}
+	@Override
+	public void setNumCadEstadual(int num) {
+		this.ie = num;
+		
 	}
 	
 	

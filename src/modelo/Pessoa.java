@@ -6,6 +6,10 @@ public class Pessoa {
 	private int idade;
 	private String endereco;
 	private String telefone;
+	//protected String tipopessoa;
+	
+	
+	
 	
 	public String getNome() {
 		return nome;
