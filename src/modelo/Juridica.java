@@ -35,5 +35,6 @@ public class Juridica extends Pessoa implements Cliente {
 	}
 	
 	
+	
 
 }

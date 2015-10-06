@@ -2,15 +2,21 @@ package modelo;
 
 public class Pessoa {
 	
+	private int codigo;
 	private String nome;
 	private int idade;
 	private String endereco;
 	private String telefone;
-	//protected String tipopessoa;
 	
 	
 	
 	
+	public int getCodigo(){
+		return this.codigo;
+	}
+	public void setCodigo(int codigo){
+		this.codigo = codigo;
+	}
 	public String getNome() {
 		return nome;
 	}

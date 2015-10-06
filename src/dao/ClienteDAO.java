@@ -14,30 +14,30 @@ public class ClienteDAO {
 	
 	public boolean cadastrar(Cliente cliente) throws Exception {
 
-		// Primeiro faz uma consulta pra ver se já está cadastrado
-		if (this.consultar(usuario) == true) {
+		// Primeiro faz uma consulta pra ver se jï¿½ estï¿½ cadastrado
+		if (this.consultar(cliente) == true) {
 			return false;
 		} else {
 
-			// A ? é o campo que vai ser preenchido
-			String sql = "INSERT INTO usuarios(?, ?, ?, ?)";
+			// A ? ï¿½ o campo que vai ser preenchido
+			String sql = "INSERT INTO cliente(?, ?, ?, ?)";
 
-			// Abre a conexão
+			// Abre a conexï¿½o
 			Connection connection = ConnectionFactory.getConnection();
 
 			// Executa comando SQL
 			PreparedStatement stmt = connection.prepareStatement(sql);
 
-			stmt.setInt(1, usuario.getCodigo());
-			stmt.setString(2, usuario.getNome());
-			stmt.setString(3, usuario.getEmail());
-			stmt.setString(4, usuario.getLogin());
-			stmt.setString(5, usuario.getSenha());
+			stmt.setInt(1, cliente.getCodigo());
+			stmt.setString(2, cliente.getNome());
+			stmt.setString(3, cliente.getEndereco());
+			stmt.setString(4, cliente.getTelefone());
+			
 
 			stmt.executeUpdate();
 			stmt.close();
 
-			// Fecha a conexão
+			// Fecha a conexï¿½o
 			ConnectionFactory.closeConnection(connection);
 
 			return true;
@@ -83,13 +83,13 @@ public class ClienteDAO {
 
 	}
 
-	public boolean consultar(Usuario usuario) throws Exception {
+	public boolean consultar(Cliente cliente) throws Exception {
 
-		String sql = "SELECT * FROM usuarios WHERE codigo = ?";
+		String sql = "SELECT * FROM cliente WHERE codigo = ?";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
-		stmt.setInt(1, usuario.getCodigo());
+		stmt.setInt(1, cliente.getCodigo());
 
 		ResultSet rs = stmt.executeQuery();
 
@@ -97,13 +97,12 @@ public class ClienteDAO {
 
 		if (encontrou) {
 			String nome = rs.getString("nome");
-			usuario.setNome(nome);
-			String email = rs.getString("email");
-			usuario.setEmail(email);
-			String login = rs.getString("login");
-			usuario.setLogin(login);
-			String senha = rs.getString("senha");
-			usuario.setSenha(senha);
+			cliente.setNome(nome);
+			String endereco = rs.getString("endereco");
+			cliente.setEndereco(endereco);
+			String telefone = rs.getString("telefone");
+			cliente.setTelefone(telefone);
+			
 		}
 
 		rs.close();

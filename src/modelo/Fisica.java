@@ -6,6 +6,8 @@ public class Fisica extends Pessoa implements Cliente{
 	
 	private int cpf;
 	private int rg;
+	
+	
 	@Override
 	public String getTipoPessoa() {
 		// TODO Auto-generated method stub
@@ -31,6 +33,7 @@ public class Fisica extends Pessoa implements Cliente{
 		this.rg = num;
 		
 	}
+	
 	
 	
 	
