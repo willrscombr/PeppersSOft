@@ -15,10 +15,7 @@ public class ClienteDAO {
 	public boolean cadastrar(Cliente cliente) throws Exception {
 
 		// Primeiro faz uma consulta pra ver se j� est� cadastrado
-		if (this.consultar(cliente) == true) {
-			return false;
-		} else {
-
+		
 			// A ? � o campo que vai ser preenchido
 			String sql = "INSERT INTO cliente(?, ?, ?, ?)";
 
@@ -41,7 +38,7 @@ public class ClienteDAO {
 			ConnectionFactory.closeConnection(connection);
 
 			return true;
-		}
+		
 	}
 
 	public boolean alterar(Usuario usuario) throws Exception {
@@ -82,8 +79,17 @@ public class ClienteDAO {
 		}
 
 	}
+	public ResultSet consultar() throws Exception {
+		
+		String sql = "SELECT * FROM cliente";
+		Connection connection = ConnectionFactory.getConnection();
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		return rs;
+		
+	}
 
-	public boolean consultar(Cliente cliente) throws Exception {
+	public ResultSet consultar(Cliente cliente) throws Exception {
 
 		String sql = "SELECT * FROM cliente WHERE codigo = ?";
 		Connection connection = ConnectionFactory.getConnection();
@@ -93,27 +99,7 @@ public class ClienteDAO {
 
 		ResultSet rs = stmt.executeQuery();
 
-		boolean encontrou = rs.next();
-
-		if (encontrou) {
-			String nome = rs.getString("nome");
-			cliente.setNome(nome);
-			String endereco = rs.getString("endereco");
-			cliente.setEndereco(endereco);
-			String telefone = rs.getString("telefone");
-			cliente.setTelefone(telefone);
-			
-		}
-
-		rs.close();
-		stmt.close();
-		ConnectionFactory.closeConnection(connection);
-
-		if (encontrou) {
-			return true;
-		} else {
-			return false;
-		}
+		return rs;
 
 	}
 

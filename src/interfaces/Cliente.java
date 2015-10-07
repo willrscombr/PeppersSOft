@@ -14,6 +14,7 @@ public interface Cliente {
 	public void setNome(String nome);
 	public void setEndereco(String endereco);
 	public void setTelefone(String telefone);
+	public void setCodigo(int i);
 	
 
 }

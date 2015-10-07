@@ -5,10 +5,12 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -65,7 +67,11 @@ public class FrmPrincipal extends JFrame {
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new FrmClientes().setVisible(true);
+				try {
+					new FrmClientes().setVisible(true);
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null,"FUDEOOOOO");
+				}
 			}
 		});
 		button.setIcon(new ImageIcon(getClass().getResource("/imagens/Edit-Male-User64.png")));
