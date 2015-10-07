@@ -5,6 +5,7 @@ import interfaces.Cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,33 +13,46 @@ import modelo.Usuario;
 
 public class ClienteDAO {
 	
-	public boolean cadastrar(Cliente cliente) throws Exception {
+	public boolean cadastrar(Cliente cliente) {
 
 		// Primeiro faz uma consulta pra ver se j� est� cadastrado
 		
 			// A ? � o campo que vai ser preenchido
-			String sql = "INSERT INTO cliente(?, ?, ?, ?)";
+			String sql = "INSERT INTO cliente (codigo,nome,endereco,telefone) values(null, ?, ?, ?)";
 
 			// Abre a conex�o
-			Connection connection = ConnectionFactory.getConnection();
+			boolean retorno = false;
+		
 
-			// Executa comando SQL
-			PreparedStatement stmt = connection.prepareStatement(sql);
-
-			stmt.setInt(1, cliente.getCodigo());
-			stmt.setString(2, cliente.getNome());
-			stmt.setString(3, cliente.getEndereco());
-			stmt.setString(4, cliente.getTelefone());
+			try {
+				Connection connection;
+				
+				PreparedStatement stmt;	
+				connection = ConnectionFactory.getConnection();
+				stmt = connection.prepareStatement(sql);
+				stmt.setString(1, cliente.getNome());
+				stmt.setString(2, cliente.getEndereco());
+				stmt.setInt(3, cliente.getTelefone());
+				stmt.executeUpdate();
+				stmt.close();
+				ConnectionFactory.closeConnection(connection);
+				// Fecha a conex�o
 			
 
-			stmt.executeUpdate();
-			stmt.close();
+				retorno =  true;
+			
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return retorno;
+			
+			
 
-			// Fecha a conex�o
-			ConnectionFactory.closeConnection(connection);
-
-			return true;
-		
+			
 	}
 
 	public boolean alterar(Usuario usuario) throws Exception {

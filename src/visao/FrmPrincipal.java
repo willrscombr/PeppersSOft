@@ -67,11 +67,7 @@ public class FrmPrincipal extends JFrame {
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					new FrmClientes().setVisible(true);
-				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(null,"FUDEOOOOO");
-				}
+				new FrmClientes().setVisible(true);
 			}
 		});
 		button.setIcon(new ImageIcon(getClass().getResource("/imagens/Edit-Male-User64.png")));

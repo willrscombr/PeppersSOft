@@ -8,6 +8,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -29,6 +30,7 @@ import interfaces.Cliente;
 
 @SuppressWarnings("serial")
 public class FrmClientes extends JFrame {
+
 	private JTextField textField;
 	private JTable table;
 	private DefaultTableModel modelo = new DefaultTableModel();
@@ -38,31 +40,45 @@ public class FrmClientes extends JFrame {
 	private JTextField textNome;
 	
 
-	public FrmClientes() throws Exception {
+	public FrmClientes(){
 		setTitle("Lista de Clientes");
 		getContentPane().setLayout(null);
-		
+		setSize(800,800);
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(524, 12, 236, 309);
+		scrollPane.setBounds(512, 40, 236, 309);
 		getContentPane().add(scrollPane);
-		rs = new ClienteDAO().consultar();
-		rsmt = rs.getMetaData();
-		int numerodecolunas = rsmt.getColumnCount();
-		table = new JTable();
-		table.setModel(modelo);
-		for (int i = 0; i < numerodecolunas; i++) {
-			modelo.addColumn(rsmt.getColumnLabel(i));
-		}
-		//modelo.addColumn(new String[] {"codigo","nome"});
-		
-		while(rs.next()){
-			Object[] linha = new Object [numerodecolunas];
+		try {
+			rs = new ClienteDAO().consultar();
+			rsmt = rs.getMetaData();
+			int numerodecolunas = rsmt.getColumnCount();
+			table = new JTable();
+			table.setModel(modelo);
+			/*for (int i = 0; i < numerodecolunas; i++) {
+				//new String []
+				modelo.addColumn(rsmt.getColumnLabel(i));
+			}*/
 			
-			for (int j = 0; j < rsmt.getColumnCount(); j++) {
-				linha[j] = rs.getObject(j+1);
+			Object[] linha = null;
+			modelo.addColumn("codigo");
+			modelo.addColumn("nome");
+			
+			while(rs.next()){
+				linha = new Object [numerodecolunas];
+				
+				for (int j = 0; j < rsmt.getColumnCount(); j++) {
+					linha[j] = rs.getObject(j+1);
+					
+				}
+				modelo.addRow(linha);
 			}
 			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null,"Deu pau");
 		}
+		
+		
 		
 		scrollPane.setViewportView(table);
 		
@@ -93,14 +109,12 @@ public class FrmClientes extends JFrame {
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Cliente cliente  = new ClienteFactory().clienteFisica();
-				cliente.setCodigo(0);
+				
 				cliente.setNome(textNome.getText());
-				try {
-					boolean funcionou = new ClienteDAO().cadastrar(cliente);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				cliente.setEndereco("Teste");
+				cliente.setTelefone(00000000);
+				new ClienteDAO().cadastrar(cliente);
+				
 			}
 		});
 		btnAdicionar.setBounds(42, 207, 117, 25);

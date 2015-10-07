@@ -10,10 +10,10 @@ public interface Cliente {
 	public int getCodigo();
 	public String getNome();
 	public String getEndereco();
-	public String getTelefone();
+	public int getTelefone();
 	public void setNome(String nome);
 	public void setEndereco(String endereco);
-	public void setTelefone(String telefone);
+	public void setTelefone(int telefone);
 	public void setCodigo(int i);
 	
 
