@@ -41,7 +41,7 @@ public class FrmClientes extends JFrame {
 
 	private JTextField textField;
 	private JTable table;
-	private DefaultTableModel modelo = new DefaultTableModel();
+	private DefaultTableModel modelo ;
 	private ResultSet rs ;
 	private ResultSetMetaData rsmt;
 	private JTextField textCodigo;
@@ -55,48 +55,23 @@ public class FrmClientes extends JFrame {
 	private JButton btnExcluir;
 	private JButton btnAdicionar;
 	private JButton btnAlterar;
+	private JScrollPane scrollPane;
 	
 
 	public FrmClientes() {
 		setTitle("Lista de Clientes");
 		getContentPane().setLayout(null);
 		setSize(1610, 699);
-		JScrollPane scrollPane = new JScrollPane();
+		
+		scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 103, 333, 546);
 		getContentPane().add(scrollPane);
-		try {
-			rs = new ClienteDAO().consultar();
-			rsmt = rs.getMetaData();
-			int numerodecolunas = rsmt.getColumnCount();
-			table = new JTable();
-			table.setForeground(Color.RED);
-			table.setModel(modelo);
-			/*
-			 * for (int i = 0; i < numerodecolunas; i++) { //new String []
-			 * modelo.addColumn(rsmt.getColumnLabel(i)); }
-			 */
-
-			Object[] linha = null;
-			modelo.addColumn("codigo");
-			modelo.addColumn("nome");
-
-			while (rs.next()) {
-				linha = new Object[numerodecolunas];
-
-				for (int j = 0; j < rsmt.getColumnCount(); j++) {
-					linha[j] = rs.getObject(j + 1);
-
-				}
-				modelo.addRow(linha);
-			}
-
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			JOptionPane.showMessageDialog(null, "Deu pau");
-		}
-
-		scrollPane.setViewportView(table);
-
+		
+		
+		popularTabela();
+		
+		
+		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 		panel.setBounds(373, 109, 757, 475);
@@ -129,14 +104,18 @@ public class FrmClientes extends JFrame {
 				Cliente cliente = new ClienteFactory().clienteFisica();
 
 				cliente.setNome(textNome.getText());
-				cliente.setEndereco("Teste");
-				cliente.setTelefone(00000000);
+				cliente.setEndereco(textEndereco.getText());
+				cliente.setTelefone(Integer.valueOf(textTelefone.getText().trim()));
+				cliente.setNumCadNacional(Integer.parseInt(textCadFed.getText().trim()));
+				cliente.setNumCadEstadual(Integer.parseInt(textCadEst.getText().trim()));
+				
+				
 				if(new ClienteDAO().cadastrar(cliente)){
 					UtilMenssage.msgSucesso();
 				}else{
 					UtilMenssage.msgError();
 				}
-
+				popularTabela();
 			}
 		});
 		btnSalvar.setBounds(290, 440, 116, 25);
@@ -245,5 +224,43 @@ public class FrmClientes extends JFrame {
 		btnAlterar.setEnabled(var);
 		btnExcluir.setEnabled(var);
 		
+	}
+	private void limparTabela(){
+		table.removeAll();
+	}
+	private void popularTabela(){
+		
+		try {
+			
+			modelo = new DefaultTableModel();
+			rs = new ClienteDAO().consultar();
+			rsmt = rs.getMetaData();
+			int numerodecolunas = rsmt.getColumnCount();
+			table = new JTable();
+			table.setForeground(Color.RED);
+			table.setModel(modelo);
+			/*
+			 * for (int i = 0; i < numerodecolunas; i++) { //new String []
+			 * modelo.addColumn(rsmt.getColumnLabel(i)); }
+			 */
+
+			Object[] linha = null;
+			modelo.addColumn("codigo");
+			modelo.addColumn("nome");
+
+			while (rs.next()) {
+				linha = new Object[numerodecolunas];
+
+				for (int j = 0; j < rsmt.getColumnCount(); j++) {
+					linha[j] = rs.getObject(j + 1);
+
+				}
+				modelo.addRow(linha);
+			}
+			scrollPane.setViewportView(table);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "Deu pau");
+		}
 	}
 }

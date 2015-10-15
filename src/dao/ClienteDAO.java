@@ -18,7 +18,7 @@ public class ClienteDAO {
 		// Primeiro faz uma consulta pra ver se j� est� cadastrado
 		
 			// A ? � o campo que vai ser preenchido
-			String sql = "INSERT INTO cliente (codigo,nome,endereco,telefone) values(null, ?, ?, ?)";
+			String sql = "INSERT INTO cliente (codigo,numcadnac,numcadest,nome,endereco,telefone) values(null, ?, ?, ?,?,?)";
 
 			// Abre a conex�o
 			boolean retorno = false;
@@ -30,9 +30,11 @@ public class ClienteDAO {
 				PreparedStatement stmt;	
 				connection = ConnectionFactory.getConnection();
 				stmt = connection.prepareStatement(sql);
-				stmt.setString(1, cliente.getNome());
-				stmt.setString(2, cliente.getEndereco());
-				stmt.setInt(3, cliente.getTelefone());
+				stmt.setInt(1, cliente.getNumCadNacional());
+				stmt.setInt(2,cliente.getNumCadEstadual());
+				stmt.setString(3, cliente.getNome());
+				stmt.setString(4, cliente.getEndereco());
+				stmt.setInt(5, cliente.getTelefone());
 				stmt.executeUpdate();
 				stmt.close();
 				ConnectionFactory.closeConnection(connection);
@@ -112,7 +114,7 @@ public class ClienteDAO {
 		stmt.setInt(1, cliente.getCodigo());
 
 		ResultSet rs = stmt.executeQuery();
-
+		ConnectionFactory.closeConnection(connection);
 		return rs;
 
 	}
