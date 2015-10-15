@@ -4,8 +4,8 @@ import interfaces.Cliente;
 
 public class Juridica extends Pessoa implements Cliente {
 	
-	private int ie;
-	private int cnpj;
+	private long ie;
+	private long cnpj;
 	
 	
 	@Override
@@ -14,22 +14,22 @@ public class Juridica extends Pessoa implements Cliente {
 		return this.getClass().getName();
 	}
 	@Override
-	public int getNumCadNacional() {
+	public long getNumCadNacional() {
 		// TODO Auto-generated method stub
 		return this.cnpj;
 	}
 	@Override
-	public int getNumCadEstadual() {
+	public long getNumCadEstadual() {
 		// TODO Auto-generated method stub
 		return this.ie;
 	}
 	@Override
-	public void setNumCadNacional(int num) {
+	public void setNumCadNacional(long num) {
 		this.cnpj = num;
 		
 	}
 	@Override
-	public void setNumCadEstadual(int num) {
+	public void setNumCadEstadual(long num) {
 		this.ie = num;
 		
 	}

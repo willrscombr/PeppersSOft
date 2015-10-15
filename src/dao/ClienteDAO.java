@@ -30,11 +30,11 @@ public class ClienteDAO {
 				PreparedStatement stmt;	
 				connection = ConnectionFactory.getConnection();
 				stmt = connection.prepareStatement(sql);
-				stmt.setInt(1, cliente.getNumCadNacional());
-				stmt.setInt(2,cliente.getNumCadEstadual());
+				stmt.setLong(1, cliente.getNumCadNacional());
+				stmt.setLong(2,cliente.getNumCadEstadual());
 				stmt.setString(3, cliente.getNome());
 				stmt.setString(4, cliente.getEndereco());
-				stmt.setInt(5, cliente.getTelefone());
+				stmt.setLong(5, cliente.getTelefone());
 				stmt.executeUpdate();
 				stmt.close();
 				ConnectionFactory.closeConnection(connection);

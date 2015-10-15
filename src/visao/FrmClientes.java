@@ -33,15 +33,21 @@ import javax.swing.JDesktopPane;
 import java.awt.FlowLayout;
 
 import javax.swing.border.BevelBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
+import util.PeppersTableModel;
 import util.UtilMenssage;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
 public class FrmClientes extends JFrame {
 
 	private JTextField textField;
 	private JTable table;
-	private DefaultTableModel modelo ;
+	private PeppersTableModel modelo ;
 	private ResultSet rs ;
 	private ResultSetMetaData rsmt;
 	private JTextField textCodigo;
@@ -62,16 +68,22 @@ public class FrmClientes extends JFrame {
 		setTitle("Lista de Clientes");
 		getContentPane().setLayout(null);
 		setSize(1610, 699);
-		
+		table = new JTable();
 		scrollPane = new JScrollPane();
+		
+		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent evt) {
+				// TODO Auto-generated method stub
+				
+				Object obj = table.getValueAt(table.getSelectedRow(),table.getSelectedColumn());
+				JOptionPane.showMessageDialog(null,obj.toString());
+		
+		}});
+			
 		scrollPane.setBounds(10, 103, 333, 546);
 		getContentPane().add(scrollPane);
-		
-		
-		popularTabela();
-		
-		
-		
+	
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 		panel.setBounds(373, 109, 757, 475);
@@ -105,9 +117,9 @@ public class FrmClientes extends JFrame {
 
 				cliente.setNome(textNome.getText());
 				cliente.setEndereco(textEndereco.getText());
-				cliente.setTelefone(Integer.valueOf(textTelefone.getText().trim()));
-				cliente.setNumCadNacional(Integer.parseInt(textCadFed.getText().trim()));
-				cliente.setNumCadEstadual(Integer.parseInt(textCadEst.getText().trim()));
+				cliente.setTelefone(Long.valueOf(textTelefone.getText().trim()));
+				cliente.setNumCadNacional(Long.valueOf(textCadFed.getText().trim()));
+				cliente.setNumCadEstadual(Long.valueOf(textCadEst.getText().trim()));
 				
 				
 				if(new ClienteDAO().cadastrar(cliente)){
@@ -116,6 +128,9 @@ public class FrmClientes extends JFrame {
 					UtilMenssage.msgError();
 				}
 				popularTabela();
+				limparCampos();
+				habilitarCampos(false);
+				habilitarBotoes(true);
 			}
 		});
 		btnSalvar.setBounds(290, 440, 116, 25);
@@ -158,6 +173,7 @@ public class FrmClientes extends JFrame {
 				
 				habilitarCampos(false);
 				habilitarBotoes(true);
+				limparCampos();
 				
 			}
 		});
@@ -205,6 +221,11 @@ public class FrmClientes extends JFrame {
 		panel_1.setBounds(0, 0, 80000, 92);
 		getContentPane().add(panel_1);
 		
+	
+		
+		popularTabela();
+		
+		
 		
 
 	}
@@ -217,6 +238,13 @@ public class FrmClientes extends JFrame {
 		btnSalvar.setEnabled(var);
 		btnCancelar.setEnabled(var);
 		
+	}
+	private void limparCampos(){
+		textCadEst.setText(null);
+		textCadFed.setText(null);
+		textEndereco.setText(null);
+		textNome.setText(null);
+		textTelefone.setText(null);
 	}
 	
 	private void habilitarBotoes(boolean var){
@@ -232,7 +260,7 @@ public class FrmClientes extends JFrame {
 		
 		try {
 			
-			modelo = new DefaultTableModel();
+			modelo = new PeppersTableModel();
 			rs = new ClienteDAO().consultar();
 			rsmt = rs.getMetaData();
 			int numerodecolunas = rsmt.getColumnCount();
@@ -247,6 +275,7 @@ public class FrmClientes extends JFrame {
 			Object[] linha = null;
 			modelo.addColumn("codigo");
 			modelo.addColumn("nome");
+			modelo.addColumn("telefone");
 
 			while (rs.next()) {
 				linha = new Object[numerodecolunas];

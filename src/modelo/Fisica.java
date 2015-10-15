@@ -4,8 +4,8 @@ import interfaces.Cliente;
 
 public class Fisica extends Pessoa implements Cliente{
 	
-	private int cpf;
-	private int rg;
+	private long cpf;
+	private long rg;
 	
 	
 	@Override
@@ -14,22 +14,22 @@ public class Fisica extends Pessoa implements Cliente{
 		return this.getClass().getName();
 	}
 	@Override
-	public int getNumCadNacional() {
+	public long getNumCadNacional() {
 		// TODO Auto-generated method stub
 		return this.cpf;
 	}
 	@Override
-	public int getNumCadEstadual() {
+	public long getNumCadEstadual() {
 		// TODO Auto-generated method stub
 		return this.rg;
 	}
 	@Override
-	public void setNumCadNacional(int num) {
+	public void setNumCadNacional(long num) {
 		this.cpf = num;
 		
 	}
 	@Override
-	public void setNumCadEstadual(int num) {
+	public void setNumCadEstadual(long num) {
 		this.rg = num;
 		
 	}

@@ -6,7 +6,7 @@ public class Pessoa {
 	private String nome;
 	private int idade;
 	private String endereco;
-	private int telefone;
+	private long telefone;
 	
 	
 	
@@ -35,10 +35,10 @@ public class Pessoa {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-	public int getTelefone() {
+	public long getTelefone() {
 		return telefone;
 	}
-	public void setTelefone(int telefone) {
+	public void setTelefone(long telefone) {
 		this.telefone = telefone;
 	}
 	
