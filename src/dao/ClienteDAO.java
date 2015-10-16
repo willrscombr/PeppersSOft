@@ -1,5 +1,6 @@
 package dao;
 
+import fabrica.ClienteFactory;
 import interfaces.Cliente;
 
 import java.sql.Connection;
@@ -9,6 +10,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
+import modelo.Pessoa;
 import modelo.Usuario;
 
 public class ClienteDAO {
@@ -105,18 +109,30 @@ public class ClienteDAO {
 		
 	}
 
-	public ResultSet consultar(Cliente cliente) throws Exception {
-
+	public Cliente consultar(int id) throws Exception {
+		Cliente cliente = null;
+		try{
+		cliente = new ClienteFactory().clienteFisica();
 		String sql = "SELECT * FROM cliente WHERE codigo = ?";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
-		stmt.setInt(1, cliente.getCodigo());
+		stmt.setInt(1, id);
 
 		ResultSet rs = stmt.executeQuery();
 		ConnectionFactory.closeConnection(connection);
-		return rs;
-
+		while (rs.next()) {JOptionPane.showMessageDialog(null, rs.getString("nome"));
+			cliente.setCodigo(rs.getInt("codigo"));
+			cliente.setEndereco(rs.getString("endereco"));
+			cliente.setNome(rs.getString("nome"));
+			cliente.setNumCadEstadual(rs.getLong("numcadest"));
+			cliente.setNumCadNacional(rs.getLong("numcadnac"));
+			cliente.setTelefone(rs.getLong("telefone"));
+		}
+		}catch(Exception e ){
+			
+		}
+		return cliente;
 	}
 
 	public boolean excluir(Usuario usuario) throws Exception {
