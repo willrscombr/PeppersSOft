@@ -3,6 +3,7 @@ package visao;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -62,6 +63,7 @@ public class FrmClientes extends JFrame {
 	private JButton btnAdicionar;
 	private JButton btnAlterar;
 	private JScrollPane scrollPane;
+	private JTextField textField_1;
 	
 
 	public FrmClientes() {
@@ -71,16 +73,7 @@ public class FrmClientes extends JFrame {
 		table = new JTable();
 		scrollPane = new JScrollPane();
 		
-		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			@Override
-			public void valueChanged(ListSelectionEvent evt) {
-				// TODO Auto-generated method stub
-				
-				Object obj = table.getValueAt(table.getSelectedRow(),table.getSelectedColumn());
-				JOptionPane.showMessageDialog(null,obj.toString());
 		
-		}});
-			
 		scrollPane.setBounds(10, 103, 333, 546);
 		getContentPane().add(scrollPane);
 	
@@ -210,6 +203,11 @@ public class FrmClientes extends JFrame {
 		btnExcluir = new JButton("EXCLUIR");
 		btnExcluir.setBounds(613, 441, 89, 23);
 		panel.add(btnExcluir);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(332, 246, 86, 20);
+		panel.add(textField_1);
+		textField_1.setColumns(10);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setForeground(Color.BLACK);
@@ -265,6 +263,26 @@ public class FrmClientes extends JFrame {
 			rsmt = rs.getMetaData();
 			int numerodecolunas = rsmt.getColumnCount();
 			table = new JTable();
+			table.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					int row = table.getSelectedRow();
+					int codselect = Integer.valueOf((table.getModel().getValueAt(row,0)).toString());
+					ClienteDAO dao = new ClienteDAO();
+					try {
+						Cliente cliente = dao.consultar(codselect);
+						textCodigo.setText(String.valueOf(cliente.getCodigo()));
+						textNome.setText(String.valueOf(cliente.getNome()));
+						textCadFed.setText(String.valueOf(cliente.getNumCadNacional()));
+						textCadEst.setText(String.valueOf(cliente.getNumCadEstadual()));
+						textEndereco.setText(String.valueOf(cliente.getEndereco()));
+						textTelefone.setText(String.valueOf(cliente.getTelefone()));
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			});
 			table.setForeground(Color.RED);
 			table.setModel(modelo);
 			/*
