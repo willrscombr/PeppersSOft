@@ -2,6 +2,7 @@ package dao;
 
 import fabrica.ClienteFactory;
 import interfaces.Cliente;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +12,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import util.UtilMenssage;
 import modelo.Pessoa;
 import modelo.Usuario;
 
@@ -110,27 +112,43 @@ public class ClienteDAO {
 
 	public Cliente consultar(int id) throws Exception {
 		Cliente cliente = null;
+		Connection connection = null;
 		try{
 		cliente = new ClienteFactory().clienteFisica();
 		String sql = "SELECT * FROM cliente WHERE codigo = ?";
-		Connection connection = ConnectionFactory.getConnection();
+		connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
 		stmt.setInt(1, id);
 
 		ResultSet rs = stmt.executeQuery();
-		ConnectionFactory.closeConnection(connection);
-		while (rs.next()) {JOptionPane.showMessageDialog(null, rs.getString("nome"));
+		//
+		boolean encontrou = rs.next();
+		JOptionPane.showMessageDialog(null, rs.getString("nome"));
+		int cont = 0;
+		if (encontrou) {
+			
+				
 			cliente.setCodigo(rs.getInt("codigo"));
 			cliente.setEndereco(rs.getString("endereco"));
 			cliente.setNome(rs.getString("nome"));
 			cliente.setNumCadEstadual(rs.getLong("numcadest"));
 			cliente.setNumCadNacional(rs.getLong("numcadnac"));
 			cliente.setTelefone(rs.getLong("telefone"));
+			cont++;
+		
+		}else{
+			cliente = null;
+			UtilMenssage.msgError();
 		}
-		}catch(Exception e ){
-			
 		}
+		catch(Exception e ){
+			e.getStackTrace();
+		}finally{
+			ConnectionFactory.closeConnection(connection);
+		}
+		
+		
 		return cliente;
 	}
 

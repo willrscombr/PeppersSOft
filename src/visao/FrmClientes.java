@@ -223,7 +223,26 @@ public class FrmClientes extends JFrame {
 		
 		popularTabela();
 		
-		
+		table.addMouseListener(new MouseAdapter() {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			int row = table.getSelectedRow();
+			int codselect = Integer.valueOf((table.getModel().getValueAt(row,0)).toString());
+			ClienteDAO dao = new ClienteDAO();
+			try {
+				Cliente cliente = dao.consultar(codselect);
+				textCodigo.setText(String.valueOf(cliente.getCodigo()));
+				textNome.setText(String.valueOf(cliente.getNome()));
+				textCadFed.setText(String.valueOf(cliente.getNumCadNacional()));
+				textCadEst.setText(String.valueOf(cliente.getNumCadEstadual()));
+				textEndereco.setText(String.valueOf(cliente.getEndereco()));
+				textTelefone.setText(String.valueOf(cliente.getTelefone()));
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+	});
 		
 
 	}
@@ -263,26 +282,8 @@ public class FrmClientes extends JFrame {
 			rsmt = rs.getMetaData();
 			int numerodecolunas = rsmt.getColumnCount();
 			table = new JTable();
-			table.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					int row = table.getSelectedRow();
-					int codselect = Integer.valueOf((table.getModel().getValueAt(row,0)).toString());
-					ClienteDAO dao = new ClienteDAO();
-					try {
-						Cliente cliente = dao.consultar(codselect);
-						textCodigo.setText(String.valueOf(cliente.getCodigo()));
-						textNome.setText(String.valueOf(cliente.getNome()));
-						textCadFed.setText(String.valueOf(cliente.getNumCadNacional()));
-						textCadEst.setText(String.valueOf(cliente.getNumCadEstadual()));
-						textEndereco.setText(String.valueOf(cliente.getEndereco()));
-						textTelefone.setText(String.valueOf(cliente.getTelefone()));
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
-			});
+			
+				
 			table.setForeground(Color.RED);
 			table.setModel(modelo);
 			/*
