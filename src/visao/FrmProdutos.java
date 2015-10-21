@@ -24,6 +24,11 @@ public class FrmProdutos extends JFrame {
 	private PeppersTableModel modelo;
 	private ResultSet rs;
 	private ResultSetMetaData rsmt;
+	private JButton btnIncluir;
+	private JButton btnEditar;
+	private JButton btnExcluir;
+	private JButton btnAbrir;
+	
 	
 	public FrmProdutos() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -39,32 +44,34 @@ public class FrmProdutos extends JFrame {
 		scrollPane.setBounds(10, 11, 703, 358);
 		getContentPane().add(scrollPane);
 		
-		JButton button = new JButton("Incluir");
-		button.addActionListener(new ActionListener() {
+		btnIncluir = new JButton("Incluir");
+		btnIncluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				FrmProdutos.this.dispose();
+			    new FrmcadProdutos().setVisible(true);
 			}
 		});
-		button.setBackground(Color.WHITE);
-		button.setBounds(10, 394, 89, 43);
-		contentPane.add(button);
+		btnIncluir.setBackground(Color.WHITE);
+		btnIncluir.setBounds(10, 394, 89, 43);
+		contentPane.add(btnIncluir);
 		
-		JButton button_1 = new JButton("Salvar");
-		button_1.setEnabled(false);
-		button_1.setBackground(Color.WHITE);
-		button_1.setBounds(111, 394, 89, 43);
-		contentPane.add(button_1);
+		btnEditar = new JButton("Editar");
+		btnEditar.setEnabled(false);
+		btnEditar.setBackground(Color.WHITE);
+		btnEditar.setBounds(208, 394, 89, 43);
+		contentPane.add(btnEditar);
 		
-		JButton button_2 = new JButton("Cancelar");
-		button_2.setEnabled(false);
-		button_2.setBackground(Color.WHITE);
-		button_2.setBounds(214, 394, 89, 43);
-		contentPane.add(button_2);
+		btnExcluir = new JButton("Excluir");
+		btnExcluir.setEnabled(false);
+		btnExcluir.setBackground(Color.WHITE);
+		btnExcluir.setBounds(305, 394, 89, 43);
+		contentPane.add(btnExcluir);
 		
-		JButton button_3 = new JButton("Excluir");
-		button_3.setEnabled(false);
-		button_3.setBackground(Color.WHITE);
-		button_3.setBounds(313, 394, 89, 43);
-		contentPane.add(button_3);
+		btnAbrir = new JButton("Abrir");
+		btnAbrir.setEnabled(false);
+		btnAbrir.setBackground(Color.WHITE);
+		btnAbrir.setBounds(109, 394, 89, 43);
+		contentPane.add(btnAbrir);
 		
 		popularTabela();
 		
@@ -106,7 +113,7 @@ public class FrmProdutos extends JFrame {
 			scrollPane.setViewportView(table);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			JOptionPane.showMessageDialog(null, "Deu pau");
+			JOptionPane.showMessageDialog(null, "Erro! Verifique a conexão!");
 		}
 	}
 }
