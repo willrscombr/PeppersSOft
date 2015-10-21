@@ -8,20 +8,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JOptionPane;
+import modelo.Produto;
 
-import modelo.Pessoa;
-import modelo.Usuario;
-
-public class ClienteDAO {
-	
-	public boolean cadastrar(Cliente cliente) {
+public class ProdutoDAO {
+	public boolean cadastrar(Produto produto) {
 
 		// Primeiro faz uma consulta pra ver se j� est� cadastrado
 		
 			// A ? � o campo que vai ser preenchido
-			String sql = "INSERT INTO cliente (codigo,numcadnac,numcadest,nome,endereco,telefone) values(null, ?, ?, ?,?,?)";
+			String sql = "INSERT INTO produto (id_produto,descricao,estoque,pr_custo,pr_venda) values(null,?,?,?,?)";
 
 			// Abre a conex�o
 			boolean retorno = false;
@@ -33,11 +29,11 @@ public class ClienteDAO {
 				PreparedStatement stmt;	
 				connection = ConnectionFactory.getConnection();
 				stmt = connection.prepareStatement(sql);
-				stmt.setLong(1, cliente.getNumCadNacional());
-				stmt.setLong(2,cliente.getNumCadEstadual());
-				stmt.setString(3, cliente.getNome());
-				stmt.setString(4, cliente.getEndereco());
-				stmt.setLong(5, cliente.getTelefone());
+				stmt.setString(1, produto.getDescricao());
+				stmt.setFloat(2,produto.getEstoque());
+				stmt.setFloat(3, produto.getPreco_custo());
+				stmt.setFloat(4, produto.getPreco_venda());
+
 				stmt.executeUpdate();
 				stmt.close();
 				ConnectionFactory.closeConnection(connection);
@@ -60,12 +56,12 @@ public class ClienteDAO {
 			
 	}
 
-	public boolean alterar(Usuario usuario) throws Exception {
+	public boolean alterar(Produto produto) throws Exception {
 
 		String sqlSelect = "SELECT * FROM usuarios WHERE codigo = ?";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmtSelect = connection.prepareStatement(sqlSelect);
-		stmtSelect.setInt(1, usuario.getCodigo());
+		stmtSelect.setInt(1, produto.getCod_prod());
 
 		// Armazena o resultado da query
 		ResultSet rs = stmtSelect.executeQuery();
@@ -77,10 +73,10 @@ public class ClienteDAO {
 			String sqlUpdate = "UPDATE usuarios SET nome = ?, email = ?, login = ?, senha = ?";
 			PreparedStatement stmtUpdate = connection.prepareStatement(sqlUpdate);
 
-			stmtUpdate.setString(1, usuario.getNome());
-			stmtUpdate.setString(2, usuario.getEmail());
-			stmtUpdate.setString(3, usuario.getLogin());
-			stmtUpdate.setString(4, usuario.getSenha());
+			stmtUpdate.setString(1, produto.getDescricao());
+			stmtUpdate.setString(2, produto.getGrupo());
+			stmtUpdate.setFloat(3, produto.getEstoque());
+			stmtUpdate.setFloat(4, produto.getPreco_venda());
 
 			stmtUpdate.executeUpdate();
 			stmtUpdate.close();
@@ -100,7 +96,7 @@ public class ClienteDAO {
 	}
 	public ResultSet consultar() throws Exception {
 		
-		String sql = "SELECT * FROM cliente";
+		String sql = "SELECT * FROM produto";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
@@ -134,13 +130,13 @@ public class ClienteDAO {
 		return cliente;
 	}
 
-	public boolean excluir(Usuario usuario) throws Exception {
+	public boolean excluir(Produto produto) throws Exception {
 
-		String sql = "DELETE FROM usuarios WHERE codigo = ?";
+		String sql = "DELETE FROM produto WHERE codigo = ?";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
-		stmt.setInt(1, usuario.getCodigo());
+		stmt.setInt(1, produto.getCod_prod());
 
 		int linhasAfetadas = stmt.executeUpdate();
 
@@ -155,25 +151,25 @@ public class ClienteDAO {
 
 	}
 
-	public List<Usuario> listar() throws Exception {
+	public List<Produto> listar() throws Exception {
 
-		List<Usuario> usuarios = new ArrayList<>();
+		List<Produto> produtos = new ArrayList<>();
 
-		String sql = "SELECT * FROM usuarios";
+		String sql = "SELECT * FROM produto";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
 		ResultSet rs = stmt.executeQuery();
 
 		while (rs.next()) {
-			usuarios.add(new Usuario(rs.getInt("codigo"), rs.getString("nome")));
+	//		produtos.add(new Produto(rs.getInt("codigo"), rs.getString("nome")));
 		}
 
 		rs.close();
 		stmt.close();
 		ConnectionFactory.closeConnection(connection);
 
-		return usuarios;
+		return produtos;
 
 	}
 
