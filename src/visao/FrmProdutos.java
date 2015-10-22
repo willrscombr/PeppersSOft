@@ -14,6 +14,9 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import util.PeppersTableModel;
 import dao.ProdutoDAO;
+import modelo.Produto;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
 public class FrmProdutos extends JFrame {
@@ -41,6 +44,19 @@ public class FrmProdutos extends JFrame {
 		contentPane.setLayout(null);
 		table = new JTable();
 		scrollPane = new JScrollPane();
+		scrollPane.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int linha = table.getSelectedRow();
+				if (e.getClickCount() > 1) {  					
+					FrmProdutos.this.dispose();
+					new FrmcadProdutos().setVisible(true);
+				    Produto p = new Produto();
+				    p.setCod_prod(Integer.parseInt(table.getValueAt(linha, 0).toString()));
+					} 
+				
+			}
+		});
 		scrollPane.setBounds(10, 11, 703, 358);
 		getContentPane().add(scrollPane);
 		
