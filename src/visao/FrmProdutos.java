@@ -12,6 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import util.PeppersTableModel;
 import dao.ProdutoDAO;
 import modelo.Produto;
@@ -45,14 +48,25 @@ public class FrmProdutos extends JFrame {
 		table = new JTable();
 		scrollPane = new JScrollPane();
 		scrollPane.addMouseListener(new MouseAdapter() {
+			
+			
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent e) {				
 				int linha = table.getSelectedRow();
-				if (e.getClickCount() > 1) {  					
-					FrmProdutos.this.dispose();
-					new FrmcadProdutos().setVisible(true);
-				    Produto p = new Produto();
+				
+				btnAbrir.setEnabled(true);
+ 
+				if (e.getClickCount() > 1) {  	
+					Produto p = new Produto();
 				    p.setCod_prod(Integer.parseInt(table.getValueAt(linha, 0).toString()));
+				    p.setDescricao(table.getValueAt(linha, 1).toString());
+				    p.setEstoque(Float.parseFloat(table.getValueAt(linha, 0).toString()));
+				    p.setPreco_custo(Float.parseFloat(table.getValueAt(linha, 0).toString()));
+				    p.setPreco_venda(Float.parseFloat(table.getValueAt(linha, 0).toString()));
+				    p.setMargemlucro(Integer.parseInt(table.getValueAt(linha, 0).toString()));
+				    
+					FrmProdutos.this.dispose();
+					new FrmcadProdutos(p).setVisible(true);
 					} 
 				
 			}
@@ -64,9 +78,10 @@ public class FrmProdutos extends JFrame {
 		btnIncluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				FrmProdutos.this.dispose();
-			    new FrmcadProdutos().setVisible(true);
+			    new FrmcadProdutos(null).setVisible(true);
 			}
 		});
+		
 		btnIncluir.setBackground(Color.WHITE);
 		btnIncluir.setBounds(10, 394, 89, 43);
 		contentPane.add(btnIncluir);
@@ -116,7 +131,8 @@ public class FrmProdutos extends JFrame {
 			modelo.addColumn("preço custo");
 			modelo.addColumn("preço venda");
 			modelo.addColumn("estoque");
-	
+
+			
 			while (rs.next()) {
 				linha = new Object[numerodecolunas];
 	

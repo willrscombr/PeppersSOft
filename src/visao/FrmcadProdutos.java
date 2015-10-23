@@ -7,14 +7,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import dao.ClienteDAO;
 import dao.ProdutoDAO;
-import fabrica.ClienteFactory;
-import interfaces.Cliente;
 import modelo.Produto;
 import util.UtilMenssage;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -24,18 +19,19 @@ import java.awt.Font;
 public class FrmcadProdutos extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textDesc;
-	private JTextField textPrCusto;
-	private JTextField texLucro;
-
 	private JButton btnSalvar;
 	private JButton btnCancel;
 	private JButton btnExcluir;
+	private JTextField textDesc;
+	private JTextField textPrCusto;
+	private JTextField texLucro;
 	private JTextField txtCod;
 	private JTextField textPrVenda;
 	private JTextField textEstoque;
 
-	public FrmcadProdutos() {
+	public FrmcadProdutos(Produto p) {
+	
+		
 		setTitle("PepperSoft - Cadastro de Produtos");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 739, 486);
@@ -45,6 +41,7 @@ public class FrmcadProdutos extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
 		try {
 			setVisible(true);
 		} catch (Exception e) {
@@ -170,5 +167,15 @@ public class FrmcadProdutos extends JFrame {
 		btnEditar.setBackground(Color.WHITE);
 		btnEditar.setBounds(208, 394, 89, 43);
 		contentPane.add(btnEditar);
+		
+		if(p!=null){
+
+			txtCod.setText(Integer.toString(p.getCod_prod()));
+			textDesc.setText(p.getDescricao());
+			textEstoque.setText(Float.toString(p.getEstoque()));
+			textPrCusto.setText(Float.toString(p.getPreco_custo()));
+			textPrVenda.setText(Float.toString(p.getPreco_venda()));
+			
+		}
 	}
 }
