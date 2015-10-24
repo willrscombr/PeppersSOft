@@ -19,7 +19,7 @@ public class FrmPrincipal extends JFrame {
 
 	private JPanel contentPane;
 
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			
 			@Override
@@ -33,7 +33,7 @@ public class FrmPrincipal extends JFrame {
 				
 			}
 		});
-	} */
+	} 
 	public FrmPrincipal() {
 		setIconImage(Toolkit.getDefaultToolkit()
 				.getImage(getClass().getResource("/imagens/new icon/16x16/db_unregister_16_h.bmp")));
