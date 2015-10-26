@@ -17,7 +17,7 @@ public class ProdutoDAO {
 		// Primeiro faz uma consulta pra ver se j� est� cadastrado
 		
 			// A ? � o campo que vai ser preenchido
-			String sql = "INSERT INTO produto (id_produto,descricao,estoque,pr_custo,pr_venda) values(null,?,?,?,?)";
+			String sql = "INSERT INTO produto (id_produto,descricao,estoque,pr_custo,pr_venda,margem_lucro) values(null,?,?,?,?,?)";
 
 			// Abre a conex�o
 			boolean retorno = false;
@@ -33,6 +33,7 @@ public class ProdutoDAO {
 				stmt.setFloat(2,produto.getEstoque());
 				stmt.setFloat(3, produto.getPreco_custo());
 				stmt.setFloat(4, produto.getPreco_venda());
+				stmt.setFloat(5, produto.getMargemlucro());
 
 				stmt.executeUpdate();
 				stmt.close();
@@ -58,7 +59,7 @@ public class ProdutoDAO {
 
 	public boolean alterar(Produto produto) throws Exception {
 
-		String sqlSelect = "SELECT * FROM usuarios WHERE codigo = ?";
+		String sqlSelect = "SELECT * FROM produto WHERE codigo = ?";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmtSelect = connection.prepareStatement(sqlSelect);
 		stmtSelect.setInt(1, produto.getCod_prod());

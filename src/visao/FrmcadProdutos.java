@@ -14,6 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.Font;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 @SuppressWarnings("serial")
 public class FrmcadProdutos extends JFrame {
@@ -52,24 +54,52 @@ public class FrmcadProdutos extends JFrame {
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Produto produto = new Produto();
-				
-				if(textDesc.getText().isEmpty() || textEstoque.getText().isEmpty()||textPrCusto.getText().isEmpty()||textPrVenda.getText().isEmpty())
-				{
-					JOptionPane.showMessageDialog(null, "Atenção! Verifique os campos!");
-				}
-				else{
-					produto.setDescricao(textDesc.getText());
-					produto.setPreco_custo(Float.parseFloat(textPrVenda.getText()));
-					produto.setPreco_venda(Long.valueOf(textEstoque.getText().trim()));
-					produto.setEstoque(Long.valueOf(texLucro.getText().trim()));
-					if(new ProdutoDAO().cadastrar(produto)){
-						UtilMenssage.msgSucesso();
-						FrmcadProdutos.this.dispose();
-						new FrmProdutos().setVisible(true);
-					}else{
-						UtilMenssage.msgError();
+				if(txtCod.getText().isEmpty()){
+					
+					if(textDesc.getText().isEmpty() || textEstoque.getText().isEmpty()||textPrCusto.getText().isEmpty()||textPrVenda.getText().isEmpty())
+					{
+						JOptionPane.showMessageDialog(null, "Atenção! Verifique os campos!");
 					}
-				}
+					else{
+						produto.setDescricao(textDesc.getText());
+						produto.setPreco_custo(Float.parseFloat(textPrCusto.getText()));
+						produto.setPreco_venda(Float.parseFloat(textPrVenda.getText()));
+						produto.setMargemlucro(Float.parseFloat(texLucro.getText()));
+						produto.setEstoque(Long.valueOf(textEstoque.getText().trim()));
+						if(new ProdutoDAO().cadastrar(produto)){
+							UtilMenssage.msgSucesso();
+							FrmcadProdutos.this.dispose();
+							new FrmProdutos().setVisible(true);
+						}else{
+							UtilMenssage.msgError();
+						}
+					}
+				}else{
+					if(textDesc.getText().isEmpty() || textEstoque.getText().isEmpty()||textPrCusto.getText().isEmpty()||textPrVenda.getText().isEmpty())
+					{
+						JOptionPane.showMessageDialog(null, "Atenção! Verifique os campos!");
+					}
+					else{
+						produto.setDescricao(textDesc.getText());
+						produto.setPreco_custo(Float.parseFloat(textPrCusto.getText()));
+						produto.setPreco_venda(Long.valueOf(textPrVenda.getText().trim()));
+						produto.setMargemlucro(Float.parseFloat(texLucro.getText()));
+						produto.setEstoque(Long.valueOf(textEstoque.getText().trim()));
+						try {
+							if(new ProdutoDAO().alterar(produto)){
+								UtilMenssage.msgSucesso();
+								FrmcadProdutos.this.dispose();
+								new FrmProdutos().setVisible(true);
+							}else{
+								UtilMenssage.msgError();
+							}
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+					
+				}	
 			}
 		});
 		btnSalvar.setIcon(null);
@@ -127,9 +157,30 @@ public class FrmcadProdutos extends JFrame {
 		contentPane.add(lblSenha_1);
 		
 		texLucro = new JTextField();
+		texLucro.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				float prcusto=(Float.parseFloat(textPrCusto.getText())),
+					  prvenda=(Float.parseFloat(textPrVenda.getText()));
+				float margem= (prvenda - prcusto) * (prcusto*100);
+				texLucro.setText(String.valueOf(margem));
+			}
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				float margem = Float.parseFloat(texLucro.getText()),
+					  prcusto=(Float.parseFloat(textPrCusto.getText()))	;
+				float prvenda=prcusto+(prcusto*(margem/100));
+				textPrVenda.setText(String.valueOf(prvenda));
+			}
+		});
 		texLucro.setColumns(10);
 		texLucro.setBounds(175, 228, 122, 20);
 		contentPane.add(texLucro);
+		
+		textPrVenda = new JTextField();
+		textPrVenda.setColumns(10);
+		textPrVenda.setBounds(446, 228, 122, 20);
+		contentPane.add(textPrVenda);
 		
 		JLabel lblCodigoProduto = new JLabel("Codigo Produto");
 		lblCodigoProduto.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -144,13 +195,8 @@ public class FrmcadProdutos extends JFrame {
 		
 		JLabel lblPreoVenda = new JLabel("Pre\u00E7o Venda");
 		lblPreoVenda.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblPreoVenda.setBounds(362, 182, 99, 19);
+		lblPreoVenda.setBounds(361, 229, 99, 19);
 		contentPane.add(lblPreoVenda);
-		
-		textPrVenda = new JTextField();
-		textPrVenda.setColumns(10);
-		textPrVenda.setBounds(471, 183, 122, 20);
-		contentPane.add(textPrVenda);
 		
 		JLabel lblEstoque = new JLabel("Estoque");
 		lblEstoque.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -163,19 +209,40 @@ public class FrmcadProdutos extends JFrame {
 		contentPane.add(textEstoque);
 		
 		JButton btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textDesc.setEditable(true);
+				textEstoque.setEditable(true);
+				textPrCusto.setEditable(true);
+				textPrVenda.setEditable(true);
+				texLucro.setEditable(true);
+				
+				btnExcluir.setEnabled(false);
+				btnEditar.setEnabled(false);
+			}
+		});
 		btnEditar.setEnabled(false);
 		btnEditar.setBackground(Color.WHITE);
 		btnEditar.setBounds(208, 394, 89, 43);
 		contentPane.add(btnEditar);
 		
 		if(p!=null){
-
 			txtCod.setText(Integer.toString(p.getCod_prod()));
-			textDesc.setText(p.getDescricao());
-			textEstoque.setText(Float.toString(p.getEstoque()));
-			textPrCusto.setText(Float.toString(p.getPreco_custo()));
+			textDesc.setText(p.getDescricao());			
+			textEstoque.setText(Float.toString(p.getEstoque()));			
+			textPrCusto.setText(Float.toString(p.getPreco_custo()));		
 			textPrVenda.setText(Float.toString(p.getPreco_venda()));
+			texLucro.setText(Float.toString(p.getMargemlucro()));
 			
+			textDesc.setEditable(false);
+			textEstoque.setEditable(false);
+			textPrCusto.setEditable(false);
+			textPrVenda.setEditable(false);
+			texLucro.setEditable(false);
+			
+			btnExcluir.setEnabled(true);
+			btnEditar.setEnabled(true);	
 		}
+		
 	}
 }

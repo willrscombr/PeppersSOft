@@ -60,10 +60,10 @@ public class FrmProdutos extends JFrame {
 					Produto p = new Produto();
 				    p.setCod_prod(Integer.parseInt(table.getValueAt(linha, 0).toString()));
 				    p.setDescricao(table.getValueAt(linha, 1).toString());
-				    p.setEstoque(Float.parseFloat(table.getValueAt(linha, 0).toString()));
-				    p.setPreco_custo(Float.parseFloat(table.getValueAt(linha, 0).toString()));
-				    p.setPreco_venda(Float.parseFloat(table.getValueAt(linha, 0).toString()));
-				    p.setMargemlucro(Integer.parseInt(table.getValueAt(linha, 0).toString()));
+				    p.setEstoque(Float.parseFloat(table.getValueAt(linha, 2).toString()));
+				    p.setPreco_custo(Float.parseFloat(table.getValueAt(linha, 3).toString()));
+				    p.setPreco_venda(Float.parseFloat(table.getValueAt(linha, 4).toString()));
+				    p.setMargemlucro(Float.parseFloat(table.getValueAt(linha, 5).toString()));
 				    
 					FrmProdutos.this.dispose();
 					new FrmcadProdutos(p).setVisible(true);
@@ -131,6 +131,7 @@ public class FrmProdutos extends JFrame {
 			modelo.addColumn("preço custo");
 			modelo.addColumn("preço venda");
 			modelo.addColumn("estoque");
+			modelo.addColumn("margem lucro");
 
 			
 			while (rs.next()) {

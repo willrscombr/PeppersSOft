@@ -9,14 +9,14 @@ public class Produto {
 	private float estoque;
 	private boolean ativo;
 	private String grupo;
-	private int margemlucro;
+	private float margemlucro;
 	
 	
 	
-	public int getMargemlucro() {
+	public float getMargemlucro() {
 		return margemlucro;
 	}
-	public void setMargemlucro(int margemlucro) {
+	public void setMargemlucro(float margemlucro) {
 		this.margemlucro = margemlucro;
 	}
 	public int getCod_prod() {
