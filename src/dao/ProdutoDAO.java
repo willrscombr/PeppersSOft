@@ -131,13 +131,13 @@ public class ProdutoDAO {
 		return cliente;
 	}
 
-	public boolean excluir(Produto produto) throws Exception {
+	public boolean excluir(int i) throws Exception {
 
-		String sql = "DELETE FROM produto WHERE codigo = ?";
+		String sql = "DELETE FROM produto WHERE id_produto = ?";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
-		stmt.setInt(1, produto.getCod_prod());
+		stmt.setInt(1, i);
 
 		int linhasAfetadas = stmt.executeUpdate();
 

@@ -124,6 +124,24 @@ public class FrmcadProdutos extends JFrame {
 		btnExcluir.setEnabled(false);
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String message="Deseja realmente excluir o produto?";
+				String title="Confirmação";
+				int opc=JOptionPane.showConfirmDialog(null, message,title,JOptionPane.YES_NO_OPTION);
+				if(opc == JOptionPane.YES_OPTION){
+					try {
+	
+						if(new ProdutoDAO().excluir(Integer.parseInt(txtCod.getText()))){
+							UtilMenssage.msgSucesso();
+							FrmcadProdutos.this.dispose();
+							new FrmProdutos().setVisible(true);
+						}else{
+							UtilMenssage.msgError();
+						}
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}	
 			}
 		});
 		btnExcluir.setIcon(null);
