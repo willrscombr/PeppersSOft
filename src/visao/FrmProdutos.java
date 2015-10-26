@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -12,9 +13,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+
 import util.PeppersTableModel;
+import util.UtilMenssage;
 import dao.ProdutoDAO;
 import modelo.Produto;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -104,8 +108,27 @@ public class FrmProdutos extends JFrame {
 		btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-			}
+				int linha = table.getSelectedRow();
+
+				String message="Deseja realmente excluir o produto?";
+				String title="Confirmação";
+				int opc=JOptionPane.showConfirmDialog(null, message,title,JOptionPane.YES_NO_OPTION);
+				if(opc == JOptionPane.YES_OPTION){
+					try {
+	
+						if(new ProdutoDAO().excluir(Integer.parseInt(table.getValueAt(linha, 0).toString()))){
+							UtilMenssage.msgSucesso();
+							FrmProdutos.this.dispose();
+							new FrmProdutos().setVisible(true);
+						}else{
+							UtilMenssage.msgError();
+						}
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			}	
 		});
 		btnExcluir.setEnabled(false);
 		btnExcluir.setBackground(Color.WHITE);
