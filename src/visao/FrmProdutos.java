@@ -62,23 +62,6 @@ public class FrmProdutos extends JFrame {
 		contentPane.setLayout(null);
 		table = new JTable();
 		scrollPane = new JScrollPane();
-		scrollPane.addMouseListener(new MouseAdapter() {
-			
-			
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {				
-				
-				btnAbrir.setEnabled(true);
-				btnEditar.setEnabled(true);
-				btnExcluir.setEnabled(true);
- 
-				if (e.getClickCount() > 1) {  	
-					abreProduto();
-					} 
-				
-			}
-		});
 		scrollPane.setBounds(10, 11, 703, 358);
 		getContentPane().add(scrollPane);
 		
@@ -163,6 +146,14 @@ public class FrmProdutos extends JFrame {
 			rsmt = rs.getMetaData();
 			int numerodecolunas = rsmt.getColumnCount();
 			table = new JTable();
+			table.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (e.getClickCount() > 1) {  	
+						abreProduto();
+					} 
+				}
+			});
 			
 			table.setForeground(Color.RED);
 			table.setModel(modelo);
