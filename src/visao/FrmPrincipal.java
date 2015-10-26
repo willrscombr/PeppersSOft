@@ -31,8 +31,9 @@ public class FrmPrincipal extends JFrame {
 				
 			}
 		});
-	} 
+	}  
 	public FrmPrincipal() {
+
 		setIconImage(Toolkit.getDefaultToolkit()
 				.getImage(getClass().getResource("/imagens/new icon/16x16/db_unregister_16_h.bmp")));
 		setTitle("PeeperSoft");
