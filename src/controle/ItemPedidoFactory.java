@@ -7,6 +7,7 @@ import modelo.ItemPedido;
 
 public class ItemPedidoFactory {
 	
+	@SuppressWarnings("unused")
 	private ItemPedido itempedido;
 	private List<ItemPedido> listaitempedido;
 	

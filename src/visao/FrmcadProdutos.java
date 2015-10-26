@@ -33,9 +33,8 @@ public class FrmcadProdutos extends JFrame {
 
 	public FrmcadProdutos(Produto p) {
 	
-		
 		setTitle("PepperSoft - Cadastro de Produtos");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 739, 486);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
@@ -80,11 +79,12 @@ public class FrmcadProdutos extends JFrame {
 						JOptionPane.showMessageDialog(null, "Atenção! Verifique os campos!");
 					}
 					else{
+						produto.setCod_prod(Integer.parseInt(txtCod.getText()));
 						produto.setDescricao(textDesc.getText());
 						produto.setPreco_custo(Float.parseFloat(textPrCusto.getText()));
-						produto.setPreco_venda(Long.valueOf(textPrVenda.getText().trim()));
+						produto.setPreco_venda(Float.parseFloat(textPrVenda.getText()));
 						produto.setMargemlucro(Float.parseFloat(texLucro.getText()));
-						produto.setEstoque(Long.valueOf(textEstoque.getText().trim()));
+						produto.setEstoque(Float.parseFloat(textEstoque.getText()));
 						try {
 							if(new ProdutoDAO().alterar(produto)){
 								UtilMenssage.msgSucesso();
@@ -117,7 +117,7 @@ public class FrmcadProdutos extends JFrame {
 		});
 		btnCancel.setIcon(null);
 		btnCancel.setBackground(Color.WHITE);
-		btnCancel.setBounds(109, 394, 89, 43);
+		btnCancel.setBounds(208, 394, 89, 43);
 		contentPane.add(btnCancel);
 		
 		btnExcluir = new JButton("Excluir");
@@ -241,7 +241,7 @@ public class FrmcadProdutos extends JFrame {
 		});
 		btnEditar.setEnabled(false);
 		btnEditar.setBackground(Color.WHITE);
-		btnEditar.setBounds(208, 394, 89, 43);
+		btnEditar.setBounds(109, 394, 89, 43);
 		contentPane.add(btnEditar);
 		
 		if(p!=null){

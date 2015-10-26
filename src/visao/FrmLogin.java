@@ -1,15 +1,10 @@
 package visao;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JTextField;
-
 import controle.LoginController;
-
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -23,8 +18,6 @@ public class FrmLogin {
 	private JTextField textUsuario;
 	private JTextField textSenha;
 
-	
-	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -43,7 +36,6 @@ public class FrmLogin {
 		initialize();
 	}
 
-	
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
@@ -83,9 +75,7 @@ public class FrmLogin {
 		lblSenha.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblSenha.setBounds(77, 126, 46, 14);
 		frame.getContentPane().add(lblSenha);
-		
-		
-		
+
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
 			
@@ -103,7 +93,6 @@ public class FrmLogin {
 		lblPadroAdminAdmin.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblPadroAdminAdmin.setBounds(77, 21, 220, 30);
 		frame.getContentPane().add(lblPadroAdminAdmin);
-		
-		
+	
 	}
 }

@@ -14,15 +14,10 @@ import modelo.Produto;
 public class ProdutoDAO {
 	public boolean cadastrar(Produto produto) {
 
-		// Primeiro faz uma consulta pra ver se j� est� cadastrado
-		
-			// A ? � o campo que vai ser preenchido
 			String sql = "INSERT INTO produto (id_produto,descricao,estoque,pr_custo,pr_venda,margem_lucro) values(null,?,?,?,?,?)";
 
-			// Abre a conex�o
 			boolean retorno = false;
 		
-
 			try {
 				Connection connection;
 				
@@ -38,9 +33,6 @@ public class ProdutoDAO {
 				stmt.executeUpdate();
 				stmt.close();
 				ConnectionFactory.closeConnection(connection);
-				// Fecha a conex�o
-			
-
 				retorno =  true;
 			
 			} catch (SQLException e) {
@@ -50,16 +42,11 @@ public class ProdutoDAO {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return retorno;
-			
-			
-
-			
+			return retorno;	
 	}
 
 	public boolean alterar(Produto produto) throws Exception {
-
-		String sqlSelect = "SELECT * FROM produto WHERE codigo = ?";
+		String sqlSelect = "SELECT * FROM produto WHERE id_produto = ?";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmtSelect = connection.prepareStatement(sqlSelect);
 		stmtSelect.setInt(1, produto.getCod_prod());
@@ -71,13 +58,15 @@ public class ProdutoDAO {
 
 		if (encontrou) {
 
-			String sqlUpdate = "UPDATE usuarios SET nome = ?, email = ?, login = ?, senha = ?";
+			String sqlUpdate = "UPDATE produto SET descricao = ?, estoque = ?, pr_custo = ?, pr_venda = ?, margem_lucro = ? where id_produto = ?";
 			PreparedStatement stmtUpdate = connection.prepareStatement(sqlUpdate);
 
 			stmtUpdate.setString(1, produto.getDescricao());
-			stmtUpdate.setString(2, produto.getGrupo());
-			stmtUpdate.setFloat(3, produto.getEstoque());
+			stmtUpdate.setFloat(2, produto.getEstoque());
+			stmtUpdate.setFloat(3, produto.getPreco_custo());
 			stmtUpdate.setFloat(4, produto.getPreco_venda());
+			stmtUpdate.setFloat(5, produto.getMargemlucro());
+			stmtUpdate.setInt(6, produto.getCod_prod());
 
 			stmtUpdate.executeUpdate();
 			stmtUpdate.close();
@@ -105,6 +94,7 @@ public class ProdutoDAO {
 		
 	}
 
+	@SuppressWarnings("static-access")
 	public Cliente consultar(int id) throws Exception {
 		Cliente cliente = null;
 		try{

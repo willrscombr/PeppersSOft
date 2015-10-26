@@ -2,6 +2,7 @@ package util;
 
 import javax.swing.table.DefaultTableModel;
 
+@SuppressWarnings("serial")
 public class PeppersTableModel extends DefaultTableModel{
 
 	

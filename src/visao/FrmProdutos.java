@@ -12,9 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
 import util.PeppersTableModel;
 import dao.ProdutoDAO;
 import modelo.Produto;
@@ -35,6 +32,20 @@ public class FrmProdutos extends JFrame {
 	private JButton btnExcluir;
 	private JButton btnAbrir;
 	
+	public void abreProduto(){
+		int linha = table.getSelectedRow();
+		Produto p = new Produto();
+	    p.setCod_prod(Integer.parseInt(table.getValueAt(linha, 0).toString()));
+	    p.setDescricao(table.getValueAt(linha, 1).toString());
+	    p.setEstoque(Float.parseFloat(table.getValueAt(linha, 2).toString()));
+	    p.setPreco_custo(Float.parseFloat(table.getValueAt(linha, 3).toString()));
+	    p.setPreco_venda(Float.parseFloat(table.getValueAt(linha, 4).toString()));
+	    p.setMargemlucro(Float.parseFloat(table.getValueAt(linha, 5).toString()));
+	    
+		FrmProdutos.this.dispose();
+		new FrmcadProdutos(p).setVisible(true);
+		
+	}
 	
 	public FrmProdutos() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -50,23 +61,16 @@ public class FrmProdutos extends JFrame {
 		scrollPane.addMouseListener(new MouseAdapter() {
 			
 			
+			
 			@Override
 			public void mouseClicked(MouseEvent e) {				
-				int linha = table.getSelectedRow();
 				
 				btnAbrir.setEnabled(true);
+				btnEditar.setEnabled(true);
+				btnExcluir.setEnabled(true);
  
 				if (e.getClickCount() > 1) {  	
-					Produto p = new Produto();
-				    p.setCod_prod(Integer.parseInt(table.getValueAt(linha, 0).toString()));
-				    p.setDescricao(table.getValueAt(linha, 1).toString());
-				    p.setEstoque(Float.parseFloat(table.getValueAt(linha, 2).toString()));
-				    p.setPreco_custo(Float.parseFloat(table.getValueAt(linha, 3).toString()));
-				    p.setPreco_venda(Float.parseFloat(table.getValueAt(linha, 4).toString()));
-				    p.setMargemlucro(Float.parseFloat(table.getValueAt(linha, 5).toString()));
-				    
-					FrmProdutos.this.dispose();
-					new FrmcadProdutos(p).setVisible(true);
+					abreProduto();
 					} 
 				
 			}
@@ -87,18 +91,33 @@ public class FrmProdutos extends JFrame {
 		contentPane.add(btnIncluir);
 		
 		btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				abreProduto();
+			}
+		});
 		btnEditar.setEnabled(false);
 		btnEditar.setBackground(Color.WHITE);
 		btnEditar.setBounds(208, 394, 89, 43);
 		contentPane.add(btnEditar);
 		
 		btnExcluir = new JButton("Excluir");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
 		btnExcluir.setEnabled(false);
 		btnExcluir.setBackground(Color.WHITE);
 		btnExcluir.setBounds(305, 394, 89, 43);
 		contentPane.add(btnExcluir);
 		
 		btnAbrir = new JButton("Abrir");
+		btnAbrir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				abreProduto();
+			}
+		});
 		btnAbrir.setEnabled(false);
 		btnAbrir.setBackground(Color.WHITE);
 		btnAbrir.setBounds(109, 394, 89, 43);

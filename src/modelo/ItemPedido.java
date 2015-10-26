@@ -1,8 +1,5 @@
 package modelo;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ItemPedido {
 	private int coditempedido;
 	private Pedido pedido; 

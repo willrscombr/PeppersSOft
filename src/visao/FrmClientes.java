@@ -3,50 +3,29 @@ package visao;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
-
-import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
-
-import java.awt.Font;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-
 import javax.swing.JTextField;
-import javax.swing.JLayeredPane;
-import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
-
 import dao.ClienteDAO;
 import fabrica.ClienteFactory;
 import interfaces.Cliente;
-
-import javax.swing.JDesktopPane;
-
 import java.awt.FlowLayout;
-
 import javax.swing.border.BevelBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
 import util.PeppersTableModel;
 import util.UtilMenssage;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
 public class FrmClientes extends JFrame {
 
-	private JTextField textField;
 	private JTable table;
 	private PeppersTableModel modelo ;
 	private ResultSet rs ;
@@ -106,6 +85,7 @@ public class FrmClientes extends JFrame {
 		btnSalvar = new JButton("SALVAR");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				@SuppressWarnings("static-access")
 				Cliente cliente = new ClienteFactory().clienteFisica();
 
 				cliente.setNome(textNome.getText());
@@ -218,9 +198,7 @@ public class FrmClientes extends JFrame {
 		flowLayout.setAlignment(FlowLayout.LEFT);
 		panel_1.setBounds(0, 0, 80000, 92);
 		getContentPane().add(panel_1);
-		
-	
-		
+
 		popularTabela();
 		
 		table.addMouseListener(new MouseAdapter() {
@@ -244,7 +222,6 @@ public class FrmClientes extends JFrame {
 		}
 	});
 		
-
 	}
 	private void habilitarCampos(boolean var){
 		textCadEst.setEnabled(var);
@@ -270,6 +247,7 @@ public class FrmClientes extends JFrame {
 		btnExcluir.setEnabled(var);
 		
 	}
+	@SuppressWarnings("unused")
 	private void limparTabela(){
 		table.removeAll();
 	}

@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- Servidor:                     127.0.0.1
--- Versão do servidor:           5.6.17 - MySQL Community Server (GPL)
+-- Versão do servidor:           10.0.17-MariaDB - mariadb.org binary distribution
 -- OS do Servidor:               Win32
 -- HeidiSQL Versão:              9.3.0.4984
 -- --------------------------------------------------------

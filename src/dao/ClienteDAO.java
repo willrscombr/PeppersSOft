@@ -2,18 +2,14 @@ package dao;
 
 import fabrica.ClienteFactory;
 import interfaces.Cliente;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JOptionPane;
-
 import util.UtilMenssage;
-import modelo.Pessoa;
 import modelo.Usuario;
 
 public class ClienteDAO {
@@ -56,10 +52,7 @@ public class ClienteDAO {
 				e.printStackTrace();
 			}
 			return retorno;
-			
-			
-
-			
+		
 	}
 
 	public boolean alterar(Usuario usuario) throws Exception {
@@ -110,6 +103,7 @@ public class ClienteDAO {
 		
 	}
 
+	@SuppressWarnings({ "static-access", "unused" })
 	public Cliente consultar(int id) throws Exception {
 		Cliente cliente = null;
 		Connection connection = null;

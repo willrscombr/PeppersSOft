@@ -1,8 +1,6 @@
 package modelo;
 
 import interfaces.Cliente;
-
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -38,8 +36,4 @@ public class Pedido {
 	public void setListaitempedido(List<ItemPedido> listaitempedido) {
 		this.listaitempedido = listaitempedido;
 	}
-	
-
-	
-
 }
