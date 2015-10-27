@@ -16,6 +16,8 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 @SuppressWarnings("serial")
 public class FrmcadProdutos extends JFrame {
@@ -30,6 +32,7 @@ public class FrmcadProdutos extends JFrame {
 	private JTextField txtCod;
 	private JTextField textPrVenda;
 	private JTextField textEstoque;
+	private JButton btnEditar;
 
 	public FrmcadProdutos(Produto p) {
 	
@@ -43,6 +46,7 @@ public class FrmcadProdutos extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		
 		try {
 			setVisible(true);
 		} catch (Exception e) {
@@ -50,56 +54,17 @@ public class FrmcadProdutos extends JFrame {
 		}
 		
 		btnSalvar = new JButton("Salvar");
+		btnSalvar.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				 if(e.getKeyCode()==10){  
+	                  salvaProduto();    
+	                }  
+			}
+		});
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Produto produto = new Produto();
-				if(txtCod.getText().isEmpty()){
-					
-					if(textDesc.getText().isEmpty() || textEstoque.getText().isEmpty()||textPrCusto.getText().isEmpty()||textPrVenda.getText().isEmpty())
-					{
-						JOptionPane.showMessageDialog(null, "Atenção! Verifique os campos!");
-					}
-					else{
-						produto.setDescricao(textDesc.getText());
-						produto.setPreco_custo(Float.parseFloat(textPrCusto.getText()));
-						produto.setPreco_venda(Float.parseFloat(textPrVenda.getText()));
-						produto.setMargemlucro(Float.parseFloat(texLucro.getText()));
-						produto.setEstoque(Long.valueOf(textEstoque.getText().trim()));
-						if(new ProdutoDAO().cadastrar(produto)){
-							UtilMenssage.msgSucesso();
-							FrmcadProdutos.this.dispose();
-							new FrmProdutos().setVisible(true);
-						}else{
-							UtilMenssage.msgError();
-						}
-					}
-				}else{
-					if(textDesc.getText().isEmpty() || textEstoque.getText().isEmpty()||textPrCusto.getText().isEmpty()||textPrVenda.getText().isEmpty())
-					{
-						JOptionPane.showMessageDialog(null, "Atenção! Verifique os campos!");
-					}
-					else{
-						produto.setCod_prod(Integer.parseInt(txtCod.getText()));
-						produto.setDescricao(textDesc.getText());
-						produto.setPreco_custo(Float.parseFloat(textPrCusto.getText()));
-						produto.setPreco_venda(Float.parseFloat(textPrVenda.getText()));
-						produto.setMargemlucro(Float.parseFloat(texLucro.getText()));
-						produto.setEstoque(Float.parseFloat(textEstoque.getText()));
-						try {
-							if(new ProdutoDAO().alterar(produto)){
-								UtilMenssage.msgSucesso();
-								FrmcadProdutos.this.dispose();
-								new FrmProdutos().setVisible(true);
-							}else{
-								UtilMenssage.msgError();
-							}
-						} catch (Exception e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-					}
-					
-				}	
+				salvaProduto();
 			}
 		});
 		btnSalvar.setIcon(null);
@@ -150,11 +115,27 @@ public class FrmcadProdutos extends JFrame {
 		contentPane.add(btnExcluir);
 		
 		textDesc = new JTextField();
+		textDesc.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				 if(e.getKeyCode()==10){  
+	                    textPrCusto.requestFocus();  
+	                }  
+			}
+		});
 		textDesc.setColumns(10);
 		textDesc.setBounds(175, 140, 418, 20);
 		contentPane.add(textDesc);
 		
 		textPrCusto = new JTextField();
+		textPrCusto.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				 if(e.getKeyCode()==10){  
+	                    texLucro.requestFocus();  
+	                }  
+			}
+		});
 		textPrCusto.setColumns(10);
 		textPrCusto.setBounds(175, 183, 122, 20);
 		contentPane.add(textPrCusto);
@@ -175,13 +156,26 @@ public class FrmcadProdutos extends JFrame {
 		contentPane.add(lblSenha_1);
 		
 		texLucro = new JTextField();
+		texLucro.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				 if(e.getKeyCode()==10){  
+	                    textPrVenda.requestFocus();  
+	                }  
+			}
+		});
 		texLucro.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
 				float prcusto=(Float.parseFloat(textPrCusto.getText())),
 					  prvenda=(Float.parseFloat(textPrVenda.getText()));
 				float margem= (prvenda - prcusto) * (prcusto*100);
-				texLucro.setText(String.valueOf(margem));
+				try {
+					texLucro.setText(String.valueOf(margem));
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				
 			}
 			@Override
 			public void focusLost(FocusEvent arg0) {
@@ -196,6 +190,14 @@ public class FrmcadProdutos extends JFrame {
 		contentPane.add(texLucro);
 		
 		textPrVenda = new JTextField();
+		textPrVenda.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				 if(e.getKeyCode()==10){  
+	                    textEstoque.requestFocus();  
+	                }  
+			}
+		});
 		textPrVenda.setColumns(10);
 		textPrVenda.setBounds(446, 228, 122, 20);
 		contentPane.add(textPrVenda);
@@ -222,11 +224,19 @@ public class FrmcadProdutos extends JFrame {
 		contentPane.add(lblEstoque);
 		
 		textEstoque = new JTextField();
+		textEstoque.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				 if(e.getKeyCode()==10){  
+	                    btnSalvar.requestFocus();  
+	             }  
+			}
+		});
 		textEstoque.setColumns(10);
 		textEstoque.setBounds(175, 273, 122, 20);
 		contentPane.add(textEstoque);
 		
-		JButton btnEditar = new JButton("Editar");
+		btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				textDesc.setEditable(true);
@@ -243,6 +253,7 @@ public class FrmcadProdutos extends JFrame {
 		btnEditar.setBackground(Color.WHITE);
 		btnEditar.setBounds(109, 394, 89, 43);
 		contentPane.add(btnEditar);
+		textDesc.requestFocus();
 		
 		if(p!=null){
 			txtCod.setText(Integer.toString(p.getCod_prod()));
@@ -251,16 +262,67 @@ public class FrmcadProdutos extends JFrame {
 			textPrCusto.setText(Float.toString(p.getPreco_custo()));		
 			textPrVenda.setText(Float.toString(p.getPreco_venda()));
 			texLucro.setText(Float.toString(p.getMargemlucro()));
-			
 			textDesc.setEditable(false);
 			textEstoque.setEditable(false);
 			textPrCusto.setEditable(false);
 			textPrVenda.setEditable(false);
-			texLucro.setEditable(false);
-			
+			texLucro.setEditable(false);		
 			btnExcluir.setEnabled(true);
 			btnEditar.setEnabled(true);	
+			btnSalvar.setEnabled(false);
 		}
+		
+	}
+//método para salvar, editar produto...
+	protected void salvaProduto() {
+		Produto produto = new Produto();
+		if(txtCod.getText().isEmpty()){
+			
+			if(textDesc.getText().isEmpty() || textEstoque.getText().isEmpty()||textPrCusto.getText().isEmpty()||textPrVenda.getText().isEmpty())
+			{
+				JOptionPane.showMessageDialog(null, "Atenção! Verifique os campos!");
+			}
+			else{
+				produto.setDescricao(textDesc.getText());
+				produto.setPreco_custo(Float.parseFloat(textPrCusto.getText()));
+				produto.setPreco_venda(Float.parseFloat(textPrVenda.getText()));
+				produto.setMargemlucro(Float.parseFloat(texLucro.getText()));
+				produto.setEstoque(Long.valueOf(textEstoque.getText().trim()));
+				if(new ProdutoDAO().cadastrar(produto)){
+					UtilMenssage.msgSucesso();
+					FrmcadProdutos.this.dispose();
+					new FrmProdutos().setVisible(true);
+				}else{
+					UtilMenssage.msgError();
+				}
+			}
+		}else{
+			if(textDesc.getText().isEmpty() || textEstoque.getText().isEmpty()||textPrCusto.getText().isEmpty()||textPrVenda.getText().isEmpty())
+			{
+				JOptionPane.showMessageDialog(null, "Atenção! Verifique os campos!");
+			}
+			else{
+				produto.setCod_prod(Integer.parseInt(txtCod.getText()));
+				produto.setDescricao(textDesc.getText());
+				produto.setPreco_custo(Float.parseFloat(textPrCusto.getText()));
+				produto.setPreco_venda(Float.parseFloat(textPrVenda.getText()));
+				produto.setMargemlucro(Float.parseFloat(texLucro.getText()));
+				produto.setEstoque(Float.parseFloat(textEstoque.getText()));
+				try {
+					if(new ProdutoDAO().alterar(produto)){
+						UtilMenssage.msgSucesso();
+						FrmcadProdutos.this.dispose();
+						new FrmProdutos().setVisible(true);
+					}else{
+						UtilMenssage.msgError();
+					}
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			
+		}	
 		
 	}
 }

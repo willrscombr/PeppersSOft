@@ -5,12 +5,17 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 @SuppressWarnings("serial")
 public class FrmPrincipal extends JFrame {
@@ -33,6 +38,17 @@ public class FrmPrincipal extends JFrame {
 		});
 	}  
 	public FrmPrincipal() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				String message="Deseja realmente sair?";
+				String title="Confirmação";
+				int opc=JOptionPane.showConfirmDialog(null, message,title,JOptionPane.YES_NO_OPTION);
+				if(opc == JOptionPane.YES_OPTION){  
+		            System.exit(DISPOSE_ON_CLOSE);  
+		        }
+			}
+		});
 
 		setIconImage(Toolkit.getDefaultToolkit()
 				.getImage(getClass().getResource("/imagens/new icon/16x16/db_unregister_16_h.bmp")));
@@ -44,8 +60,7 @@ public class FrmPrincipal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 867, 553);

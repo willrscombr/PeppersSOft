@@ -149,7 +149,10 @@ public class FrmProdutos extends JFrame {
 			table.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					if (e.getClickCount() > 1) {  	
+					btnAbrir.setEnabled(true);
+					btnEditar.setEnabled(true);
+					btnExcluir.setEnabled(true);
+					if (e.getClickCount() > 1) {  
 						abreProduto();
 					} 
 				}
