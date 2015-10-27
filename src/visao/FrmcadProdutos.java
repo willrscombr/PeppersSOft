@@ -18,6 +18,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.text.DecimalFormat;
 
 @SuppressWarnings("serial")
 public class FrmcadProdutos extends JFrame {
@@ -167,11 +168,14 @@ public class FrmcadProdutos extends JFrame {
 		texLucro.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
-				float prcusto=(Float.parseFloat(textPrCusto.getText())),
-					  prvenda=(Float.parseFloat(textPrVenda.getText()));
-				float margem= (prvenda - prcusto) * (prcusto*100);
+				double prcusto=(Double.parseDouble(textPrCusto.getText())),
+					  prvenda=(Double.parseDouble(textPrVenda.getText()));
+				//Margem de lucro = preço de venda – custo de produção / preço de venda x 100
+				double margem= (prvenda - prcusto) / prvenda*100;
+				DecimalFormat df = new DecimalFormat("0.##");  
+				String dx = df.format(margem);  
 				try {
-					texLucro.setText(String.valueOf(margem));
+					texLucro.setText(String.valueOf(dx));
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
@@ -179,10 +183,12 @@ public class FrmcadProdutos extends JFrame {
 			}
 			@Override
 			public void focusLost(FocusEvent arg0) {
-				float margem = Float.parseFloat(texLucro.getText()),
-					  prcusto=(Float.parseFloat(textPrCusto.getText()))	;
-				float prvenda=prcusto+(prcusto*(margem/100));
-				textPrVenda.setText(String.valueOf(prvenda));
+				double margem = Double.parseDouble(texLucro.getText()),
+					  prcusto=(Double.parseDouble(textPrCusto.getText()))	;
+				double prvenda=prcusto+(prcusto*(margem/100));
+				DecimalFormat df = new DecimalFormat("0.##");  
+				String dx = df.format(prvenda);  
+				textPrVenda.setText(String.valueOf(dx));
 			}
 		});
 		texLucro.setColumns(10);
