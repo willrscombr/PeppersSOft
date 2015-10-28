@@ -1,11 +1,9 @@
 package visao;
 
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,7 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -21,22 +18,7 @@ import java.awt.event.WindowEvent;
 public class FrmPrincipal extends JFrame {
 
 	private JPanel contentPane;
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			
-			@Override
-			public void run() {
-				try {
-					FrmPrincipal frame = new FrmPrincipal();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				
-			}
-		});
-	}  
+ 
 	public FrmPrincipal() {
 		addWindowListener(new WindowAdapter() {
 			@Override
