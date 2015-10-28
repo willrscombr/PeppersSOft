@@ -166,27 +166,13 @@ public class FrmcadProdutos extends JFrame {
 			}
 		});
 		texLucro.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent arg0) {
-				double prcusto=(Double.parseDouble(textPrCusto.getText())),
-					  prvenda=(Double.parseDouble(textPrVenda.getText()));
-				//Margem de lucro = preço de venda – custo de produção / preço de venda x 100
-				double margem= (prvenda - prcusto) / prvenda*100;
-				DecimalFormat df = new DecimalFormat("0.##");  
-				String dx = df.format(margem);  
-				try {
-					texLucro.setText(String.valueOf(dx));
-				} catch (Exception e) {
-					// TODO: handle exception
-				}
-				
-			}
+			
 			@Override
 			public void focusLost(FocusEvent arg0) {
 				double margem = Double.parseDouble(texLucro.getText()),
 					  prcusto=(Double.parseDouble(textPrCusto.getText()))	;
 				double prvenda=prcusto+(prcusto*(margem/100));
-				DecimalFormat df = new DecimalFormat("0.##");  
+				DecimalFormat df = new DecimalFormat("0.00");  
 				String dx = df.format(prvenda);  
 				textPrVenda.setText(String.valueOf(dx));
 			}
@@ -196,6 +182,23 @@ public class FrmcadProdutos extends JFrame {
 		contentPane.add(texLucro);
 		
 		textPrVenda = new JTextField();
+		textPrVenda.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				double prcusto=(Double.parseDouble(textPrCusto.getText())),
+						  prvenda=(Double.parseDouble(textPrVenda.getText()));
+					//Margem de lucro = preço de venda – custo de produção / preço de venda x 100
+				//margem = ((custo/venda)-1)*100
+					double margem= (((prvenda / prcusto)-1) *100);
+					DecimalFormat df = new DecimalFormat("0.%");  
+					String dx = df.format(margem);  
+					try {
+						texLucro.setText(String.valueOf(dx));
+					} catch (Exception ex) {
+						// TODO: handle exception
+					}
+			}
+		});
 		textPrVenda.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -251,6 +254,7 @@ public class FrmcadProdutos extends JFrame {
 				textPrVenda.setEditable(true);
 				texLucro.setEditable(true);
 				
+				btnSalvar.setEnabled(true);
 				btnExcluir.setEnabled(false);
 				btnEditar.setEnabled(false);
 			}

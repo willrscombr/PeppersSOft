@@ -80,6 +80,7 @@ public class FrmLogin {
 		btnEntrar.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent arg0) {
+				
 				String usuario= (textUsuario.getText()); 
 				String senha = textSenha.getText();
 				LoginController login = new LoginController();
@@ -89,7 +90,7 @@ public class FrmLogin {
 		btnEntrar.setBounds(173, 176, 156, 23);
 		frame.getContentPane().add(btnEntrar);
 		
-		JLabel lblPadroAdminAdmin = new JLabel("Padr\u00E3o: admin admin");
+		JLabel lblPadroAdminAdmin = new JLabel("Padr\u00E3o: pepper");
 		lblPadroAdminAdmin.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblPadroAdminAdmin.setBounds(77, 21, 220, 30);
 		frame.getContentPane().add(lblPadroAdminAdmin);
