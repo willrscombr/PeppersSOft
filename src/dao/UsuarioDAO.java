@@ -28,9 +28,9 @@ public class UsuarioDAO {
 
 			stmt.setInt(1, usuario.getCodigo());
 			stmt.setString(2, usuario.getNome());
-			stmt.setString(3, usuario.getEmail());
-			stmt.setString(4, usuario.getLogin());
-			stmt.setString(5, usuario.getSenha());
+			//stmt.setString(3, usuario.getEmail());
+			stmt.setString(3, usuario.getLogin());
+			stmt.setString(4, usuario.getSenha());
 
 			stmt.executeUpdate();
 			stmt.close();
@@ -83,7 +83,7 @@ public class UsuarioDAO {
 
 	public boolean consultar(Usuario usuario) throws Exception {
 
-		String sql = "SELECT * FROM usuarios WHERE codigo = ?";
+		String sql = "SELECT * FROM usuarios WHERE id_codigo = ?";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
 

@@ -7,6 +7,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import dao.UsuarioDAO;
+import modelo.Usuario;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.Font;
@@ -19,7 +21,6 @@ public class FrmUsuarios extends JFrame {
 	private JTextField textNome;
 	private JTextField textUsuario;
 	private JTextField textSenha;
-
 	private JButton btnSalvar;
 	private JButton btnCancel;
 	private JButton btnExcluir;
@@ -65,6 +66,17 @@ public class FrmUsuarios extends JFrame {
 		btnSalvar.setEnabled(false);
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Usuario usuario = new Usuario(0);
+				usuario.setNome(textNome.getText());
+				usuario.setLogin(textUsuario.getText());
+				usuario.setSenha(textSenha.getText());
+				UsuarioDAO cadastra = new UsuarioDAO();
+				try {
+					cadastra.cadastrar(usuario);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnSalvar.setIcon(null);
