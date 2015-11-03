@@ -78,7 +78,6 @@ public class FrmLogin {
 
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
-		
 			
 			public void actionPerformed(ActionEvent arg0) {
 				
