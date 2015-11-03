@@ -17,7 +17,6 @@ import java.awt.Font;
 public class FrmUsuarios extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textPesquisa;
 	private JTextField textNome;
 	private JTextField textUsuario;
 	private JTextField textSenha;
@@ -25,7 +24,6 @@ public class FrmUsuarios extends JFrame {
 	private JButton btnCancel;
 	private JButton btnExcluir;
 	private JButton btnIncluir;
-	private JButton btnLocalizar;
 
 	public FrmUsuarios() {
 		setTitle("PepperSoft - Cadastro de Usu\u00E1rios");
@@ -114,26 +112,6 @@ public class FrmUsuarios extends JFrame {
 		btnExcluir.setBackground(Color.WHITE);
 		btnExcluir.setBounds(313, 394, 89, 43);
 		contentPane.add(btnExcluir);
-		
-		JLabel lblPesquisa = new JLabel("Pesquisa");
-		lblPesquisa.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblPesquisa.setBounds(69, 39, 73, 14);
-		contentPane.add(lblPesquisa);
-		
-		textPesquisa = new JTextField();
-		textPesquisa.setBounds(178, 38, 224, 20);
-		contentPane.add(textPesquisa);
-		textPesquisa.setColumns(10);
-		
-		btnLocalizar = new JButton("Localizar");
-		btnLocalizar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		btnLocalizar.setBackground(Color.WHITE);
-		btnLocalizar.setBounds(437, 33, 89, 31);
-		contentPane.add(btnLocalizar);
 		
 		textNome = new JTextField();
 		textNome.setEnabled(false);

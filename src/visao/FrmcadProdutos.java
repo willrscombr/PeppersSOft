@@ -250,7 +250,7 @@ public class FrmcadProdutos extends JFrame {
 				textPrCusto.setEditable(true);
 				textPrVenda.setEditable(true);
 				texLucro.setEditable(true);
-				
+				btnSalvar.setEnabled(true);
 				btnExcluir.setEnabled(false);
 				btnEditar.setEnabled(false);
 			}

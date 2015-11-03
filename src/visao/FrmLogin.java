@@ -78,8 +78,10 @@ public class FrmLogin {
 
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
+		
 			
 			public void actionPerformed(ActionEvent arg0) {
+				
 				String usuario= (textUsuario.getText()); 
 				String senha = textSenha.getText();
 				LoginController login = new LoginController();

@@ -1,7 +1,5 @@
 package dao;
 
-import fabrica.ClienteFactory;
-import interfaces.Cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -100,7 +98,6 @@ public class ContaDAO {
 		
 	}
 
-	@SuppressWarnings("static-access")
 	public Conta consultar(int id) throws Exception {
 		Conta conta = new Conta();
 		
@@ -112,14 +109,13 @@ public class ContaDAO {
 		stmt.setInt(1, id);
 
 		ResultSet rs = stmt.executeQuery();
-		ConnectionFactory.closeConnection(connection);
-		while (rs.next()) {
-			
+		if(rs.next()){
 		    conta.setCod_Conta(rs.getInt("id_conta"));
-		    //JOptionPane.showMessageDialog(null,String.valueOf(rs.getInt("id_conta")));
 			conta.setDescricao(rs.getString("descricao"));
-			//conta.setTipo(rs.getLong("tipo_lanc"));
+		}else{
+			JOptionPane.showMessageDialog(null, "Deu treta de novo");
 		}
+		
 		}catch(Exception e ){
 			
 		}
