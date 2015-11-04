@@ -118,7 +118,7 @@ public class ClienteDAO {
 		ResultSet rs = stmt.executeQuery();
 		//
 		boolean encontrou = rs.next();
-		JOptionPane.showMessageDialog(null, rs.getString("nome"));
+		//JOptionPane.showMessageDialog(null, rs.getString("nome"));
 		int cont = 0;
 		if (encontrou) {
 			

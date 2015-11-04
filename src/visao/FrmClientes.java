@@ -46,12 +46,14 @@ public class FrmClientes extends JFrame {
 	
 
 	public FrmClientes() {
-		setTitle("Lista de Clientes");
-		getContentPane().setLayout(null);
-		setSize(1610, 699);
+		setTitle("PepperSoft - Cadastro de Produtos");
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setBounds(100, 100, 739, 486);
+		setLocationRelativeTo(null);
+		//getContentPane().setLayout(null);
+		//setSize(1610, 699);
 		table = new JTable();
 		scrollPane = new JScrollPane();
-		
 		
 		scrollPane.setBounds(10, 103, 333, 546);
 		getContentPane().add(scrollPane);
@@ -170,6 +172,7 @@ public class FrmClientes extends JFrame {
 				
 				habilitarCampos(true);
 				habilitarBotoes(false);
+				limparCampos();
 				
 			}
 		});
@@ -193,7 +196,7 @@ public class FrmClientes extends JFrame {
 		panel_1.setForeground(Color.BLACK);
 		panel_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null,
 				null, null));
-		panel_1.setBackground(Color.RED);
+		panel_1.setBackground(Color.WHITE);
 		FlowLayout flowLayout = (FlowLayout) panel_1.getLayout();
 		flowLayout.setAlignment(FlowLayout.LEFT);
 		panel_1.setBounds(0, 0, 80000, 92);
