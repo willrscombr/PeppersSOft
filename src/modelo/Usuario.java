@@ -8,6 +8,10 @@ public class Usuario {
 	private String senha;
 	private String nivel;
 	
+	public Usuario() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Usuario(int codigo) {
 		this.setId_codigo(codigo);
 	}

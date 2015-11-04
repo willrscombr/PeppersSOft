@@ -28,7 +28,7 @@ public class UsuarioDAO {
 
 			stmt.setInt(1, usuario.getId_codigo());
 			stmt.setString(2, usuario.getNome());
-			//stmt.setString(3, usuario.getEmail());
+			// stmt.setString(3, usuario.getEmail());
 			stmt.setString(3, usuario.getUsuario());
 			stmt.setString(4, usuario.getSenha());
 
@@ -78,6 +78,16 @@ public class UsuarioDAO {
 
 			return false;
 		}
+
+	}
+
+	public ResultSet consultar() throws Exception {
+
+		String sql = "SELECT * FROM usuarios";
+		Connection connection = ConnectionFactory.getConnection();
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		return rs;
 
 	}
 
