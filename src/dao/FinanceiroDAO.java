@@ -95,7 +95,6 @@ public class FinanceiroDAO {
 		
 	}
 
-	@SuppressWarnings("static-access")
 	public Financeiro consultar(int id) throws Exception {
 		Financeiro financeiro = null;
 		try{
