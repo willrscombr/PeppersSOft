@@ -63,7 +63,6 @@ public class FrmFinanceiro extends JFrame {
 		btnIncluir = new JButton("Incluir");
 		btnIncluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				FrmFinanceiro.this.dispose();
 				new FrmLancFinanceiro().setVisible(true);
 			}
 		});
@@ -120,11 +119,12 @@ private void popularTabela(){
 			table.setModel(modelo);
 			Object[] linha = null;
 			
-			modelo.addColumn("código");
-			modelo.addColumn("discriminação");
-			modelo.addColumn("tipo");
-			modelo.addColumn("conta");
+			modelo.addColumn("Código");
+			modelo.addColumn("Discriminação");
+			modelo.addColumn("Tipo");
+			modelo.addColumn("Conta");
 			modelo.addColumn("Valor");
+			modelo.addColumn("Lançamento");
 			
 			
 			while (rs.next()) {

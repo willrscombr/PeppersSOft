@@ -162,7 +162,7 @@ public class FrmLancFinanceiro extends JFrame {
 						financeiro.setDisc(txtDiscrim.getText());
 						financeiro.setTipo(tipo);
 						financeiro.setValor(Float.parseFloat(txtValor.getText()));
-
+						
 						if (cadastra.cadastrar(financeiro)) {
 							JOptionPane.showMessageDialog(null,
 									"Lançamento realizado com sucesso!");

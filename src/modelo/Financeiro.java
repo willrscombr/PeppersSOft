@@ -1,4 +1,6 @@
-package modelo;;
+package modelo;
+
+import java.sql.Date;
 
 public class Financeiro {
 	private Conta conta ;
@@ -6,6 +8,12 @@ public class Financeiro {
 	private String disc;
 	private float valor;
 	private String tipo;
+	private Date data;
+	
+	public Date getData() {
+		data = new Date(System.currentTimeMillis());
+		return data;
+	}
 	
 	public Conta getConta() {
 		return conta;

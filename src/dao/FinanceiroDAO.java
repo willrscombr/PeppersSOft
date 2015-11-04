@@ -12,7 +12,7 @@ import modelo.Produto;
 public class FinanceiroDAO {
 	public boolean cadastrar(Financeiro financeiro) {
 
-			String sql = "INSERT INTO financeiro (id_codigo,discriminacao,valor,id_conta,tipo_lanc) values(null,?,?,?,?)";
+			String sql = "INSERT INTO financeiro (id_codigo,discriminacao,valor,id_conta,tipo_lanc,data) values(null,?,?,?,?,?)";
 
 			boolean retorno = false;
 		
@@ -26,7 +26,8 @@ public class FinanceiroDAO {
 				stmt.setFloat(2,financeiro.getValor());
 				stmt.setInt(3, financeiro.getConta().getCod_Conta());
 				stmt.setString(4, financeiro.getTipo());
-
+				stmt.setDate(5, financeiro.getData());	
+				
 				stmt.executeUpdate();
 				stmt.close();
 				ConnectionFactory.closeConnection(connection);
