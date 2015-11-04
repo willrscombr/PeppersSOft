@@ -1,14 +1,11 @@
 package dao;
 
-import fabrica.ClienteFactory;
-import interfaces.Cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 import modelo.Financeiro;
 import modelo.Produto;
 
@@ -27,7 +24,7 @@ public class FinanceiroDAO {
 				stmt = connection.prepareStatement(sql);
 				stmt.setString(1, financeiro.getDisc());
 				stmt.setFloat(2,financeiro.getValor());
-				stmt.setInt(3, financeiro.getC().getCod_Conta());
+				stmt.setInt(3, financeiro.getConta().getCod_Conta());
 				stmt.setString(4, financeiro.getTipo());
 
 				stmt.executeUpdate();

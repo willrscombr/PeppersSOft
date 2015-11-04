@@ -1,18 +1,17 @@
 package modelo;;
 
 public class Financeiro {
-	Conta c = new Conta();
-	
+	private Conta conta ;
 	private int cod_financeiro;
 	private String disc;
 	private float valor;
 	private String tipo;
 	
-	public Conta getC() {
-		return c;
+	public Conta getConta() {
+		return conta;
 	}
-	public void setC(Conta c) {
-		this.c = c;
+	public void setConta(Conta conta) {
+		this.conta = conta;
 	}
 	public int getCod_financeiro() {
 		return cod_financeiro;
