@@ -3,16 +3,22 @@ package visao;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import dao.ProdutoDAO;
 import modelo.Produto;
 import util.UtilMenssage;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import controle.ProdutoController;
+
 import java.awt.Font;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -58,13 +64,23 @@ public class FrmcadProdutos extends JFrame {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == 10) {
-					salvaProduto();
+					try {
+						salvaProduto();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				salvaProduto();
+				try {
+					salvaProduto();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnSalvar.setIcon(null);
@@ -177,8 +193,6 @@ public class FrmcadProdutos extends JFrame {
 				String dx = df.format(margem);
 
 				try {
-
-					JOptionPane.showMessageDialog(null, dx);
 					texLucro.setText(String.valueOf(dx));
 				} catch (Exception e) {
 					// TODO: handle exception
@@ -287,7 +301,7 @@ public class FrmcadProdutos extends JFrame {
 	}
 
 	// método para salvar, editar produto...
-	protected void salvaProduto() {
+	protected void salvaProduto() throws Exception {
 		Produto produto = new Produto();
 		if (txtCod.getText().isEmpty()) {
 
@@ -302,7 +316,7 @@ public class FrmcadProdutos extends JFrame {
 				produto.setPreco_venda(Float.parseFloat(textPrVenda.getText()));
 				produto.setMargemlucro(Float.parseFloat(texLucro.getText()));
 				produto.setEstoque(Long.valueOf(textEstoque.getText().trim()));
-				if (new ProdutoDAO().cadastrar(produto)) {
+				if (new ProdutoController().cadastrar(produto)) {
 					UtilMenssage.msgSucesso();
 					FrmcadProdutos.this.dispose();
 					new FrmProdutos().setVisible(true);
