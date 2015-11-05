@@ -18,7 +18,7 @@ public class UsuarioDAO {
 		} else {
 
 			// A ? é o campo que vai ser preenchido
-			String sql = "INSERT INTO usuarios(?, ?, ?, ?)";
+			String sql = "INSERT INTO usuarios (nome, usuario, senha, nivel) values (?, ?, ?, ?)";
 
 			// Abre a conexão
 			Connection connection = ConnectionFactory.getConnection();
@@ -125,13 +125,13 @@ public class UsuarioDAO {
 
 	}
 
-	public boolean excluir(Usuario usuario) throws Exception {
+	public boolean excluir(int id) throws Exception {
 
 		String sql = "DELETE FROM usuarios WHERE id_codigo = ?";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
-		stmt.setInt(1, usuario.getId_codigo());
+		stmt.setInt(1, id);
 
 		int linhasAfetadas = stmt.executeUpdate();
 

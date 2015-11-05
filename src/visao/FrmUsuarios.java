@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
+import controle.UsuarioController;
 import dao.ProdutoDAO;
 import dao.UsuarioDAO;
 import modelo.Usuario;
@@ -103,10 +104,10 @@ public class FrmUsuarios extends JFrame {
 				if (opc == JOptionPane.YES_OPTION) {
 					try {
 
-						if (new ProdutoDAO().excluir(Integer.parseInt(table.getValueAt(linha, 0).toString()))) {
+						if (new UsuarioController().excluir(Integer.parseInt(table.getValueAt(linha, 0).toString()))) {
 							UtilMenssage.msgSucesso();
 							FrmUsuarios.this.dispose();
-							new FrmProdutos().setVisible(true);
+							new FrmUsuarios().setVisible(true);
 						} else {
 							UtilMenssage.msgError();
 						}
@@ -152,7 +153,7 @@ public class FrmUsuarios extends JFrame {
 		try {
 
 			modelo = new PeppersTableModel();
-			rs = new UsuarioDAO().consultar();
+			rs = new UsuarioController().consultar();
 			rsmt = rs.getMetaData();
 			int numerodecolunas = rsmt.getColumnCount();
 			table = new JTable();
@@ -173,11 +174,10 @@ public class FrmUsuarios extends JFrame {
 			Object[] linha = null;
 
 			modelo.addColumn("código");
-			modelo.addColumn("descrição");
-			modelo.addColumn("preço custo");
-			modelo.addColumn("preço venda");
-			modelo.addColumn("estoque");
-			modelo.addColumn("margem lucro");
+			modelo.addColumn("nome");
+			modelo.addColumn("usuario");
+			modelo.addColumn("senha");
+			modelo.addColumn("permissão");
 
 			while (rs.next()) {
 				linha = new Object[numerodecolunas];

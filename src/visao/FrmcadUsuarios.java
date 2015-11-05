@@ -14,6 +14,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import controle.UsuarioController;
 import dao.UsuarioDAO;
 import modelo.Usuario;
 import util.UtilMenssage;
@@ -34,6 +35,8 @@ public class FrmcadUsuarios extends JFrame {
 	private JLabel lblUsuario;
 	private JLabel lblSenha;
 	private JLabel lblPermissao;
+	private JTextField txtCodigo;
+	private JLabel lblCodigo;
 
 	public FrmcadUsuarios(Usuario u) {
 		setTitle("PepperSoft - Cadastro de Usu\u00E1rios");
@@ -68,7 +71,7 @@ public class FrmcadUsuarios extends JFrame {
 					usuario.setNivel(txtPermissao.getText());
 					
 					try {
-						if(new UsuarioDAO().cadastrar(usuario)){
+						if(new UsuarioController().cadastrar(usuario)){
 							UtilMenssage.msgSucesso();
 							FrmcadUsuarios.this.dispose();
 							new FrmUsuarios().setVisible(true);
@@ -111,7 +114,6 @@ public class FrmcadUsuarios extends JFrame {
 		contentPane.add(btnEditar);
 		
 		btnCancel = new JButton("Cancelar");
-		btnCancel.setEnabled(false);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FrmcadUsuarios.this.dispose();
@@ -134,13 +136,13 @@ public class FrmcadUsuarios extends JFrame {
 				if(opc == JOptionPane.YES_OPTION){
 					try {
 	
-						/*if(new UsuarioDAO().excluir(Integer.parseInt(txtCod.getText()))){
+						if(new UsuarioController().excluir(Integer.parseInt(txtCodigo.getText()))){
 							UtilMenssage.msgSucesso();
 							FrmcadUsuarios.this.dispose();
 							new FrmUsuarios().setVisible(true);
 						}else{
 							UtilMenssage.msgError();
-						}*/
+						}
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -191,5 +193,15 @@ public class FrmcadUsuarios extends JFrame {
 		txtPermissao.setBounds(178, 287, 249, 20);
 		contentPane.add(txtPermissao);
 		txtPermissao.setColumns(10);
+		
+		lblCodigo = new JLabel("Codigo");
+		lblCodigo.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblCodigo.setBounds(69, 84, 60, 14);
+		contentPane.add(lblCodigo);
+		
+		txtCodigo = new JTextField();
+		txtCodigo.setBounds(178, 83, 89, 20);
+		contentPane.add(txtCodigo);
+		txtCodigo.setColumns(10);
 	}
 }

@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -13,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
+import controle.ProdutoController;
 import util.PeppersTableModel;
 import util.UtilMenssage;
 import dao.ProdutoDAO;
@@ -98,7 +100,7 @@ public class FrmProdutos extends JFrame {
 				if(opc == JOptionPane.YES_OPTION){
 					try {
 	
-						if(new ProdutoDAO().excluir(Integer.parseInt(table.getValueAt(linha, 0).toString()))){
+						if(new ProdutoController().excluir(Integer.parseInt(table.getValueAt(linha, 0).toString()))){
 							UtilMenssage.msgSucesso();
 							FrmProdutos.this.dispose();
 							new FrmProdutos().setVisible(true);
@@ -141,7 +143,7 @@ public class FrmProdutos extends JFrame {
 		try {
 			
 			modelo = new PeppersTableModel();
-			rs = new ProdutoDAO().consultar();
+			rs = new ProdutoController().consultar();
 			rsmt = rs.getMetaData();
 			int numerodecolunas = rsmt.getColumnCount();
 			table = new JTable();
