@@ -113,9 +113,9 @@ public class FrmPrincipal extends JFrame {
 
 		JButton button_5 = new JButton("");
 		button_5.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			//	new FrmRelatorios().setVisible(true);
-			}
+		    public void actionPerformed(ActionEvent e) {
+				new FrmRelatorios().setVisible(true);
+		    }
 		});
 		button_5.setIcon(new ImageIcon(getClass().getResource("/imagens/Rank-History64.png")));
 		button_5.setBounds(724, 25, 105, 100);

@@ -26,11 +26,10 @@ public class UsuarioDAO {
 			// Executa comando SQL
 			PreparedStatement stmt = connection.prepareStatement(sql);
 
-			stmt.setInt(1, usuario.getCodigo());
-			stmt.setString(2, usuario.getNome());
-			//stmt.setString(3, usuario.getEmail());
-			stmt.setString(3, usuario.getLogin());
-			stmt.setString(4, usuario.getSenha());
+			stmt.setString(1, usuario.getNome());
+			stmt.setString(2, usuario.getUsuario());
+			stmt.setString(3, usuario.getSenha());
+			stmt.setString(4, usuario.getNivel());
 
 			stmt.executeUpdate();
 			stmt.close();
@@ -44,10 +43,10 @@ public class UsuarioDAO {
 
 	public boolean alterar(Usuario usuario) throws Exception {
 
-		String sqlSelect = "SELECT * FROM usuarios WHERE codigo = ?";
+		String sqlSelect = "SELECT * FROM usuarios WHERE id_codigo = ?";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmtSelect = connection.prepareStatement(sqlSelect);
-		stmtSelect.setInt(1, usuario.getCodigo());
+		stmtSelect.setInt(1, usuario.getId_codigo());
 
 		// Armazena o resultado da query
 		ResultSet rs = stmtSelect.executeQuery();
@@ -56,13 +55,13 @@ public class UsuarioDAO {
 
 		if (encontrou) {
 
-			String sqlUpdate = "UPDATE usuarios SET nome = ?, email = ?, login = ?, senha = ?";
+			String sqlUpdate = "UPDATE usuarios SET nome = ?, usuario = ?, senha = ?, nivel = ?";
 			PreparedStatement stmtUpdate = connection.prepareStatement(sqlUpdate);
 
 			stmtUpdate.setString(1, usuario.getNome());
-			stmtUpdate.setString(2, usuario.getEmail());
-			stmtUpdate.setString(3, usuario.getLogin());
-			stmtUpdate.setString(4, usuario.getSenha());
+			stmtUpdate.setString(2, usuario.getUsuario());
+			stmtUpdate.setString(3, usuario.getSenha());
+			stmtUpdate.setString(4, usuario.getNivel());
 
 			stmtUpdate.executeUpdate();
 			stmtUpdate.close();
@@ -81,13 +80,23 @@ public class UsuarioDAO {
 
 	}
 
+	public ResultSet consultar() throws Exception {
+
+		String sql = "SELECT * FROM usuarios";
+		Connection connection = ConnectionFactory.getConnection();
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		return rs;
+
+	}
+
 	public boolean consultar(Usuario usuario) throws Exception {
 
 		String sql = "SELECT * FROM usuarios WHERE id_codigo = ?";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
-		stmt.setInt(1, usuario.getCodigo());
+		stmt.setInt(1, usuario.getId_codigo());
 
 		ResultSet rs = stmt.executeQuery();
 
@@ -96,12 +105,12 @@ public class UsuarioDAO {
 		if (encontrou) {
 			String nome = rs.getString("nome");
 			usuario.setNome(nome);
-			String email = rs.getString("email");
-			usuario.setEmail(email);
-			String login = rs.getString("login");
-			usuario.setLogin(login);
-			String senha = rs.getString("senha");
-			usuario.setSenha(senha);
+			String email = rs.getString("usuario");
+			usuario.setUsuario(email);
+			String login = rs.getString("senha");
+			usuario.setSenha(login);
+			String senha = rs.getString("nivel");
+			usuario.setNivel(senha);
 		}
 
 		rs.close();
@@ -118,11 +127,11 @@ public class UsuarioDAO {
 
 	public boolean excluir(Usuario usuario) throws Exception {
 
-		String sql = "DELETE FROM usuarios WHERE codigo = ?";
+		String sql = "DELETE FROM usuarios WHERE id_codigo = ?";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
-		stmt.setInt(1, usuario.getCodigo());
+		stmt.setInt(1, usuario.getId_codigo());
 
 		int linhasAfetadas = stmt.executeUpdate();
 

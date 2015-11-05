@@ -1,18 +1,25 @@
-package modelo;;
+package modelo;
+
+import java.sql.Date;
 
 public class Financeiro {
-	Conta c = new Conta();
-	
+	private Conta conta ;
 	private int cod_financeiro;
 	private String disc;
 	private float valor;
 	private String tipo;
+	private Date data;
 	
-	public Conta getC() {
-		return c;
+	public Date getData() {
+		data = new Date(System.currentTimeMillis());
+		return data;
 	}
-	public void setC(Conta c) {
-		this.c = c;
+	
+	public Conta getConta() {
+		return conta;
+	}
+	public void setConta(Conta conta) {
+		this.conta = conta;
 	}
 	public int getCod_financeiro() {
 		return cod_financeiro;

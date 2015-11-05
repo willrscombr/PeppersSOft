@@ -2,18 +2,22 @@ package modelo;
 
 public class Usuario {
 
-	private int codigo;
+	private int id_codigo;
 	private String nome;
-	private String email;
-	private String login;
+	private String usuario;
 	private String senha;
+	private String nivel;
+	
+	public Usuario() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	public Usuario(int codigo) {
-		this.setCodigo(codigo);
+		this.setId_codigo(codigo);
 	}
 	
 	public Usuario(String login, String senha) {
-		this.setLogin(login);
+		this.setUsuario(login);
 		this.setSenha(senha);
 	}
 	
@@ -22,12 +26,12 @@ public class Usuario {
 		this.setNome(nome);
 	}
 
-	public int getCodigo() {
-		return codigo;
+	public int getId_codigo() {
+		return id_codigo;
 	}
 
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
+	public void setId_codigo(int id_codigo) {
+		this.id_codigo = id_codigo;
 	}
 
 	public String getNome() {
@@ -38,20 +42,12 @@ public class Usuario {
 		this.nome = nome;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getUsuario() {
+		return usuario;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 
 	public String getSenha() {
@@ -61,5 +57,15 @@ public class Usuario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+
+	public String getNivel() {
+		return nivel;
+	}
+
+	public void setNivel(String nivel) {
+		this.nivel = nivel;
+	}
+
+	
 
 }

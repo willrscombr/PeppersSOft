@@ -60,7 +60,7 @@ public class ClienteDAO {
 		String sqlSelect = "SELECT * FROM usuarios WHERE codigo = ?";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmtSelect = connection.prepareStatement(sqlSelect);
-		stmtSelect.setInt(1, usuario.getCodigo());
+		stmtSelect.setInt(1, usuario.getId_codigo());
 
 		// Armazena o resultado da query
 		ResultSet rs = stmtSelect.executeQuery();
@@ -73,8 +73,8 @@ public class ClienteDAO {
 			PreparedStatement stmtUpdate = connection.prepareStatement(sqlUpdate);
 
 			stmtUpdate.setString(1, usuario.getNome());
-			stmtUpdate.setString(2, usuario.getEmail());
-			stmtUpdate.setString(3, usuario.getLogin());
+			//stmtUpdate.setString(2, usuario.getEmail());
+			//stmtUpdate.setString(3, usuario.getLogin());
 			stmtUpdate.setString(4, usuario.getSenha());
 
 			stmtUpdate.executeUpdate();
@@ -152,7 +152,7 @@ public class ClienteDAO {
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
-		stmt.setInt(1, usuario.getCodigo());
+		//stmt.setInt(1, usuario.getCodigo());
 
 		int linhasAfetadas = stmt.executeUpdate();
 

@@ -27,7 +27,7 @@ public class ContaDAO {
 				stmt = connection.prepareStatement(sql);
 				stmt.setString(1, financeiro.getDisc());
 				stmt.setFloat(2,financeiro.getValor());
-				stmt.setInt(3, financeiro.getC().getCod_Conta());
+				stmt.setInt(3, financeiro.getConta().getCod_Conta());
 				stmt.setString(4, financeiro.getTipo());
 
 				stmt.executeUpdate();
