@@ -1,7 +1,5 @@
 package dao;
 
-import fabrica.ClienteFactory;
-import interfaces.Cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -94,11 +92,10 @@ public class ProdutoDAO {
 		
 	}
 
-	@SuppressWarnings("static-access")
 	public Produto consultar(int id) throws Exception {
 		Produto produto = null;
 		try{
-		produto = new ClienteFactory().clienteFisica();
+		produto = new Produto();
 		String sql = "SELECT * FROM cliente WHERE codigo = ?";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
@@ -108,17 +105,18 @@ public class ProdutoDAO {
 		ResultSet rs = stmt.executeQuery();
 		ConnectionFactory.closeConnection(connection);
 		while (rs.next()) {JOptionPane.showMessageDialog(null, rs.getString("nome"));
-			cliente.setCodigo(rs.getInt("codigo"));
-			cliente.setEndereco(rs.getString("endereco"));
-			cliente.setNome(rs.getString("nome"));
-			cliente.setNumCadEstadual(rs.getLong("numcadest"));
-			cliente.setNumCadNacional(rs.getLong("numcadnac"));
-			cliente.setTelefone(rs.getLong("telefone"));
+			produto.setCod_prod(rs.getInt("id_produto"));
+			produto.setDescricao(rs.getString("descricao"));
+			produto.setEstoque(rs.getFloat("estoque"));
+			produto.setGrupo(rs.getString("grupo"));
+			produto.setMargemlucro(rs.getFloat("margem_lucro"));
+			produto.setPreco_custo(rs.getFloat("pr_custo"));
+			produto.setPreco_venda(rs.getFloat("pr_venda"));
 		}
 		}catch(Exception e ){
 			
 		}
-		return cliente;
+		return produto;
 	}
 
 	public boolean excluir(int i) throws Exception {
