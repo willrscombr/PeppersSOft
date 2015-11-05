@@ -95,7 +95,7 @@ public class ClienteDAO {
 	}
 	public ResultSet consultar() throws Exception {
 		
-		String sql = "SELECT * FROM cliente";
+		String sql = "select codigo,nome,numcadnac,numcadest,telefone,tipo,endereco from cliente;";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
@@ -146,13 +146,13 @@ public class ClienteDAO {
 		return cliente;
 	}
 
-	public boolean excluir(Usuario usuario) throws Exception {
+	public boolean excluir(int codigo) throws Exception {
 
 		String sql = "DELETE FROM usuarios WHERE codigo = ?";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
-		//stmt.setInt(1, usuario.getCodigo());
+		stmt.setInt(1, codigo);
 
 		int linhasAfetadas = stmt.executeUpdate();
 
