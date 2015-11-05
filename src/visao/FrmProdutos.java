@@ -143,7 +143,7 @@ public class FrmProdutos extends JFrame {
 		try {
 			
 			modelo = new PeppersTableModel();
-			rs = new ProdutoDAO().consultar();
+			rs = new ProdutoController().consultar();
 			rsmt = rs.getMetaData();
 			int numerodecolunas = rsmt.getColumnCount();
 			table = new JTable();

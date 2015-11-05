@@ -3,22 +3,16 @@ package visao;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import dao.ProdutoDAO;
 import modelo.Produto;
 import util.UtilMenssage;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-
 import controle.ProdutoController;
-
 import java.awt.Font;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -112,7 +106,7 @@ public class FrmcadProdutos extends JFrame {
 				if (opc == JOptionPane.YES_OPTION) {
 					try {
 
-						if (new ProdutoDAO().excluir(Integer.parseInt(txtCod
+						if (new ProdutoController().excluir(Integer.parseInt(txtCod
 								.getText()))) {
 							UtilMenssage.msgSucesso();
 							FrmcadProdutos.this.dispose();
@@ -338,7 +332,7 @@ public class FrmcadProdutos extends JFrame {
 				produto.setMargemlucro(Float.parseFloat(texLucro.getText()));
 				produto.setEstoque(Float.parseFloat(textEstoque.getText()));
 				try {
-					if (new ProdutoDAO().alterar(produto)) {
+					if (new ProdutoController().alterar(produto)) {
 						UtilMenssage.msgSucesso();
 						FrmcadProdutos.this.dispose();
 						new FrmProdutos().setVisible(true);
