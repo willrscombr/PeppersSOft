@@ -1,29 +1,39 @@
 package visao;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
 import dao.UsuarioDAO;
 import modelo.Usuario;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import java.awt.Font;
+import util.UtilMenssage;
 
 @SuppressWarnings("serial")
 public class FrmcadUsuarios extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textNome;
-	private JTextField textUsuario;
-	private JTextField textSenha;
+	private JTextField txtNome;
+	private JTextField txtUsuario;
 	private JButton btnEditar;
 	private JButton btnCancel;
 	private JButton btnExcluir;
 	private JButton btnSalvar;
+	private JPasswordField pwdSenha;
+	private JTextField txtPermissao;
+	private JLabel lblNome;
+	private JLabel lblUsuario;
+	private JLabel lblSenha;
+	private JLabel lblPermissao;
 
 	public FrmcadUsuarios(Usuario u) {
 		setTitle("PepperSoft - Cadastro de Usu\u00E1rios");
@@ -46,15 +56,39 @@ public class FrmcadUsuarios extends JFrame {
 		btnSalvar.setIcon(null);
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				Usuario usuario = new Usuario();
+				
+				if (txtNome.getText().isEmpty() || txtUsuario.getText().isEmpty() || pwdSenha.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Atenção! Verifique os campos!");
+				} else {
+					usuario.setNome(txtNome.getText());
+					usuario.setUsuario(txtUsuario.getText());
+					usuario.setSenha(pwdSenha.getText());
+					usuario.setNivel(txtPermissao.getText());
+					
+					try {
+						if(new UsuarioDAO().cadastrar(usuario)){
+							UtilMenssage.msgSucesso();
+							FrmcadUsuarios.this.dispose();
+							new FrmUsuarios().setVisible(true);
+						}else{
+							UtilMenssage.msgError();
+						}
+						
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				
 				btnEditar.setEnabled(true);
 				btnCancel.setEnabled(true);
 				btnSalvar.setEnabled(false);
-				textNome.setEnabled(true);
-				textNome.setEditable(true);
-				textUsuario.setEnabled(true);
-				textUsuario.setEditable(true);
-				textSenha.setEnabled(true);
-				textSenha.setEditable(true);
+				txtNome.setEnabled(true);
+				txtNome.setEditable(true);
+				txtUsuario.setEnabled(true);
+				txtUsuario.setEditable(true);
 			}
 		});
 		btnSalvar.setBounds(10, 394, 89, 43);
@@ -64,17 +98,11 @@ public class FrmcadUsuarios extends JFrame {
 		btnEditar.setEnabled(false);
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Usuario usuario = new Usuario(0);
-				usuario.setNome(textNome.getText());
-				usuario.setUsuario(textUsuario.getText());
-				usuario.setSenha(textSenha.getText());
-				UsuarioDAO cadastra = new UsuarioDAO();
-				try {
-					cadastra.cadastrar(usuario);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				txtNome.setEditable(true);
+				txtUsuario.setEditable(true);
+				btnSalvar.setEnabled(true);
+				btnExcluir.setEnabled(true);
+				btnEditar.setEnabled(true);
 			}
 		});
 		btnEditar.setIcon(null);
@@ -86,15 +114,8 @@ public class FrmcadUsuarios extends JFrame {
 		btnCancel.setEnabled(false);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnEditar.setEnabled(false);
-				btnCancel.setEnabled(false);
-				btnSalvar.setEnabled(true);
-				textNome.setEnabled(false);
-				textNome.setEditable(false);
-				textUsuario.setEnabled(false);
-				textUsuario.setEditable(false);
-				textSenha.setEnabled(false);
-				textSenha.setEditable(false);
+				FrmcadUsuarios.this.dispose();
+				new FrmUsuarios().setVisible(true);
 			}
 		});
 		btnCancel.setIcon(null);
@@ -106,17 +127,25 @@ public class FrmcadUsuarios extends JFrame {
 		btnExcluir.setEnabled(false);
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Usuario usuario = new Usuario(0);
-				usuario.setNome(textNome.getText());
-				usuario.setUsuario(textUsuario.getText());
-				usuario.setSenha(textSenha.getText());
-				UsuarioDAO cadastra = new UsuarioDAO();
-				try {
-					cadastra.cadastrar(usuario);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				String message="Deseja realmente excluir o produto?";
+				String title="Confirmação";
+				
+				int opc=JOptionPane.showConfirmDialog(null, message,title,JOptionPane.YES_NO_OPTION);
+				if(opc == JOptionPane.YES_OPTION){
+					try {
+	
+						/*if(new UsuarioDAO().excluir(Integer.parseInt(txtCod.getText()))){
+							UtilMenssage.msgSucesso();
+							FrmcadUsuarios.this.dispose();
+							new FrmUsuarios().setVisible(true);
+						}else{
+							UtilMenssage.msgError();
+						}*/
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}	
 			}
 		});
 		btnExcluir.setIcon(null);
@@ -124,40 +153,47 @@ public class FrmcadUsuarios extends JFrame {
 		btnExcluir.setBounds(313, 394, 89, 43);
 		contentPane.add(btnExcluir);
 		
-		textNome = new JTextField();
-		textNome.setEnabled(false);
-		textNome.setEditable(false);
-		textNome.setColumns(10);
-		textNome.setBounds(178, 125, 249, 20);
-		contentPane.add(textNome);
+		txtNome = new JTextField();
+		txtNome.setEnabled(false);
+		txtNome.setEditable(false);
+		txtNome.setColumns(10);
+		txtNome.setBounds(178, 125, 249, 20);
+		contentPane.add(txtNome);
 		
-		textUsuario = new JTextField();
-		textUsuario.setEditable(false);
-		textUsuario.setEnabled(false);
-		textUsuario.setColumns(10);
-		textUsuario.setBounds(178, 181, 249, 20);
-		contentPane.add(textUsuario);
+		txtUsuario = new JTextField();
+		txtUsuario.setEditable(false);
+		txtUsuario.setEnabled(false);
+		txtUsuario.setColumns(10);
+		txtUsuario.setBounds(178, 181, 249, 20);
+		contentPane.add(txtUsuario);
 		
-		JLabel lblNome = new JLabel("Nome");
+		lblNome = new JLabel("Nome");
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNome.setBounds(69, 131, 73, 14);
 		contentPane.add(lblNome);
 		
-		JLabel lblUsuario = new JLabel("Usuario");
+		lblUsuario = new JLabel("Usuario");
 		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblUsuario.setBounds(69, 182, 73, 14);
 		contentPane.add(lblUsuario);
 		
-		JLabel lblSenha_1 = new JLabel("Senha");
-		lblSenha_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblSenha_1.setBounds(69, 235, 73, 14);
-		contentPane.add(lblSenha_1);
+		lblSenha = new JLabel("Senha");
+		lblSenha.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblSenha.setBounds(69, 235, 73, 14);
+		contentPane.add(lblSenha);
 		
-		textSenha = new JTextField();
-		textSenha.setEditable(false);
-		textSenha.setEnabled(false);
-		textSenha.setColumns(10);
-		textSenha.setBounds(178, 234, 249, 20);
-		contentPane.add(textSenha);
+		pwdSenha = new JPasswordField();
+		pwdSenha.setBounds(178, 234, 249, 20);
+		contentPane.add(pwdSenha);
+		
+		lblPermissao = new JLabel("Permiss\u00E3o");
+		lblPermissao.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblPermissao.setBounds(69, 288, 108, 14);
+		contentPane.add(lblPermissao);
+		
+		txtPermissao = new JTextField();
+		txtPermissao.setBounds(178, 287, 249, 20);
+		contentPane.add(txtPermissao);
+		txtPermissao.setColumns(10);
 	}
 }
