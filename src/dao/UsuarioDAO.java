@@ -26,11 +26,10 @@ public class UsuarioDAO {
 			// Executa comando SQL
 			PreparedStatement stmt = connection.prepareStatement(sql);
 
-			stmt.setInt(1, usuario.getId_codigo());
-			stmt.setString(2, usuario.getNome());
-			// stmt.setString(3, usuario.getEmail());
-			stmt.setString(3, usuario.getUsuario());
-			stmt.setString(4, usuario.getSenha());
+			stmt.setString(1, usuario.getNome());
+			stmt.setString(2, usuario.getUsuario());
+			stmt.setString(3, usuario.getSenha());
+			stmt.setString(4, usuario.getNivel());
 
 			stmt.executeUpdate();
 			stmt.close();

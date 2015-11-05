@@ -154,15 +154,11 @@ public class FrmcadUsuarios extends JFrame {
 		contentPane.add(btnExcluir);
 		
 		txtNome = new JTextField();
-		txtNome.setEnabled(false);
-		txtNome.setEditable(false);
 		txtNome.setColumns(10);
 		txtNome.setBounds(178, 125, 249, 20);
 		contentPane.add(txtNome);
 		
 		txtUsuario = new JTextField();
-		txtUsuario.setEditable(false);
-		txtUsuario.setEnabled(false);
 		txtUsuario.setColumns(10);
 		txtUsuario.setBounds(178, 181, 249, 20);
 		contentPane.add(txtUsuario);
