@@ -14,6 +14,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import controle.UsuarioController;
 import dao.UsuarioDAO;
 import modelo.Usuario;
 import util.UtilMenssage;
@@ -111,7 +112,6 @@ public class FrmcadUsuarios extends JFrame {
 		contentPane.add(btnEditar);
 		
 		btnCancel = new JButton("Cancelar");
-		btnCancel.setEnabled(false);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FrmcadUsuarios.this.dispose();
@@ -134,7 +134,7 @@ public class FrmcadUsuarios extends JFrame {
 				if(opc == JOptionPane.YES_OPTION){
 					try {
 	
-						/*if(new UsuarioDAO().excluir(Integer.parseInt(txtCod.getText()))){
+						/*if(new UsuarioController().excluir(Integer.parseInt(txtCod.getText()))){
 							UtilMenssage.msgSucesso();
 							FrmcadUsuarios.this.dispose();
 							new FrmUsuarios().setVisible(true);
