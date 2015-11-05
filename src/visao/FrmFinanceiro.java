@@ -5,7 +5,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,12 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
-
 import util.PeppersTableModel;
 import util.UtilMenssage;
 import dao.FinanceiroDAO;
-import dao.ProdutoDAO;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -36,21 +32,7 @@ public class FrmFinanceiro extends JFrame {
 	private JButton btnExcluir;
 	private JButton btnPesquisar;
 	private JLabel lblDataInicial;
-/*
-	public void abreFinanceiro(){
-		int linha = table.getSelectedRow();
-		Financeiro f = new Financeiro();
-		Conta c = new Conta();
-	    f.setC(c);Cod_prod(Integer.parseInt(table.getValueAt(linha, 0).toString()));
-	    f.setDescricao(table.getValueAt(linha, 1).toString());
-	    f.setEstoque(Float.parseFloat(table.getValueAt(linha, 2).toString()));
-	    f.setPreco_custo(Float.parseFloat(table.getValueAt(linha, 3).toString()));
-	    
-		FrmFinanceiro.this.dispose();
-		new FrmLancFinanceiro(f).setVisible(true);
-		
-	}*/
-	
+
 	public FrmFinanceiro() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 739, 486);
