@@ -5,6 +5,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -13,8 +14,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+
 import util.PeppersTableModel;
+import util.UtilMenssage;
 import dao.FinanceiroDAO;
+import dao.ProdutoDAO;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -71,10 +76,36 @@ public class FrmFinanceiro extends JFrame {
 		contentPane.add(btnIncluir);
 		
 		btnExcluir = new JButton("Excluir");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int linha = table.getSelectedRow();
+
+				String message="Deseja realmente excluir o registro?";
+				String title="Confirmação";
+				int opc=JOptionPane.showConfirmDialog(null, message,title,JOptionPane.YES_NO_OPTION);
+				if(opc == JOptionPane.YES_OPTION){
+					try {
+	
+						if(new FinanceiroDAO().excluir(Integer.parseInt(table.getValueAt(linha, 0).toString()))){
+							UtilMenssage.msgSucesso();
+							FrmFinanceiro.this.dispose();
+							new FrmFinanceiro().setVisible(true);
+						}else{
+							UtilMenssage.msgError();
+						}
+					} catch (Exception e1) {
+						
+						e1.printStackTrace();
+					}
+				}
+			}	
+		});
 		btnExcluir.setEnabled(false);
 		btnExcluir.setBackground(Color.WHITE);
 		btnExcluir.setBounds(525, 393, 89, 43);
 		contentPane.add(btnExcluir);
+		
+		
 		
 		btnPesquisar = new JButton("Filtrar");
 		btnPesquisar.setEnabled(false);
@@ -109,9 +140,6 @@ private void popularTabela(){
 				public void mouseClicked(MouseEvent e) {
 					btnExcluir.setEnabled(true);
 					
-					if (e.getClickCount() > 1) {  
-						//abreFinanceiro();
-					} 
 				}
 			});
 			
