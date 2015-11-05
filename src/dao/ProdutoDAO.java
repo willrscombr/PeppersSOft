@@ -49,7 +49,6 @@ public class ProdutoDAO {
 		PreparedStatement stmtSelect = connection.prepareStatement(sqlSelect);
 		stmtSelect.setInt(1, produto.getCod_prod());
 
-		// Armazena o resultado da query
 		ResultSet rs = stmtSelect.executeQuery();
 
 		boolean encontrou = rs.next();
@@ -154,7 +153,6 @@ public class ProdutoDAO {
 		ConnectionFactory.closeConnection(connection);
 
 		return produtos;
-
 	}
 
 }
