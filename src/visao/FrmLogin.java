@@ -1,17 +1,19 @@
 package visao;
 
 import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JTextField;
-import controle.LoginController;
-import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+import controle.LoginController;
 
 public class FrmLogin {
 
@@ -79,8 +81,11 @@ public class FrmLogin {
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode()==10){  
 					String usuario= (textUsuario.getText());
+					@SuppressWarnings("deprecation")
 					String senha = pwdSenha.getText();
-					login.realizaLogin(usuario,senha);  
+					if(login.realizaLogin(usuario,senha)){
+						frame.dispose();
+					};  
                 }
 			}
 		});
@@ -88,6 +93,7 @@ public class FrmLogin {
 			
 			public void actionPerformed(ActionEvent arg0) {
 				String usuario= (textUsuario.getText());
+				@SuppressWarnings("deprecation")
 				String senha = pwdSenha.getText();
 				login.realizaLogin(usuario,senha);
 			}

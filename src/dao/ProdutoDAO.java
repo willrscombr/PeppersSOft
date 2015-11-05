@@ -95,10 +95,10 @@ public class ProdutoDAO {
 	}
 
 	@SuppressWarnings("static-access")
-	public Cliente consultar(int id) throws Exception {
-		Cliente cliente = null;
+	public Produto consultar(int id) throws Exception {
+		Produto produto = null;
 		try{
-		cliente = new ClienteFactory().clienteFisica();
+		produto = new ClienteFactory().clienteFisica();
 		String sql = "SELECT * FROM cliente WHERE codigo = ?";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
