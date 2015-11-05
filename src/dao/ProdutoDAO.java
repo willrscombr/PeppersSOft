@@ -1,7 +1,6 @@
 package dao;
 
-import fabrica.ClienteFactory;
-import interfaces.Cliente;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -94,7 +93,7 @@ public class ProdutoDAO {
 		
 	}
 
-	@SuppressWarnings("static-access")
+	/*@SuppressWarnings("static-access")
 	public Cliente consultar(int id) throws Exception {
 		Cliente cliente = null;
 		try{
@@ -119,7 +118,7 @@ public class ProdutoDAO {
 			
 		}
 		return cliente;
-	}
+	}*/
 
 	public boolean excluir(int i) throws Exception {
 

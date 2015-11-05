@@ -7,10 +7,17 @@ public class Pessoa {
 	private int idade;
 	private String endereco;
 	private long telefone;
+	private String tipo;
 	
 	
 	
 	
+	public String getTipo() {
+		return tipo;
+	}
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
 	public int getCodigo(){
 		return this.codigo;
 	}
