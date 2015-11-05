@@ -18,13 +18,17 @@ import java.awt.event.WindowEvent;
 public class FrmPrincipal extends JFrame {
 
 	private JPanel contentPane;
+	
+	public static void main(String[] args){
+		new FrmPrincipal().setVisible(true);
+	}
  
 	public FrmPrincipal() {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				String message="Deseja realmente sair?";
-				String title="Confirmação";
+				String title="Confirmaï¿½ï¿½o";
 				int opc=JOptionPane.showConfirmDialog(null, message,title,JOptionPane.YES_NO_OPTION);
 				if(opc == JOptionPane.YES_OPTION){  
 		            System.exit(DISPOSE_ON_CLOSE);  
@@ -156,4 +160,5 @@ public class FrmPrincipal extends JFrame {
 		lblUsurios.setBounds(58, 136, 77, 14);
 		panel.add(lblUsurios);
 	}
+	
 }
