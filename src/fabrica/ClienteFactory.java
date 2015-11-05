@@ -1,16 +1,16 @@
 package fabrica;
 
-import modelo.Fisica;
-import modelo.Juridica;
+import modelo.Cliente;
+import modelo.FORNECEDOR;
 
 public class ClienteFactory {
 	
-	public static Fisica clienteFisica(){
+	public static Cliente clienteFisica(){
 		
-		return new Fisica();
+		return new Cliente();
 	}
-	public static Juridica clientejuridica(){
-		return new Juridica(); 
+	public static FORNECEDOR clientejuridica(){
+		return new FORNECEDOR(); 
 	}
 
 }

@@ -1,6 +1,6 @@
 package modelo;
 
-import interfaces.Cliente;
+
 import java.util.Date;
 import java.util.List;
 

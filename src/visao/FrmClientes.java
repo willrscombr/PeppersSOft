@@ -1,6 +1,6 @@
 package visao;
 
-import interfaces.Cliente;
+
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -21,6 +21,7 @@ import util.UtilMenssage;
 import dao.ClienteDAO;
 import dao.ProdutoDAO;
 import fabrica.ClienteFactory;
+import modelo.Cliente;
 import modelo.Produto;
 
 import java.awt.event.MouseAdapter;
@@ -40,9 +41,9 @@ public class FrmClientes extends JFrame {
 	private JButton btnExcluir;
 	private JButton btnAbrir;
 	
-	public void abreProduto(){
+	public void abreCliente(){
 		int linha = table.getSelectedRow();
-		Cliente cliente = new ClienteFactory().clienteFisica();
+		Cliente cliente = new Cliente();
 		cliente.setCodigo(Integer.parseInt(table.getValueAt(linha, 0).toString()));
 		cliente.setNome(table.getValueAt(linha, 1).toString());
 		cliente.setNumCadNacional(Integer.valueOf(table.getValueAt(linha, 1).toString()));
@@ -52,7 +53,7 @@ public class FrmClientes extends JFrame {
 		
 	    
 		FrmClientes.this.dispose();
-		new FrmcadClientes().setVisible(true);
+		new FrmcadCliente(cliente).setVisible(true);
 		
 	}
 	
@@ -74,7 +75,7 @@ public class FrmClientes extends JFrame {
 		btnIncluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				FrmClientes.this.dispose();
-			    new FrmcadProdutos(null).setVisible(true);
+			    new FrmcadCliente(null).setVisible(true);
 			}
 		});
 		
@@ -85,7 +86,7 @@ public class FrmClientes extends JFrame {
 		btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				abreProduto();
+				abreCliente();
 			}
 		});
 		btnEditar.setEnabled(false);
@@ -126,7 +127,7 @@ public class FrmClientes extends JFrame {
 		btnAbrir = new JButton("Abrir");
 		btnAbrir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				abreProduto();
+				abreCliente();
 			}
 		});
 		btnAbrir.setEnabled(false);
@@ -158,7 +159,7 @@ public class FrmClientes extends JFrame {
 					btnEditar.setEnabled(true);
 					btnExcluir.setEnabled(true);
 					if (e.getClickCount() > 1) {  
-						abreProduto();
+						abreCliente();
 					} 
 				}
 			});
