@@ -149,11 +149,6 @@ public class ProdutoDAO {
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
 		ResultSet rs = stmt.executeQuery();
-
-		while (rs.next()) {
-	//		produtos.add(new Produto(rs.getInt("codigo"), rs.getString("nome")));
-		}
-
 		rs.close();
 		stmt.close();
 		ConnectionFactory.closeConnection(connection);
