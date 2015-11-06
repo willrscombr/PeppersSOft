@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.12
+-- version 4.2.11
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 04-Nov-2015 às 01:32
--- Versão do servidor: 5.6.16
--- PHP Version: 5.5.11
+-- Generation Time: 06-Nov-2015 às 01:00
+-- Versão do servidor: 5.6.21
+-- PHP Version: 5.6.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -24,19 +24,17 @@ SET time_zone = "+00:00";
 
 --
 -- Estrutura da tabela `cliente`
-
+--
 
 CREATE TABLE IF NOT EXISTS `cliente` (
-  `codigo` int(11) NOT NULL AUTO_INCREMENT,
+`codigo` int(11) NOT NULL,
   `nome` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
   `numcadnac` bigint(20) DEFAULT NULL,
   `numcadest` int(11) DEFAULT NULL,
   `endereco` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `tipo` varchar(12) CHARACTER SET utf8 DEFAULT NULL,
-  `telefone` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`codigo`),
-  UNIQUE KEY `codigo` (`codigo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin7 AUTO_INCREMENT=62 ;
+  `telefone` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=latin7;
 
 --
 -- Extraindo dados da tabela `cliente`
@@ -73,14 +71,13 @@ INSERT INTO `conta` (`id_conta`, `descricao`, `tipo`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `financeiro` (
-  `id_codigo` int(11) NOT NULL AUTO_INCREMENT,
+`id_codigo` int(11) NOT NULL,
   `discriminacao` varchar(50) NOT NULL,
   `tipo_lanc` char(50) NOT NULL,
   `id_conta` int(11) NOT NULL,
   `valor` float NOT NULL,
-  `data` date DEFAULT NULL,
-  PRIMARY KEY (`id_codigo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+  `data` date DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `financeiro`
@@ -89,8 +86,6 @@ CREATE TABLE IF NOT EXISTS `financeiro` (
 INSERT INTO `financeiro` (`id_codigo`, `discriminacao`, `tipo_lanc`, `id_conta`, `valor`, `data`) VALUES
 (1, 'teste', 'C', 0, 50, NULL),
 (2, 'atoa', 'D', 0, 40, NULL),
-(3, 'testee de novo', 'C', 0, 500.03, NULL),
-(4, 'bosta de andorinha', 'C', 0, 60, NULL),
 (5, 'Teste', 'C', 0, 55, NULL),
 (6, 'asads', 'C', 0, 55, NULL),
 (7, 'asdas', 'C', 0, 645, NULL),
@@ -104,14 +99,13 @@ INSERT INTO `financeiro` (`id_codigo`, `discriminacao`, `tipo_lanc`, `id_conta`,
 --
 
 CREATE TABLE IF NOT EXISTS `produto` (
-  `id_produto` int(11) NOT NULL AUTO_INCREMENT,
+`id_produto` int(11) NOT NULL,
   `descricao` varchar(50) NOT NULL,
   `estoque` float NOT NULL,
   `pr_custo` float NOT NULL,
   `pr_venda` float NOT NULL,
-  `margem_lucro` float NOT NULL,
-  PRIMARY KEY (`id_produto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+  `margem_lucro` float NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `produto`
@@ -129,20 +123,73 @@ INSERT INTO `produto` (`id_produto`, `descricao`, `estoque`, `pr_custo`, `pr_ven
 --
 
 CREATE TABLE IF NOT EXISTS `usuarios` (
-  `id_codigo` int(11) NOT NULL,
+`id_codigo` int(11) NOT NULL,
   `nome` varchar(50) NOT NULL,
   `usuario` varchar(50) NOT NULL,
   `senha` varchar(50) NOT NULL,
   `nivel` char(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `usuarios`
 --
 
 INSERT INTO `usuarios` (`id_codigo`, `nome`, `usuario`, `senha`, `nivel`) VALUES
-(1, 'A', 'A', 'A', '');
+(1, 'A', 'A', 'A', ''),
+(2, 'Teste', 'teste', '123', '1');
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `cliente`
+--
+ALTER TABLE `cliente`
+ ADD PRIMARY KEY (`codigo`), ADD UNIQUE KEY `codigo` (`codigo`);
+
+--
+-- Indexes for table `financeiro`
+--
+ALTER TABLE `financeiro`
+ ADD PRIMARY KEY (`id_codigo`);
+
+--
+-- Indexes for table `produto`
+--
+ALTER TABLE `produto`
+ ADD PRIMARY KEY (`id_produto`);
+
+--
+-- Indexes for table `usuarios`
+--
+ALTER TABLE `usuarios`
+ ADD PRIMARY KEY (`id_codigo`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `cliente`
+--
+ALTER TABLE `cliente`
+MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=62;
+--
+-- AUTO_INCREMENT for table `financeiro`
+--
+ALTER TABLE `financeiro`
+MODIFY `id_codigo` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT for table `produto`
+--
+ALTER TABLE `produto`
+MODIFY `id_produto` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT for table `usuarios`
+--
+ALTER TABLE `usuarios`
+MODIFY `id_codigo` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

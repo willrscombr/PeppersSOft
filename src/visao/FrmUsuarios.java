@@ -17,8 +17,6 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
 import controle.UsuarioController;
-import dao.ProdutoDAO;
-import dao.UsuarioDAO;
 import modelo.Usuario;
 import util.PeppersTableModel;
 import util.UtilMenssage;
@@ -45,7 +43,7 @@ public class FrmUsuarios extends JFrame {
 		u.setNome(table.getValueAt(linha, 1).toString());
 		u.setUsuario(table.getValueAt(linha, 2).toString());
 		u.setSenha(table.getValueAt(linha, 3).toString());
-		u.setNivel(table.getValueAt(linha, 4).toString());
+		u.setPermissao(table.getValueAt(linha, 4).toString());
 
 		FrmUsuarios.this.dispose();
 		new FrmcadUsuarios(u).setVisible(true);
@@ -62,7 +60,7 @@ public class FrmUsuarios extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		table = new JTable();
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 11, 703, 358);

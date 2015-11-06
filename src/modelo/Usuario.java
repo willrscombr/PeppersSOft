@@ -6,7 +6,7 @@ public class Usuario {
 	private String nome;
 	private String usuario;
 	private String senha;
-	private String nivel;
+	private String permissao;
 	
 	public Usuario() {
 		// TODO Auto-generated constructor stub
@@ -58,12 +58,12 @@ public class Usuario {
 		this.senha = senha;
 	}
 
-	public String getNivel() {
-		return nivel;
+	public String getPermissao() {
+		return permissao;
 	}
 
-	public void setNivel(String nivel) {
-		this.nivel = nivel;
+	public void setPermissao(String permissao) {
+		this.permissao = permissao;
 	}
 
 	
