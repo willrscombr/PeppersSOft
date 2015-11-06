@@ -49,7 +49,6 @@ public class ProdutoDAO {
 		PreparedStatement stmtSelect = connection.prepareStatement(sqlSelect);
 		stmtSelect.setInt(1, produto.getCod_prod());
 
-		// Armazena o resultado da query
 		ResultSet rs = stmtSelect.executeQuery();
 
 		boolean encontrou = rs.next();
@@ -149,17 +148,11 @@ public class ProdutoDAO {
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
 		ResultSet rs = stmt.executeQuery();
-
-		while (rs.next()) {
-	//		produtos.add(new Produto(rs.getInt("codigo"), rs.getString("nome")));
-		}
-
 		rs.close();
 		stmt.close();
 		ConnectionFactory.closeConnection(connection);
 
 		return produtos;
-
 	}
 
 }

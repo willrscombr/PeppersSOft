@@ -135,8 +135,7 @@ private void popularTabela(){
 			modelo.addColumn("Conta");
 			modelo.addColumn("Valor");
 			modelo.addColumn("Lançamento");
-			
-			
+
 			while (rs.next()) {
 				linha = new Object[numerodecolunas];
 	

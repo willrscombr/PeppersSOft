@@ -1,11 +1,13 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import modelo.Financeiro;
 import modelo.Produto;
 
@@ -59,6 +61,29 @@ public class FinanceiroDAO {
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
 		stmt.setInt(1, id);
+
+		ResultSet rs = stmt.executeQuery();
+		ConnectionFactory.closeConnection(connection);
+		while (rs.next()) {
+		    financeiro.setDisc(rs.getString("discriminacao"));
+		    financeiro.setTipo(rs.getString("tipo_lanc"));
+		    financeiro.setValor(rs.getFloat("valor"));
+		}
+		}catch(Exception e ){
+			
+		}
+		return financeiro;
+	}
+	
+	public Financeiro consultar(Date data) throws Exception {
+		Financeiro financeiro = null;
+		try{
+		financeiro = new Financeiro();
+		String sql = "SELECT * FROM financeiro WHERE data = ?";
+		Connection connection = ConnectionFactory.getConnection();
+		PreparedStatement stmt = connection.prepareStatement(sql);
+
+		stmt.setDate(1, data);
 
 		ResultSet rs = stmt.executeQuery();
 		ConnectionFactory.closeConnection(connection);
