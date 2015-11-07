@@ -12,6 +12,9 @@ public class FinanceiroController {
 		dao = new FinanceiroDAO();
 	}
 
+	public Float consultar(String sql) throws Exception {
+		return dao.consultar(sql);
+	}
 	public boolean cadastrar(Financeiro financeiro) throws Exception {
 		return dao.cadastrar(financeiro);
 	}

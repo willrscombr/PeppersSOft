@@ -28,7 +28,7 @@ public class FrmPrincipal extends JFrame {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				String message="Deseja realmente sair?";
-				String title="Confirmaï¿½ï¿½o";
+				String title="Confirmação";
 				int opc=JOptionPane.showConfirmDialog(null, message,title,JOptionPane.YES_NO_OPTION);
 				if(opc == JOptionPane.YES_OPTION){  
 		            System.exit(DISPOSE_ON_CLOSE);  

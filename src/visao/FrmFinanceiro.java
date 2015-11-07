@@ -13,11 +13,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+
+import controle.FinanceiroController;
 import util.PeppersTableModel;
 import util.UtilMenssage;
 import dao.FinanceiroDAO;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextPane;
+import java.awt.SystemColor;
 
 @SuppressWarnings("serial")
 public class FrmFinanceiro extends JFrame {
@@ -92,12 +96,27 @@ public class FrmFinanceiro extends JFrame {
 		btnPesquisar = new JButton("Filtrar");
 		btnPesquisar.setEnabled(false);
 		btnPesquisar.setBackground(Color.WHITE);
-		btnPesquisar.setBounds(275, 398, 89, 32);
+		btnPesquisar.setBounds(231, 398, 89, 32);
 		contentPane.add(btnPesquisar);
 		
 		lblDataInicial = new JLabel("Data Inicial");
 		lblDataInicial.setBounds(21, 407, 73, 14);
 		contentPane.add(lblDataInicial);
+		
+		JTextPane textPane = new JTextPane();
+		textPane.setForeground(SystemColor.inactiveCaption);
+		textPane.setBackground(SystemColor.controlHighlight);
+		textPane.setBounds(92, 393, 105, 43);
+		contentPane.add(textPane);
+		FinanceiroController consulta = new FinanceiroController();
+		try {
+			
+			textPane.setText(String.valueOf(consulta.consultar()));
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		
 		popularTabela();
 		

@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import modelo.Financeiro;
 import modelo.Produto;
 
@@ -44,14 +46,28 @@ public class FinanceiroDAO {
 	}	
 
 	public ResultSet consultar() throws Exception {
+		Date data = new Date(System.currentTimeMillis());
 		
-		String sql = "SELECT * FROM financeiro";
+		String sql = "SELECT * FROM financeiro where data = ? ";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
+		
+		stmt.setDate(1, data);
+		
 		ResultSet rs = stmt.executeQuery();
 		return rs;	
 	}
 
+	public Float consultar(String sql) throws Exception {
+		sql = "select sum(valor) from financeiro where tipo = 'C'";
+		Connection connection = ConnectionFactory.getConnection();
+		PreparedStatement stmt = connection.prepareStatement(sql);	
+		ResultSet rs = stmt.executeQuery();
+		Float total = Float.parseFloat(String.valueOf(rs));
+		JOptionPane.showMessageDialog(null, total);
+		return total;	
+	}
+	
 	public Financeiro consultar(int id) throws Exception {
 		Financeiro financeiro = null;
 		try{
@@ -77,6 +93,7 @@ public class FinanceiroDAO {
 	
 	public Financeiro consultar(Date data) throws Exception {
 		Financeiro financeiro = null;
+		
 		try{
 		financeiro = new Financeiro();
 		String sql = "SELECT * FROM financeiro WHERE data = ?";

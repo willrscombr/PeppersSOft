@@ -12,6 +12,7 @@ import controle.ProdutoRel;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 
+@SuppressWarnings("serial")
 public class FrmRelatorios extends JFrame{
 
 	private JPanel contentPane;
