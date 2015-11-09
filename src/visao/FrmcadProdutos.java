@@ -182,7 +182,7 @@ public class FrmcadProdutos extends JFrame {
 				double prcusto = (Double.parseDouble(textPrCusto.getText())), prvenda = (Double
 						.parseDouble(textPrVenda.getText()));
 
-				double margem = (prvenda - prcusto) / prvenda * 100;
+				double margem = ((prvenda/prcusto)-1) * 100;
 				DecimalFormat df = new DecimalFormat("0.##");
 				String dx = df.format(margem);
 
