@@ -7,7 +7,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -30,10 +32,12 @@ public class FrmcadUsuarios extends JFrame {
 	private JTextField txtNome;
 	private JTextField txtUsuario;
 	private JTextField txtCod;
-	private JTextField txtPermissao;
 	private JButton btnEditar;
 	private JPasswordField pwdSenha;
+	@SuppressWarnings("rawtypes")
+	private JComboBox comboBox;
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public FrmcadUsuarios(Usuario u) {
 
 		setTitle("PepperSoft - Cadastro de Usuarios");
@@ -137,10 +141,8 @@ public class FrmcadUsuarios extends JFrame {
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				txtNome.setEditable(true);
-				txtPermissao.setEditable(true);
 				txtUsuario.setEditable(true);
 				pwdSenha.setEditable(true);
-				txtPermissao.setEditable(true);
 				btnSalvar.setEnabled(true);
 				btnExcluir.setEnabled(false);
 				btnEditar.setEnabled(false);
@@ -202,28 +204,21 @@ public class FrmcadUsuarios extends JFrame {
 		pwdSenha.setBounds(175, 230, 274, 20);
 		contentPane.add(pwdSenha);
 
-		txtPermissao = new JTextField();
-		txtPermissao.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == 10) {
-					btnSalvar.requestFocus();
-				}
-			}
-		});
-		txtPermissao.setColumns(10);
-		txtPermissao.setBounds(175, 273, 274, 20);
-		contentPane.add(txtPermissao);
+		comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] { "Selecione", "Gerencial", "Limitado" }));
+		comboBox.setBounds(176, 273, 122, 20);
+		contentPane.add(comboBox);
 		txtNome.requestFocus();
 
 		if (u != null) {
 			txtCod.setText(Integer.toString(u.getId_codigo()));
 			txtNome.setText(u.getNome());
-			txtPermissao.setText(u.getPermissao());
+			comboBox.setSelectedItem(u.getPermissao());
+
 			txtUsuario.setText(u.getUsuario());
 			pwdSenha.setText(u.getSenha());
 			txtNome.setEditable(false);
-			txtPermissao.setEditable(false);
+			comboBox.setSelectedItem(u.getPermissao());
 			txtUsuario.setEditable(false);
 			pwdSenha.setEditable(false);
 			btnExcluir.setEnabled(true);
@@ -234,18 +229,28 @@ public class FrmcadUsuarios extends JFrame {
 	}
 
 	// método para salvar, editar Usuario...
+	@SuppressWarnings("deprecation")
 	protected void salvaUsuario() throws Exception {
 		Usuario usuario = new Usuario();
 		if (txtCod.getText().isEmpty()) {
 
-			if (txtNome.getText().isEmpty() || txtPermissao.getText().isEmpty() || txtUsuario.getText().isEmpty()
-					|| pwdSenha.getText().isEmpty()) {
+			if (txtNome.getText().isEmpty() || txtUsuario.getText().isEmpty() || pwdSenha.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Atenção! Verifique os campos!");
 			} else {
 				usuario.setNome(txtNome.getText());
 				usuario.setUsuario(txtUsuario.getText());
 				usuario.setSenha(pwdSenha.getText());
-				usuario.setPermissao(txtPermissao.getText());
+
+				String permissao = null;
+				if (comboBox.getSelectedItem() == "Gerencial") {
+					permissao = "G";
+				}
+				if (comboBox.getSelectedItem() == "Limitado") {
+					permissao = "L";
+				}
+
+				usuario.setPermissao(permissao);
+
 				if (new UsuarioController().cadastrar(usuario)) {
 					UtilMenssage.msgSucesso();
 					FrmcadUsuarios.this.dispose();
@@ -255,15 +260,23 @@ public class FrmcadUsuarios extends JFrame {
 				}
 			}
 		} else {
-			if (txtNome.getText().isEmpty() || txtPermissao.getText().isEmpty() || txtUsuario.getText().isEmpty()
-					|| pwdSenha.getText().isEmpty()) {
+			if (txtNome.getText().isEmpty() || txtUsuario.getText().isEmpty() || pwdSenha.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Atenção! Verifique os campos!");
 			} else {
 				usuario.setId_codigo(Integer.parseInt(txtCod.getText()));
 				usuario.setNome(txtNome.getText());
 				usuario.setUsuario(txtUsuario.getText());
 				usuario.setSenha(pwdSenha.getText());
-				usuario.setPermissao(txtPermissao.getText());
+
+				String permissao = null;
+				if (comboBox.getSelectedItem() == "Gerencial") {
+					permissao = "G";
+				}
+				if (comboBox.getSelectedItem() == "Limitado") {
+					permissao = "L";
+				}
+
+				usuario.setPermissao(permissao);
 				try {
 					if (new UsuarioController().alterar(usuario)) {
 						UtilMenssage.msgSucesso();

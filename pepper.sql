@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 06-Nov-2015 às 01:00
+-- Generation Time: 10-Nov-2015 às 23:45
 -- Versão do servidor: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `produto` (
   `pr_custo` float NOT NULL,
   `pr_venda` float NOT NULL,
   `margem_lucro` float NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `produto`
@@ -127,16 +127,15 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `nome` varchar(50) NOT NULL,
   `usuario` varchar(50) NOT NULL,
   `senha` varchar(50) NOT NULL,
-  `nivel` char(50) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  `nivel` char(1) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `usuarios`
 --
 
 INSERT INTO `usuarios` (`id_codigo`, `nome`, `usuario`, `senha`, `nivel`) VALUES
-(1, 'A', 'A', 'A', ''),
-(2, 'Teste', 'teste', '123', '1');
+(7, 'Administrador', 'admin', 'admin', 'G');
 
 --
 -- Indexes for dumped tables
@@ -184,12 +183,12 @@ MODIFY `id_codigo` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 -- AUTO_INCREMENT for table `produto`
 --
 ALTER TABLE `produto`
-MODIFY `id_produto` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+MODIFY `id_produto` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-MODIFY `id_codigo` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id_codigo` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

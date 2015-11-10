@@ -74,12 +74,10 @@ public class FrmLogin {
 
 		btnEntrar = new JButton("Entrar");
 		btnEntrar.addKeyListener(new KeyAdapter() {
+			@SuppressWarnings("deprecation")
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == 10) {
-					String user = (textUsuario.getText());
-					@SuppressWarnings("deprecation")
-					String senha = pwdSenha.getText();
 
 					Usuario usuario = new Usuario();
 					usuario.setUsuario(textUsuario.getText());
@@ -103,10 +101,8 @@ public class FrmLogin {
 		});
 		btnEntrar.addActionListener(new ActionListener() {
 
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent arg0) {
-				String user = (textUsuario.getText());
-				@SuppressWarnings("deprecation")
-				String senha = pwdSenha.getText();
 
 				Usuario usuario = new Usuario();
 				usuario.setUsuario(textUsuario.getText());
@@ -129,11 +125,6 @@ public class FrmLogin {
 		});
 		btnEntrar.setBounds(173, 176, 156, 23);
 		frame.getContentPane().add(btnEntrar);
-
-		JLabel lblPadroAdminAdmin = new JLabel("Padr\u00E3o: admin admin");
-		lblPadroAdminAdmin.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblPadroAdminAdmin.setBounds(77, 21, 220, 30);
-		frame.getContentPane().add(lblPadroAdminAdmin);
 
 		pwdSenha = new JPasswordField();
 		pwdSenha.addKeyListener(new KeyAdapter() {
