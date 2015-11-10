@@ -77,9 +77,6 @@ public class FrmLogin {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == 10) {
-					String user = (textUsuario.getText());
-					@SuppressWarnings("deprecation")
-					String senha = pwdSenha.getText();
 
 					Usuario usuario = new Usuario();
 					usuario.setUsuario(textUsuario.getText());
@@ -104,9 +101,6 @@ public class FrmLogin {
 		btnEntrar.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-				String user = (textUsuario.getText());
-				@SuppressWarnings("deprecation")
-				String senha = pwdSenha.getText();
 
 				Usuario usuario = new Usuario();
 				usuario.setUsuario(textUsuario.getText());
