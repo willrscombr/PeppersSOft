@@ -34,8 +34,10 @@ public class FrmcadUsuarios extends JFrame {
 	private JTextField txtCod;
 	private JButton btnEditar;
 	private JPasswordField pwdSenha;
+	@SuppressWarnings("rawtypes")
 	private JComboBox comboBox;
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public FrmcadUsuarios(Usuario u) {
 
 		setTitle("PepperSoft - Cadastro de Usuarios");
@@ -227,6 +229,7 @@ public class FrmcadUsuarios extends JFrame {
 	}
 
 	// método para salvar, editar Usuario...
+	@SuppressWarnings("deprecation")
 	protected void salvaUsuario() throws Exception {
 		Usuario usuario = new Usuario();
 		if (txtCod.getText().isEmpty()) {

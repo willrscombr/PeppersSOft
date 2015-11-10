@@ -74,6 +74,7 @@ public class FrmLogin {
 
 		btnEntrar = new JButton("Entrar");
 		btnEntrar.addKeyListener(new KeyAdapter() {
+			@SuppressWarnings("deprecation")
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == 10) {
@@ -100,6 +101,7 @@ public class FrmLogin {
 		});
 		btnEntrar.addActionListener(new ActionListener() {
 
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent arg0) {
 
 				Usuario usuario = new Usuario();
