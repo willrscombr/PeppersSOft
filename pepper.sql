@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.11
+-- version 4.4.13.1deb1
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: 10-Nov-2015 às 23:45
--- Versão do servidor: 5.6.21
--- PHP Version: 5.6.3
+-- Host: localhost
+-- Generation Time: 10-Nov-2015 às 21:51
+-- Versão do servidor: 5.6.27-0ubuntu1
+-- PHP Version: 5.6.11-1ubuntu3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `pepper`
@@ -27,21 +27,21 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `cliente` (
-`codigo` int(11) NOT NULL,
+  `codigo` int(11) NOT NULL,
   `nome` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
   `numcadnac` bigint(20) DEFAULT NULL,
   `numcadest` int(11) DEFAULT NULL,
   `endereco` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
-  `tipo` varchar(12) CHARACTER SET utf8 DEFAULT NULL,
+  `tipo` int(12) DEFAULT NULL,
   `telefone` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=latin7;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=latin7;
 
 --
 -- Extraindo dados da tabela `cliente`
 --
 
 INSERT INTO `cliente` (`codigo`, `nome`, `numcadnac`, `numcadest`, `endereco`, `tipo`, `telefone`) VALUES
-(61, 'asdfasdf', 3456345634, 567856, 'dsfgfg', NULL, 4634563);
+(62, 'WILTON RIBEIRO SILVA', 1111111, 1111, 'IPORA', 1, 888);
 
 -- --------------------------------------------------------
 
@@ -71,7 +71,7 @@ INSERT INTO `conta` (`id_conta`, `descricao`, `tipo`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `financeiro` (
-`id_codigo` int(11) NOT NULL,
+  `id_codigo` int(11) NOT NULL,
   `discriminacao` varchar(50) NOT NULL,
   `tipo_lanc` char(50) NOT NULL,
   `id_conta` int(11) NOT NULL,
@@ -99,7 +99,7 @@ INSERT INTO `financeiro` (`id_codigo`, `discriminacao`, `tipo_lanc`, `id_conta`,
 --
 
 CREATE TABLE IF NOT EXISTS `produto` (
-`id_produto` int(11) NOT NULL,
+  `id_produto` int(11) NOT NULL,
   `descricao` varchar(50) NOT NULL,
   `estoque` float NOT NULL,
   `pr_custo` float NOT NULL,
@@ -123,7 +123,7 @@ INSERT INTO `produto` (`id_produto`, `descricao`, `estoque`, `pr_custo`, `pr_ven
 --
 
 CREATE TABLE IF NOT EXISTS `usuarios` (
-`id_codigo` int(11) NOT NULL,
+  `id_codigo` int(11) NOT NULL,
   `nome` varchar(50) NOT NULL,
   `usuario` varchar(50) NOT NULL,
   `senha` varchar(50) NOT NULL,
@@ -145,25 +145,26 @@ INSERT INTO `usuarios` (`id_codigo`, `nome`, `usuario`, `senha`, `nivel`) VALUES
 -- Indexes for table `cliente`
 --
 ALTER TABLE `cliente`
- ADD PRIMARY KEY (`codigo`), ADD UNIQUE KEY `codigo` (`codigo`);
+  ADD PRIMARY KEY (`codigo`),
+  ADD UNIQUE KEY `codigo` (`codigo`);
 
 --
 -- Indexes for table `financeiro`
 --
 ALTER TABLE `financeiro`
- ADD PRIMARY KEY (`id_codigo`);
+  ADD PRIMARY KEY (`id_codigo`);
 
 --
 -- Indexes for table `produto`
 --
 ALTER TABLE `produto`
- ADD PRIMARY KEY (`id_produto`);
+  ADD PRIMARY KEY (`id_produto`);
 
 --
 -- Indexes for table `usuarios`
 --
 ALTER TABLE `usuarios`
- ADD PRIMARY KEY (`id_codigo`);
+  ADD PRIMARY KEY (`id_codigo`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -173,22 +174,22 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT for table `cliente`
 --
 ALTER TABLE `cliente`
-MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=62;
+  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=63;
 --
 -- AUTO_INCREMENT for table `financeiro`
 --
 ALTER TABLE `financeiro`
-MODIFY `id_codigo` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+  MODIFY `id_codigo` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `produto`
 --
 ALTER TABLE `produto`
-MODIFY `id_produto` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+  MODIFY `id_produto` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-MODIFY `id_codigo` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+  MODIFY `id_codigo` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
