@@ -124,11 +124,6 @@ public class FrmLogin {
 		btnEntrar.setBounds(173, 176, 156, 23);
 		frame.getContentPane().add(btnEntrar);
 
-		JLabel lblPadroAdminAdmin = new JLabel("Padr\u00E3o: admin admin");
-		lblPadroAdminAdmin.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblPadroAdminAdmin.setBounds(77, 21, 220, 30);
-		frame.getContentPane().add(lblPadroAdminAdmin);
-
 		pwdSenha = new JPasswordField();
 		pwdSenha.addKeyListener(new KeyAdapter() {
 			@Override
