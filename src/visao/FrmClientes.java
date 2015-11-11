@@ -46,10 +46,11 @@ public class FrmClientes extends JFrame {
 		Cliente cliente = new Cliente();
 		cliente.setCodigo(Integer.parseInt(table.getValueAt(linha, 0).toString()));
 		cliente.setNome(table.getValueAt(linha, 1).toString());
-		cliente.setNumCadNacional(Integer.valueOf(table.getValueAt(linha, 1).toString()));
-		cliente.setNumCadEstadual(Integer.valueOf(table.getValueAt(linha, 1).toString()));
-		cliente.setTelefone(Integer.valueOf(table.getValueAt(linha, 1).toString()));
-		cliente.setEndereco(table.getValueAt(linha, 1).toString());
+		cliente.setNumCadNacional(Integer.valueOf(table.getValueAt(linha, 2).toString()));
+		cliente.setNumCadEstadual(Integer.valueOf(table.getValueAt(linha, 3).toString()));
+		cliente.setTelefone(Integer.valueOf(table.getValueAt(linha, 4).toString()));
+		cliente.setEndereco(table.getValueAt(linha, 5).toString());
+		cliente.setEndereco(table.getValueAt(linha, 6).toString());
 		
 	    
 		FrmClientes.this.dispose();
@@ -87,6 +88,7 @@ public class FrmClientes extends JFrame {
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				abreCliente();
+				
 			}
 		});
 		btnEditar.setEnabled(false);
@@ -182,6 +184,13 @@ public class FrmClientes extends JFrame {
 				for (int j = 0; j < rsmt.getColumnCount(); j++) {
 					linha[j] = rs.getObject(j + 1);
 	
+				}
+				if(linha[5].equals(0) ){
+					linha[5] = "FISICA";
+				}else if(linha[5].equals(1)){
+					linha[5] = "JURIDICA";
+				}else{
+					linha[5] = "";
 				}
 				modelo.addRow(linha);
 			}

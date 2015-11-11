@@ -109,7 +109,7 @@ public class FrmcadCliente extends JFrame {
 						if(new ClienteDAO().excluir(Integer.parseInt(textCodigo.getText()))){
 							UtilMenssage.msgSucesso();
 							FrmcadCliente.this.dispose();
-							new FrmProdutos().setVisible(true);
+							new FrmClientes().setVisible(true);
 						}else{
 							UtilMenssage.msgError();
 						}
@@ -128,6 +128,7 @@ public class FrmcadCliente extends JFrame {
 		btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				habilitarCampos(true);
 				textEndereco.setEditable(true);
 				textNome.setEditable(true);
 				textNumCadEst.setEditable(true);
@@ -137,6 +138,7 @@ public class FrmcadCliente extends JFrame {
 				btnSalvar.setEnabled(true);
 				btnExcluir.setEnabled(false);
 				btnEditar.setEnabled(false);
+				btnCancel.setEnabled(true);
 			}
 		});
 		btnEditar.setEnabled(false);
@@ -211,19 +213,22 @@ public class FrmcadCliente extends JFrame {
 		comboBoxPessoa = new JComboBox();
 		comboBoxPessoa.setModel(new DefaultComboBoxModel(new String[] {"FISICA", "JURIDICA"}));
 		comboBoxPessoa.setBounds(166, 224, 131, 24);
+		comboBoxPessoa.setEnabled(false);
 		contentPane.add(comboBoxPessoa);
 		
 		habilitarCampos(true);
 		
 		if(cliente != null){
 			//preenche o objeto e deixa os campos sem editar
-			cliente.setCodigo(Integer.valueOf(textCodigo.getText()));
-			cliente.setEndereco(textEndereco.getText());
-			cliente.setNome(textNome.getText());
-			cliente.setNumCadEstadual(Integer.valueOf(textNumCadEst.getText()));
-			cliente.setNumCadNacional(Integer.valueOf(textNumCadNac.getText()));
-			cliente.setTelefone(Integer.valueOf(textTelefone.getText()));
-			cliente.setTipo(comboBoxPessoa.getSelectedItem().toString());
+			//cliente.setCodigo(Integer.valueOf(textCodigo.getText()));
+			textCodigo.setText(String.valueOf(cliente.getCodigo()));
+			textEndereco.setText(cliente.getEndereco());
+			textNome.setText(cliente.getNome());
+			textNumCadEst.setText(String.valueOf(cliente.getNumCadEstadual()));
+			textNumCadNac.setText(String.valueOf(cliente.getNumCadNacional()));
+			textTelefone.setText(String.valueOf(cliente.getTelefone()));
+			comboBoxPessoa.setSelectedIndex(cliente.getTipo());
+			
 			habilitarCampos(false);
 			
 			btnExcluir.setEnabled(true);
@@ -242,20 +247,25 @@ public class FrmcadCliente extends JFrame {
 				JOptionPane.showMessageDialog(null, "Aten��o! Verifique os campos!");
 			}
 			else{
-				cliente.setCodigo(Integer.valueOf(textCodigo.getText()));
+				
+				//cliente.setCodigo(Integer.valueOf(textCodigo.getText()));
 				cliente.setEndereco(textEndereco.getText());
 				cliente.setNome(textNome.getText());
 				cliente.setNumCadEstadual(Integer.valueOf(textNumCadEst.getText()));
 				cliente.setNumCadNacional(Integer.valueOf(textNumCadNac.getText()));
 				cliente.setTelefone(Integer.valueOf(textTelefone.getText()));
-				cliente.setTipo(comboBoxPessoa.getSelectedItem().toString());
-				UtilMenssage.msgSucesso();
+				
+				cliente.setTipo(comboBoxPessoa.getSelectedIndex());
+				
+				
 				if(new ClienteDAO().cadastrar(cliente)){
+					//JOptionPane.showMessageDialog(null, "Foi");
 					UtilMenssage.msgSucesso();
 					FrmcadCliente.this.dispose();
 					new FrmClientes().setVisible(true);
 				}else{
 					UtilMenssage.msgError();
+					JOptionPane.showMessageDialog(null, "NAO Foi");
 				}
 			}
 		}else{
@@ -265,12 +275,19 @@ public class FrmcadCliente extends JFrame {
 				JOptionPane.showMessageDialog(null, "Aten��o! Verifique os campos!");
 			}
 			else{
-				//monta o objeto
+				//JOptionPane.showMessageDialog(null, "Foi!");
+				cliente.setCodigo(Integer.valueOf(textCodigo.getText()));
+				cliente.setEndereco(textEndereco.getText());
+				cliente.setNome(textNome.getText());
+				cliente.setNumCadEstadual(Integer.valueOf(textNumCadEst.getText()));
+				cliente.setNumCadNacional(Integer.valueOf(textNumCadNac.getText()));
+				cliente.setTelefone(Integer.valueOf(textTelefone.getText()));
+				cliente.setTipo(comboBoxPessoa.getSelectedIndex());
 				try {
 					if(new ClienteDAO().alterar(cliente)){
 						UtilMenssage.msgSucesso();
 						FrmcadCliente.this.dispose();
-						new FrmProdutos().setVisible(true);
+						new FrmClientes().setVisible(true);
 					}else{
 						UtilMenssage.msgError();
 					}
@@ -292,6 +309,7 @@ public class FrmcadCliente extends JFrame {
 		textTelefone.setEnabled(var);
 		btnSalvar.setEnabled(var);
 		btnCancel.setEnabled(var);
+		comboBoxPessoa.setEnabled(var);
 		
 	}
 	private void limparCampos(){
