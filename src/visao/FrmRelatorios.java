@@ -11,6 +11,8 @@ import javax.swing.border.EmptyBorder;
 import controle.ProdutoRel;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
 
 @SuppressWarnings("serial")
 public class FrmRelatorios extends JFrame{
@@ -31,19 +33,26 @@ public class FrmRelatorios extends JFrame{
 		btnProdutos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ProdutoRel imprime = new ProdutoRel();
-				JasperPrint relat;
+
 				try {
-					relat=imprime.gerar();
-					JasperViewer jv = new JasperViewer(relat, false);
-					jv.setVisible(true);
+					imprime.gerar();
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, "deu treta");
 					e.printStackTrace();
 				}
 			}
 		});
-		btnProdutos.setBounds(87, 71, 89, 23);
+		btnProdutos.setBounds(10, 11, 88, 57);
 		contentPane.add(btnProdutos);
+		
+		JButton btnRelFinanceiro = new JButton("Financeiro");
+		btnRelFinanceiro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
+		btnRelFinanceiro.setBounds(108, 11, 88, 57);
+		contentPane.add(btnRelFinanceiro);
 		
 		try {
 			setVisible(true);

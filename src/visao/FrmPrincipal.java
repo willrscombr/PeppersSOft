@@ -13,6 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 @SuppressWarnings("serial")
 public class FrmPrincipal extends JFrame {
@@ -42,6 +45,38 @@ public class FrmPrincipal extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 884, 591);
 		setLocationRelativeTo(null);
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu mnCadastro = new JMenu("Cadastro");
+		menuBar.add(mnCadastro);
+		
+		JMenuItem mntmUsurios = new JMenuItem("Usu\u00E1rios");
+		mnCadastro.add(mntmUsurios);
+		
+		JMenuItem mntmProdutos = new JMenuItem("Produtos");
+		mnCadastro.add(mntmProdutos);
+		
+		JMenu mnFinanceiro = new JMenu("Financeiro");
+		mnCadastro.add(mnFinanceiro);
+		
+		JMenuItem mntmLanamento = new JMenuItem("Lan\u00E7amento");
+		mnFinanceiro.add(mntmLanamento);
+		
+		JMenuItem mntmConta = new JMenuItem("Conta");
+		mnFinanceiro.add(mntmConta);
+		
+		JMenu mnRelatrios = new JMenu("Relat\u00F3rios");
+		menuBar.add(mnRelatrios);
+		
+		JMenuItem mntmProdutos_1 = new JMenuItem("Produtos");
+		mntmProdutos_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
+		mnRelatrios.add(mntmProdutos_1);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -160,5 +195,4 @@ public class FrmPrincipal extends JFrame {
 		lblUsurios.setBounds(58, 136, 77, 14);
 		panel.add(lblUsurios);
 	}
-	
 }

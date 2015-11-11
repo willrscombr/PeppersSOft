@@ -10,8 +10,6 @@ import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.text.ParseException;
-import java.util.Date;
-
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -23,8 +21,8 @@ import javax.swing.JTable;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
-
 import util.PeppersTableModel;
+import util.UtilFuncoes;
 import util.UtilMenssage;
 import controle.FinanceiroController;
 import dao.FinanceiroDAO;
@@ -46,7 +44,6 @@ public class FrmFinanceiro extends JFrame {
 	private float credito=0;
 	private float debito=0;
 	private JFormattedTextField frmtdtxtfldData;
-	
 	
 	public FrmFinanceiro() {
 		
@@ -104,8 +101,6 @@ public class FrmFinanceiro extends JFrame {
 		btnExcluir.setBounds(525, 393, 89, 43);
 		contentPane.add(btnExcluir);
 		
-		
-		
 		btnPesquisar = new JButton("Filtrar");
 		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -140,7 +135,7 @@ public class FrmFinanceiro extends JFrame {
 		textDebito.setBackground(SystemColor.menu);
 		textDebito.setBounds(125, 404, 105, 32);
 		contentPane.add(textDebito);
-		
+
 		JTextPane textSaldo = new JTextPane();
 		textSaldo.setEditable(false);
 		textSaldo.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -192,15 +187,15 @@ public class FrmFinanceiro extends JFrame {
 			e.printStackTrace();
 		}
 	}
+
+	UtilFuncoes d = new UtilFuncoes();
+	String data = d.retornaData();
 	
 	private void somaCredito(){
 		FinanceiroController consulta = new FinanceiroController();
-
-		Date data = new Date(System.currentTimeMillis());
-
+	
 		try {
-			
-			String sql = "select sum(valor) as soma_credito from financeiro where tipo_lanc = 'C'and data = '"+data+"'";
+         	String sql = "select sum(valor) as soma_credito from financeiro where tipo_lanc = 'C'and data = '"+data+"'";
 			ResultSet rs = consulta.consultaCredito(sql);
 			
 			while(rs.next()){  
@@ -218,7 +213,6 @@ public class FrmFinanceiro extends JFrame {
 	private void somaDebito(){
 		FinanceiroController consulta = new FinanceiroController();
 
-		Date data = new Date(System.currentTimeMillis());
 		try {
 			String sql = "select sum(valor) as soma_debito from financeiro where tipo_lanc = 'D'and data = '"+data+"'";
 			ResultSet rs = consulta.consultaDebito(sql);
