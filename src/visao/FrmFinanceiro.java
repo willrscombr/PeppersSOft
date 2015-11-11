@@ -1,27 +1,33 @@
 package visao;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.text.ParseException;
+import java.util.Date;
+
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 
-import controle.FinanceiroController;
 import util.PeppersTableModel;
 import util.UtilMenssage;
+import controle.FinanceiroController;
 import dao.FinanceiroDAO;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JTextPane;
-import java.awt.SystemColor;
 
 @SuppressWarnings("serial")
 public class FrmFinanceiro extends JFrame {
@@ -35,9 +41,15 @@ public class FrmFinanceiro extends JFrame {
 	private JButton btnIncluir;
 	private JButton btnExcluir;
 	private JButton btnPesquisar;
-	private JLabel lblDataInicial;
-
+	private JTextPane textCredito;
+	private JTextPane textDebito;
+	private float credito=0;
+	private float debito=0;
+	private JFormattedTextField frmtdtxtfldData;
+	
+	
 	public FrmFinanceiro() {
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 739, 486);
 		setLocationRelativeTo(null);
@@ -48,12 +60,13 @@ public class FrmFinanceiro extends JFrame {
 		contentPane.setLayout(null);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 703, 371);
+		scrollPane.setBounds(10, 55, 703, 299);
 		contentPane.add(scrollPane);
 		
 		btnIncluir = new JButton("Incluir");
 		btnIncluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				FrmFinanceiro.this.dispose();
 				new FrmLancFinanceiro().setVisible(true);
 			}
 		});
@@ -94,29 +107,82 @@ public class FrmFinanceiro extends JFrame {
 		
 		
 		btnPesquisar = new JButton("Filtrar");
-		btnPesquisar.setEnabled(false);
+		btnPesquisar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				FinanceiroController f = new FinanceiroController();
+				
+				String data = frmtdtxtfldData.getText();
+				try {
+					f.consultaData(data);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
 		btnPesquisar.setBackground(Color.WHITE);
-		btnPesquisar.setBounds(231, 398, 89, 32);
+		btnPesquisar.setBounds(610, 11, 89, 32);
 		contentPane.add(btnPesquisar);
 		
-		lblDataInicial = new JLabel("Data Inicial");
-		lblDataInicial.setBounds(21, 407, 73, 14);
-		contentPane.add(lblDataInicial);
+		textCredito = new JTextPane();
+		textCredito.setEditable(false);
+		textCredito.setFont(new Font("Tahoma", Font.BOLD, 14));
+		textCredito.setForeground(new Color(0, 128, 0));
+		textCredito.setBackground(SystemColor.menu);
+		textCredito.setBounds(10, 404, 105, 32);
+		contentPane.add(textCredito);
+
+		textDebito = new JTextPane();
+		textDebito.setEditable(false);
+		textDebito.setFont(new Font("Tahoma", Font.BOLD, 14));
+		textDebito.setForeground(Color.RED);
+		textDebito.setBackground(SystemColor.menu);
+		textDebito.setBounds(125, 404, 105, 32);
+		contentPane.add(textDebito);
 		
-		JTextPane textPane = new JTextPane();
-		textPane.setForeground(SystemColor.inactiveCaption);
-		textPane.setBackground(SystemColor.controlHighlight);
-		textPane.setBounds(92, 393, 105, 43);
-		contentPane.add(textPane);
-		FinanceiroController consulta = new FinanceiroController();
+		JTextPane textSaldo = new JTextPane();
+		textSaldo.setEditable(false);
+		textSaldo.setFont(new Font("Tahoma", Font.BOLD, 14));
+		textSaldo.setForeground(Color.BLUE);
+		textSaldo.setBackground(SystemColor.menu);
+		textSaldo.setBounds(239, 404, 105, 32);
+		contentPane.add(textSaldo);
+
+		somaCredito();
+		somaDebito();
+		float saldo = credito - debito;
+		textSaldo.setText("R$ "+String.valueOf(saldo));
+		
+		JLabel lblCrdito = new JLabel("Cr\u00E9dito");
+		lblCrdito.setForeground(new Color(0, 128, 0));
+		lblCrdito.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblCrdito.setBounds(10, 376, 79, 23);
+		contentPane.add(lblCrdito);
+		
+		JLabel lblDbito = new JLabel("D\u00E9bito");
+		lblDbito.setForeground(Color.RED);
+		lblDbito.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblDbito.setBounds(125, 376, 79, 23);
+		contentPane.add(lblDbito);
+		
+		JLabel lblSaldo = new JLabel("Saldo");
+		lblSaldo.setForeground(Color.BLUE);
+		lblSaldo.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblSaldo.setBounds(240, 376, 79, 23);
+		contentPane.add(lblSaldo);
+		
+		frmtdtxtfldData = new JFormattedTextField();
+		frmtdtxtfldData.setBounds(472, 17, 112, 20);
+		contentPane.add(frmtdtxtfldData);
 		try {
-			
-			textPane.setText(String.valueOf(consulta.consultar()));
-		} catch (Exception e1) {
+			MaskFormatter mf;
+			mf = new MaskFormatter("##/##/####");
+			mf.install(frmtdtxtfldData);
+		} catch (ParseException e2) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			e2.printStackTrace();
 		}
-		
 		
 		popularTabela();
 		
@@ -127,10 +193,51 @@ public class FrmFinanceiro extends JFrame {
 		}
 	}
 	
-private void popularTabela(){
-		
+	private void somaCredito(){
+		FinanceiroController consulta = new FinanceiroController();
+
+		Date data = new Date(System.currentTimeMillis());
+
 		try {
 			
+			String sql = "select sum(valor) as soma_credito from financeiro where tipo_lanc = 'C'and data = '"+data+"'";
+			ResultSet rs = consulta.consultaCredito(sql);
+			
+			while(rs.next()){  
+				credito=rs.getFloat("soma_credito"); 
+		    } 
+			
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		textCredito.setText("R$ "+String.valueOf(credito));
+	}
+	
+	private void somaDebito(){
+		FinanceiroController consulta = new FinanceiroController();
+
+		Date data = new Date(System.currentTimeMillis());
+		try {
+			String sql = "select sum(valor) as soma_debito from financeiro where tipo_lanc = 'D'and data = '"+data+"'";
+			ResultSet rs = consulta.consultaDebito(sql);
+			
+			while(rs.next()){  
+				debito=rs.getFloat("soma_debito"); 
+		    } 
+			
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		textDebito.setText("R$ "+String.valueOf(debito));
+	}
+	
+	private void popularTabela() {
+
+		try {
+
 			modelo = new PeppersTableModel();
 			rs = new FinanceiroDAO().consultar();
 			rsmt = rs.getMetaData();
@@ -140,14 +247,14 @@ private void popularTabela(){
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					btnExcluir.setEnabled(true);
-					
+
 				}
 			});
-			
+
 			table.setForeground(Color.RED);
 			table.setModel(modelo);
 			Object[] linha = null;
-			
+
 			modelo.addColumn("Código");
 			modelo.addColumn("Discriminação");
 			modelo.addColumn("Tipo");
@@ -157,10 +264,10 @@ private void popularTabela(){
 
 			while (rs.next()) {
 				linha = new Object[numerodecolunas];
-	
+
 				for (int j = 0; j < rsmt.getColumnCount(); j++) {
 					linha[j] = rs.getObject(j + 1);
-	
+
 				}
 				modelo.addRow(linha);
 			}

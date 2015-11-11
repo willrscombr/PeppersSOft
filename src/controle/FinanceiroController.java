@@ -1,6 +1,7 @@
 package controle;
 
 import java.sql.ResultSet;
+
 import dao.FinanceiroDAO;
 import modelo.Financeiro;
 
@@ -11,16 +12,20 @@ public class FinanceiroController {
 	public FinanceiroController() {
 		dao = new FinanceiroDAO();
 	}
-
-	public Float consultar(String sql) throws Exception {
-		return dao.consultar(sql);
+	public ResultSet consultaCredito(String sql) throws Exception {
+		return dao.consultaSQL(sql);
+	}
+	public ResultSet consultaDebito(String sql)throws Exception{
+		return dao.consultaSQL(sql);
 	}
 	public boolean cadastrar(Financeiro financeiro) throws Exception {
 		return dao.cadastrar(financeiro);
 	}
-
-	public ResultSet consultar() throws Exception {
+	public ResultSet consulta() throws Exception {
 		return dao.consultar();
 	}
-
+	public ResultSet consultaData(String data) throws Exception{
+		return dao.consultaData(data);
+		
+	}
 }
