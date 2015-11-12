@@ -22,7 +22,7 @@ public class ProdutoRel {
 			ResultSet rs = consulta.consultar();
 			JRResultSetDataSource rl = new JRResultSetDataSource(rs);
 			
-			JasperPrint jp = JasperFillManager.fillReport("relatorios/RelProdutod.jasper",new HashMap(),rl);
+			JasperPrint jp = JasperFillManager.fillReport("/relatorios/RelProdutos.jasper",new HashMap(),rl);
 			JasperViewer jv = new JasperViewer(jp, false);
 			jv.setVisible(true);
 			jv.toFront();
