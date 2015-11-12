@@ -125,15 +125,13 @@ public class FrmConta extends JFrame {
 								"Por favor escolha o tipo de conta!");
 						comboBox.requestFocus();
 					}
-					
-					if (txtDesc.getText() == null
-							|| txtDesc.getText() == "") {
+
+					if (txtDesc.getText() == null || txtDesc.getText() == "") {
 						JOptionPane
 								.showMessageDialog(null,
 										"Atenção! O campo descrição deve ser informado!");
 						txtDesc.requestFocus();
-					}
-					else {
+					} else {
 
 						String tipo = null;
 						if (comboBox.getSelectedItem() == "Crédito") {
@@ -145,11 +143,10 @@ public class FrmConta extends JFrame {
 
 						ContaController cadastra = new ContaController();
 						Conta conta = new Conta();
-						
+
 						conta.setDescricao(txtDesc.getText());
 						conta.setTipo(tipo);
 
-						
 						if (cadastra.cadastrar(conta)) {
 							JOptionPane.showMessageDialog(null,
 									"Lançamento realizado com sucesso!");

@@ -60,7 +60,7 @@ public class FrmProducao extends JFrame {
 		contentPane.setLayout(null);
 		table = new JTable();
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 53, 703, 321);
+		scrollPane.setBounds(10, 53, 703, 155);
 		getContentPane().add(scrollPane);
 		
 		btnIncluir = new JButton("Incluir");
@@ -71,6 +71,11 @@ public class FrmProducao extends JFrame {
 			    new FrmcadProdutos(null).setVisible(true);
 			}
 		});
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setEnabled(false);
+		scrollPane_1.setBounds(10, 217, 703, 155);
+		contentPane.add(scrollPane_1);
 		
 		btnIncluir.setBackground(Color.WHITE);
 		btnIncluir.setBounds(10, 394, 89, 43);
