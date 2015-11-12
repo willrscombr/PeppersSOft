@@ -7,15 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-
 import modelo.Conta;
-import modelo.Financeiro;
-import modelo.Produto;
 
 public class ContaDAO {
-	public boolean cadastrar(Financeiro financeiro) {
+	public boolean cadastrar(Conta conta) {
 
-			String sql = "INSERT INTO financeiro (id_codigo,discriminacao,valor,id_conta,tipo_lanc) values(null,?,?,?,?)";
+			String sql = "INSERT INTO financeiro (id_conta,descricao,tipo) values(null,?,?)";
 
 			boolean retorno = false;
 		
@@ -25,10 +22,9 @@ public class ContaDAO {
 				PreparedStatement stmt;	
 				connection = ConnectionFactory.getConnection();
 				stmt = connection.prepareStatement(sql);
-				stmt.setString(1, financeiro.getDisc());
-				stmt.setFloat(2,financeiro.getValor());
-				stmt.setInt(3, financeiro.getConta().getCod_Conta());
-				stmt.setString(4, financeiro.getTipo());
+				stmt.setString(1, conta.getDescricao());
+				stmt.setString(2, conta.getTipo());
+
 
 				stmt.executeUpdate();
 				stmt.close();
@@ -47,7 +43,7 @@ public class ContaDAO {
 
 	public ResultSet consultar() throws Exception {
 		
-		String sql = "SELECT * FROM financeiro";
+		String sql = "SELECT * FROM conta";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
@@ -80,7 +76,7 @@ public class ContaDAO {
 
 	public boolean excluir(int i) throws Exception {
 
-		String sql = "DELETE FROM produto WHERE id_produto = ?";
+		String sql = "DELETE FROM conta WHERE id_conta = ?";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
@@ -99,27 +95,21 @@ public class ContaDAO {
 
 	}
 
-	public List<Produto> listar() throws Exception {
+	public List<Conta> listar() throws Exception {
 
-		List<Produto> produtos = new ArrayList<>();
+		List<Conta> conta = new ArrayList<>();
 
-		String sql = "SELECT * FROM produto";
+		String sql = "SELECT * FROM conta";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
 		ResultSet rs = stmt.executeQuery();
 
-		while (rs.next()) {
-	//		produtos.add(new Produto(rs.getInt("codigo"), rs.getString("nome")));
-		}
-
 		rs.close();
 		stmt.close();
 		ConnectionFactory.closeConnection(connection);
 
-		return produtos;
-
+		return conta;
 	}
-
 }
 

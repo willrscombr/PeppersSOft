@@ -19,7 +19,7 @@ import modelo.Usuario;
 
 public class FrmLogin {
 
-	private JFrame frame;
+	private JFrame frmPeppersoftControle;
 	private JTextField textUsuario;
 	private JPasswordField pwdSenha;
 	private JButton btnEntrar;
@@ -29,7 +29,7 @@ public class FrmLogin {
 			public void run() {
 				try {
 					FrmLogin window = new FrmLogin();
-					window.frame.setVisible(true);
+					window.frmPeppersoftControle.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -42,11 +42,12 @@ public class FrmLogin {
 	}
 
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frmPeppersoftControle = new JFrame();
+		frmPeppersoftControle.setTitle("PepperSoft - Controle de Acesso");
+		frmPeppersoftControle.setBounds(100, 100, 450, 300);
 
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmPeppersoftControle.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmPeppersoftControle.getContentPane().setLayout(null);
 
 		textUsuario = new JTextField();
 		textUsuario.addKeyListener(new KeyAdapter() {
@@ -58,19 +59,19 @@ public class FrmLogin {
 			}
 		});
 		textUsuario.setBounds(173, 75, 156, 20);
-		frame.getContentPane().add(textUsuario);
+		frmPeppersoftControle.getContentPane().add(textUsuario);
 		textUsuario.setColumns(10);
-		frame.setLocationRelativeTo(null);
+		frmPeppersoftControle.setLocationRelativeTo(null);
 
 		JLabel lblUsuario = new JLabel("Usuario");
 		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblUsuario.setBounds(77, 78, 46, 14);
-		frame.getContentPane().add(lblUsuario);
+		frmPeppersoftControle.getContentPane().add(lblUsuario);
 
 		JLabel lblSenha = new JLabel("Senha");
 		lblSenha.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblSenha.setBounds(77, 126, 46, 14);
-		frame.getContentPane().add(lblSenha);
+		frmPeppersoftControle.getContentPane().add(lblSenha);
 
 		btnEntrar = new JButton("Entrar");
 		btnEntrar.addKeyListener(new KeyAdapter() {
@@ -86,7 +87,7 @@ public class FrmLogin {
 
 					try {
 						if (dao.realizarLogin(usuario)) {
-							frame.dispose();
+							frmPeppersoftControle.dispose();
 							FrmPrincipal framep = new FrmPrincipal();
 							framep.setVisible(true);
 						} else {
@@ -111,7 +112,7 @@ public class FrmLogin {
 
 				try {
 					if (dao.realizarLogin(usuario)) {
-						frame.dispose();
+						frmPeppersoftControle.dispose();
 						FrmPrincipal framep = new FrmPrincipal();
 						framep.setVisible(true);
 					} else {
@@ -124,7 +125,7 @@ public class FrmLogin {
 			}
 		});
 		btnEntrar.setBounds(173, 176, 156, 23);
-		frame.getContentPane().add(btnEntrar);
+		frmPeppersoftControle.getContentPane().add(btnEntrar);
 
 		pwdSenha = new JPasswordField();
 		pwdSenha.addKeyListener(new KeyAdapter() {
@@ -136,7 +137,7 @@ public class FrmLogin {
 			}
 		});
 		pwdSenha.setBounds(173, 124, 156, 20);
-		frame.getContentPane().add(pwdSenha);
+		frmPeppersoftControle.getContentPane().add(pwdSenha);
 
 	}
 }
