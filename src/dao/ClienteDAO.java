@@ -96,6 +96,16 @@ public class ClienteDAO {
 		return rs;
 
 	}
+	
+	public ResultSet Busca(String busca) throws Exception {
+
+		String sql = "select codigo,nome,numcadnac,numcadest,telefone,tipo,endereco from cliente where nome like %"+busca+"%;";
+		Connection connection = ConnectionFactory.getConnection();
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		return rs;
+
+	}
 
 	@SuppressWarnings({ "static-access", "unused" })
 	public Cliente consultar(int id) throws Exception {

@@ -59,6 +59,7 @@ public class FrmClientes extends JFrame {
 	}
 	
 	public FrmClientes() {
+		setTitle("PepperSoft - Lista de Produtos");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 739, 486);
 		setLocationRelativeTo(null);
