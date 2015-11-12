@@ -21,10 +21,6 @@ import javax.swing.JMenuItem;
 public class FrmPrincipal extends JFrame {
 
 	private JPanel contentPane;
-	
-	public static void main(String[] args){
-		new FrmPrincipal().setVisible(true);
-	}
  
 	public FrmPrincipal() {
 		addWindowListener(new WindowAdapter() {
@@ -65,6 +61,11 @@ public class FrmPrincipal extends JFrame {
 		mnFinanceiro.add(mntmLanamento);
 		
 		JMenuItem mntmConta = new JMenuItem("Conta");
+		mntmConta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new FrmConta().setVisible(true);
+			}
+		});
 		mnFinanceiro.add(mntmConta);
 		
 		JMenu mnRelatrios = new JMenu("Relat\u00F3rios");

@@ -1,9 +1,7 @@
 package controle;
 
 import java.sql.ResultSet;
-
 import modelo.Conta;
-import modelo.Financeiro;
 import dao.ContaDAO;
 
 public class ContaController {
@@ -13,8 +11,8 @@ public class ContaController {
 	public ContaController() {
 		dao = new ContaDAO();
 	}
-	public boolean cadastrar(Financeiro financeiro) throws Exception {
-		return dao.cadastrar(financeiro);
+	public boolean cadastrar(Conta conta) throws Exception {
+		return dao.cadastrar(conta);
 	}
 
 	public ResultSet consultar() throws Exception {
