@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controle.FinanceiroController;
 import controle.ProdutoController;
 import controle.UsuarioController;
 
@@ -66,6 +67,7 @@ public class FrmRelatorios extends JFrame {
 		btnClientes = new JButton("Clientes");
 		btnClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 		btnClientes.setBounds(162, 35, 89, 57);
@@ -76,7 +78,13 @@ public class FrmRelatorios extends JFrame {
 		btnFinanceiro = new JButton("Financeiro");
 		btnFinanceiro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				FinanceiroController controle = new FinanceiroController();
+				try {
+					controle.gerarRelatorio();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 

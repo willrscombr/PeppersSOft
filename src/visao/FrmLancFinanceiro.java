@@ -159,8 +159,8 @@ public class FrmLancFinanceiro extends JFrame {
 						Conta conta = new Conta();
 						conta.setCod_Conta(Integer.parseInt(txtCodigo.getText()));
 						financeiro.setConta(conta);
-						financeiro.setDisc(txtDiscrim.getText());
-						financeiro.setTipo(tipo);
+						financeiro.setDiscriminacao(txtDiscrim.getText());
+						financeiro.setTipo_lanc(tipo);
 						financeiro.setValor(Float.parseFloat(txtValor.getText()));
 						
 						if (cadastra.cadastrar(financeiro)) {
