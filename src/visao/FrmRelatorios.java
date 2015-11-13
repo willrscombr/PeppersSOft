@@ -16,6 +16,12 @@ import controle.UsuarioController;
 public class FrmRelatorios extends JFrame {
 
 	private JPanel contentPane;
+	private JButton btnUsuarios;
+	private JButton btnProdutos;
+	private JButton btnFinanceiro;
+	private JButton btnPedidos;
+	private JButton btnProducao;
+	private JButton btnClientes;
 
 	public FrmRelatorios() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -27,7 +33,7 @@ public class FrmRelatorios extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JButton btnProdutos = new JButton("Produtos");
+		btnProdutos = new JButton("Produtos");
 		btnProdutos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -40,19 +46,8 @@ public class FrmRelatorios extends JFrame {
 				}
 			}
 		});
-		btnProdutos.setBounds(142, 11, 88, 57);
-		contentPane.add(btnProdutos);
 
-		JButton btnRelFinanceiro = new JButton("Financeiro");
-		btnRelFinanceiro.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-			}
-		});
-		btnRelFinanceiro.setBounds(240, 11, 88, 57);
-		contentPane.add(btnRelFinanceiro);
-
-		JButton btnUsuarios = new JButton("Usuarios");
+		btnUsuarios = new JButton("Usuarios");
 		btnUsuarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -65,8 +60,43 @@ public class FrmRelatorios extends JFrame {
 				}
 			}
 		});
-		btnUsuarios.setBounds(45, 11, 89, 57);
+		btnUsuarios.setBounds(63, 35, 89, 57);
 		contentPane.add(btnUsuarios);
+
+		btnClientes = new JButton("Clientes");
+		btnClientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnClientes.setBounds(162, 35, 89, 57);
+		contentPane.add(btnClientes);
+		btnProdutos.setBounds(261, 35, 88, 57);
+		contentPane.add(btnProdutos);
+
+		btnFinanceiro = new JButton("Financeiro");
+		btnFinanceiro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+			}
+		});
+
+		btnPedidos = new JButton("Pedidos");
+		btnPedidos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnPedidos.setBounds(359, 35, 89, 57);
+		contentPane.add(btnPedidos);
+		btnFinanceiro.setBounds(458, 35, 88, 57);
+		contentPane.add(btnFinanceiro);
+
+		btnProducao = new JButton("Producao");
+		btnProducao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnProducao.setBounds(556, 35, 89, 57);
+		contentPane.add(btnProducao);
 
 		try {
 			setVisible(true);
