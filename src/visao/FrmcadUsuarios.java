@@ -213,12 +213,12 @@ public class FrmcadUsuarios extends JFrame {
 		if (u != null) {
 			txtCod.setText(Integer.toString(u.getId_codigo()));
 			txtNome.setText(u.getNome());
-			comboBox.setSelectedItem(u.getPermissao());
+			comboBox.setSelectedItem(u.getNivel());
 
 			txtUsuario.setText(u.getUsuario());
 			pwdSenha.setText(u.getSenha());
 			txtNome.setEditable(false);
-			comboBox.setSelectedItem(u.getPermissao());
+			comboBox.setSelectedItem(u.getNivel());
 			txtUsuario.setEditable(false);
 			pwdSenha.setEditable(false);
 			btnExcluir.setEnabled(true);
@@ -249,7 +249,7 @@ public class FrmcadUsuarios extends JFrame {
 					permissao = "L";
 				}
 
-				usuario.setPermissao(permissao);
+				usuario.setNivel(permissao);
 
 				if (new UsuarioController().cadastrar(usuario)) {
 					UtilMenssage.msgSucesso();
@@ -276,7 +276,7 @@ public class FrmcadUsuarios extends JFrame {
 					permissao = "L";
 				}
 
-				usuario.setPermissao(permissao);
+				usuario.setNivel(permissao);
 				try {
 					if (new UsuarioController().alterar(usuario)) {
 						UtilMenssage.msgSucesso();

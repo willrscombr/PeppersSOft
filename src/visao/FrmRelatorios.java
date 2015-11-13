@@ -9,6 +9,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import controle.ProdutoRel;
+import controle.UsuarioController;
+import controle.UsuarioREL;
+import dao.UsuarioDAO;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 import javax.swing.JMenuBar;
@@ -53,6 +56,23 @@ public class FrmRelatorios extends JFrame{
 		});
 		btnRelFinanceiro.setBounds(108, 11, 88, 57);
 		contentPane.add(btnRelFinanceiro);
+		
+		JButton btnUsuarios = new JButton("Usuarios");
+		btnUsuarios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UsuarioDAO dao = new UsuarioDAO();
+				UsuarioREL rel = new UsuarioREL();
+				
+				try {
+					rel.imprimir(dao.listar());
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnUsuarios.setBounds(39, 115, 89, 23);
+		contentPane.add(btnUsuarios);
 		
 		try {
 			setVisible(true);

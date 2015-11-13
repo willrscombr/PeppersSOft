@@ -41,7 +41,7 @@ public class FrmUsuarios extends JFrame {
 		u.setNome(table.getValueAt(linha, 1).toString());
 		u.setUsuario(table.getValueAt(linha, 2).toString());
 		u.setSenha(table.getValueAt(linha, 3).toString());
-		u.setPermissao(table.getValueAt(linha, 4).toString());
+		u.setNivel(table.getValueAt(linha, 4).toString());
 
 		FrmUsuarios.this.dispose();
 		new FrmcadUsuarios(u).setVisible(true);
@@ -173,7 +173,7 @@ public class FrmUsuarios extends JFrame {
 			modelo.addColumn("nome");
 			modelo.addColumn("usuario");
 			modelo.addColumn("senha");
-			modelo.addColumn("permissão");
+			modelo.addColumn("nivel");
 
 			while (rs.next()) {
 				linha = new Object[numerodecolunas];

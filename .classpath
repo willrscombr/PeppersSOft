@@ -5,6 +5,14 @@
 	<classpathentry kind="lib" path="mysql-connector-java-5.1.18-bin.jar"/>
 	<classpathentry kind="lib" path="jgoodies-forms-1.8.0.jar" sourcepath="jgoodies-forms-1.8.0-sources.jar"/>
 	<classpathentry kind="lib" path="miglayout15-swing.jar" sourcepath="miglayout-src.zip"/>
-	<classpathentry kind="lib" path="jasperreports-6.1.1.jar"/>
+	<classpathentry kind="lib" path="D:/Downloads/JasperReport/commons-beanutils-1.7.0.jar"/>
+	<classpathentry kind="lib" path="D:/Downloads/JasperReport/commons-collections-3.1.jar"/>
+	<classpathentry kind="lib" path="D:/Downloads/JasperReport/commons-digester-1.7.jar"/>
+	<classpathentry kind="lib" path="D:/Downloads/JasperReport/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="D:/Downloads/JasperReport/groovy-all-1.5.3.jar"/>
+	<classpathentry kind="lib" path="D:/Downloads/JasperReport/itext-2.1.7.jar"/>
+	<classpathentry kind="lib" path="D:/Downloads/JasperReport/jasperreports-5.5.1.jar"/>
+	<classpathentry kind="lib" path="D:/Downloads/JasperReport/poi-3.9.jar"/>
+	<classpathentry kind="lib" path="D:/Downloads/JasperReport/servlet-api-2.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

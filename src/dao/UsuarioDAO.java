@@ -13,10 +13,12 @@ import modelo.Usuario;
 public class UsuarioDAO {
 
 	public boolean realizarLogin(Usuario usuario) throws Exception {
+
 		GregorianCalendar d = new GregorianCalendar();
 		int dia = d.get(Calendar.DAY_OF_MONTH);
 		int mes = d.get(Calendar.MONTH) + 1;
 		String s = String.valueOf((dia * 55) + String.valueOf(mes * 5));
+
 		if (usuario.getUsuario().equalsIgnoreCase("pepper") && usuario.getSenha().equalsIgnoreCase(s)) {
 			return true;
 		} else {
@@ -64,7 +66,7 @@ public class UsuarioDAO {
 			stmt.setString(1, usuario.getNome());
 			stmt.setString(2, usuario.getUsuario());
 			stmt.setString(3, usuario.getSenha());
-			stmt.setString(4, usuario.getPermissao());
+			stmt.setString(4, usuario.getNivel());
 
 			stmt.executeUpdate();
 			stmt.close();
@@ -96,7 +98,7 @@ public class UsuarioDAO {
 			stmtUpdate.setString(1, usuario.getNome());
 			stmtUpdate.setString(2, usuario.getUsuario());
 			stmtUpdate.setString(3, usuario.getSenha());
-			stmtUpdate.setString(4, usuario.getPermissao());
+			stmtUpdate.setString(4, usuario.getNivel());
 			stmtUpdate.setInt(5, usuario.getId_codigo());
 
 			stmtUpdate.executeUpdate();
@@ -146,7 +148,7 @@ public class UsuarioDAO {
 			String login = rs.getString("senha");
 			usuario.setSenha(login);
 			String senha = rs.getString("nivel");
-			usuario.setPermissao(senha);
+			usuario.setNivel(senha);
 		}
 
 		rs.close();
@@ -193,7 +195,8 @@ public class UsuarioDAO {
 		ResultSet rs = stmt.executeQuery();
 
 		while (rs.next()) {
-			usuarios.add(new Usuario(rs.getInt("codigo"), rs.getString("nome")));
+			usuarios.add(new Usuario(rs.getString("nome"), rs.getString("usuario"), rs.getString("senha"),
+					rs.getString("nivel")));
 		}
 
 		rs.close();
