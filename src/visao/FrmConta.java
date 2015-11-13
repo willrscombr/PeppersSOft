@@ -6,7 +6,6 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -16,12 +15,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-
 import controle.ContaController;
 import modelo.Conta;
-import modelo.Financeiro;
 import dao.ContaDAO;
-import dao.FinanceiroDAO;
 
 @SuppressWarnings("serial")
 public class FrmConta extends JFrame {

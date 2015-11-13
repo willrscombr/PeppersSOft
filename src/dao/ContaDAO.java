@@ -12,7 +12,7 @@ import modelo.Conta;
 public class ContaDAO {
 	public boolean cadastrar(Conta conta) {
 
-			String sql = "INSERT INTO financeiro (id_conta,descricao,tipo) values(null,?,?)";
+			String sql = "INSERT INTO conta(id_codigo,descricao,tipo) values(null,?,?)";
 
 			boolean retorno = false;
 		

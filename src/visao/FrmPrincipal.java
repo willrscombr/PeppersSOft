@@ -52,12 +52,22 @@ public class FrmPrincipal extends JFrame {
 		mnCadastro.add(mntmUsurios);
 		
 		JMenuItem mntmProdutos = new JMenuItem("Produtos");
+		mntmProdutos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new FrmProdutos().setVisible(true);
+			}
+		});
 		mnCadastro.add(mntmProdutos);
 		
 		JMenu mnFinanceiro = new JMenu("Financeiro");
 		mnCadastro.add(mnFinanceiro);
 		
 		JMenuItem mntmLanamento = new JMenuItem("Lan\u00E7amento");
+		mntmLanamento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new FrmFinanceiro().setVisible(true);
+			}
+		});
 		mnFinanceiro.add(mntmLanamento);
 		
 		JMenuItem mntmConta = new JMenuItem("Conta");
