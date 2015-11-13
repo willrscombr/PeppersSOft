@@ -276,12 +276,12 @@ public class FrmcadProdutos extends JFrame {
 		textDesc.requestFocus();
 
 		if (p != null) {
-			txtCod.setText(Integer.toString(p.getCod_prod()));
+			txtCod.setText(Integer.toString(p.getId_produto()));
 			textDesc.setText(p.getDescricao());
 			textEstoque.setText(Float.toString(p.getEstoque()));
-			textPrCusto.setText(Float.toString(p.getPreco_custo()));
-			textPrVenda.setText(Float.toString(p.getPreco_venda()));
-			texLucro.setText(Float.toString(p.getMargemlucro()));
+			textPrCusto.setText(Float.toString(p.getPr_custo()));
+			textPrVenda.setText(Float.toString(p.getPr_venda()));
+			texLucro.setText(Float.toString(p.getMargem_lucro()));
 			textDesc.setEditable(false);
 			textEstoque.setEditable(false);
 			textPrCusto.setEditable(false);
@@ -306,9 +306,9 @@ public class FrmcadProdutos extends JFrame {
 						"Atenção! Verifique os campos!");
 			} else {
 				produto.setDescricao(textDesc.getText());
-				produto.setPreco_custo(Float.parseFloat(textPrCusto.getText()));
-				produto.setPreco_venda(Float.parseFloat(textPrVenda.getText()));
-				produto.setMargemlucro(Float.parseFloat(texLucro.getText()));
+				produto.setPr_custo(Float.parseFloat(textPrCusto.getText()));
+				produto.setPr_venda(Float.parseFloat(textPrVenda.getText()));
+				produto.setMargem_lucro(Float.parseFloat(texLucro.getText()));
 				produto.setEstoque(Long.valueOf(textEstoque.getText().trim()));
 				if (new ProdutoController().cadastrar(produto)) {
 					UtilMenssage.msgSucesso();
@@ -325,11 +325,11 @@ public class FrmcadProdutos extends JFrame {
 				JOptionPane.showMessageDialog(null,
 						"Atenção! Verifique os campos!");
 			} else {
-				produto.setCod_prod(Integer.parseInt(txtCod.getText()));
+				produto.setId_produto(Integer.parseInt(txtCod.getText()));
 				produto.setDescricao(textDesc.getText());
-				produto.setPreco_custo(Float.parseFloat(textPrCusto.getText()));
-				produto.setPreco_venda(Float.parseFloat(textPrVenda.getText()));
-				produto.setMargemlucro(Float.parseFloat(texLucro.getText()));
+				produto.setPr_custo(Float.parseFloat(textPrCusto.getText()));
+				produto.setPr_venda(Float.parseFloat(textPrVenda.getText()));
+				produto.setMargem_lucro(Float.parseFloat(texLucro.getText()));
 				produto.setEstoque(Float.parseFloat(textEstoque.getText()));
 				try {
 					if (new ProdutoController().alterar(produto)) {

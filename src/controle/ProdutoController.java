@@ -24,12 +24,16 @@ public class ProdutoController {
 	public ResultSet consultar() throws Exception {
 		return dao.consultar();
 	}
-	
+
 	public boolean excluir(int id) throws Exception {
 		return dao.excluir(id);
 	}
 
 	public List<Produto> listar() throws Exception {
 		return dao.listar();
+	}
+
+	public void gerarRelatorio() throws Exception {
+		dao.gerarRelatorio();
 	}
 }

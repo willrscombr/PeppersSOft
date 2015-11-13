@@ -36,12 +36,12 @@ public class FrmProdutos extends JFrame {
 	public void abreProduto(){
 		int linha = table.getSelectedRow();
 		Produto p = new Produto();
-	    p.setCod_prod(Integer.parseInt(table.getValueAt(linha, 0).toString()));
+	    p.setId_produto(Integer.parseInt(table.getValueAt(linha, 0).toString()));
 	    p.setDescricao(table.getValueAt(linha, 1).toString());
 	    p.setEstoque(Float.parseFloat(table.getValueAt(linha, 2).toString()));
-	    p.setPreco_custo(Float.parseFloat(table.getValueAt(linha, 3).toString()));
-	    p.setPreco_venda(Float.parseFloat(table.getValueAt(linha, 4).toString()));
-	    p.setMargemlucro(Float.parseFloat(table.getValueAt(linha, 5).toString()));
+	    p.setPr_custo(Float.parseFloat(table.getValueAt(linha, 3).toString()));
+	    p.setPr_venda(Float.parseFloat(table.getValueAt(linha, 4).toString()));
+	    p.setMargem_lucro(Float.parseFloat(table.getValueAt(linha, 5).toString()));
 	    
 		FrmProdutos.this.dispose();
 		new FrmcadProdutos(p).setVisible(true);

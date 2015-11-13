@@ -223,7 +223,7 @@ public class UsuarioDAO {
 
 	}
 
-	// Imprime/gera uma lista de Clientes
+	// Imprime/gera uma lista de Usuarios
 	public void gerarRelatorio() throws Exception {
 
 		List<Usuario> usuarios = new ArrayList<>();
