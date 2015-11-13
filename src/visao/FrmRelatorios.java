@@ -46,6 +46,7 @@ public class FrmRelatorios extends JFrame {
 					FrmRelatorios.this.dispose();
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null, "Erro ao gerar relatório!");
 					e1.printStackTrace();
 				}
 			}
@@ -62,6 +63,7 @@ public class FrmRelatorios extends JFrame {
 					FrmRelatorios.this.dispose();
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null, "Erro ao gerar relatório!");
 					e1.printStackTrace();
 				}
 			}
@@ -90,6 +92,7 @@ public class FrmRelatorios extends JFrame {
 					FrmRelatorios.this.dispose();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null, "Erro ao gerar relatório!");
 					e.printStackTrace();
 				}
 			}

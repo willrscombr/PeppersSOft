@@ -241,7 +241,7 @@ public class UsuarioDAO {
 
 		JasperReport report = JasperCompileManager.compileReport(this.getPathToReportPackage() + "UsuariosRel.jrxml");
 		JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(usuarios));
-		JasperExportManager.exportReportToPdfFile(print, "d:/Relatorio_de_Usuarios.pdf");
+		JasperExportManager.exportReportToPdfFile(print, "relatorios/Relatorio_de_Usuarios.pdf");
 
 		rs.close();
 		stmt.close();

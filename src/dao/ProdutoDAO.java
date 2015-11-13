@@ -194,7 +194,7 @@ public class ProdutoDAO {
 
 		JasperReport report = JasperCompileManager.compileReport(this.getPathToReportPackage() + "ProdutosRel.jrxml");
 		JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(produtos));
-		JasperExportManager.exportReportToPdfFile(print, "d:/Relatorio_de_Produtos.pdf");
+		JasperExportManager.exportReportToPdfFile(print, "relatorios/Relatorio_de_Produtos.pdf");
 
 		rs.close();
 		stmt.close();

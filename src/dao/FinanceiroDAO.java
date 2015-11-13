@@ -191,7 +191,7 @@ public class FinanceiroDAO {
 
 		JasperReport report = JasperCompileManager.compileReport(this.getPathToReportPackage() + "FinanceiroRel.jrxml");
 		JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(financeiros));
-		JasperExportManager.exportReportToPdfFile(print, "d:/Relatorio_Financeiro.pdf");
+		JasperExportManager.exportReportToPdfFile(print, "relatorios/Relatorio_Financeiro.pdf");
 
 		rs.close();
 		stmt.close();
