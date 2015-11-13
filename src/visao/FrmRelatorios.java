@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -41,6 +42,8 @@ public class FrmRelatorios extends JFrame {
 				ProdutoController controle = new ProdutoController();
 				try {
 					controle.gerarRelatorio();
+					JOptionPane.showMessageDialog(null, "Relatório gerado com sucesso!");
+					FrmRelatorios.this.dispose();
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -55,6 +58,8 @@ public class FrmRelatorios extends JFrame {
 				UsuarioController controle = new UsuarioController();
 				try {
 					controle.gerarRelatorio();
+					JOptionPane.showMessageDialog(null, "Relatório gerado com sucesso!");
+					FrmRelatorios.this.dispose();
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -81,6 +86,8 @@ public class FrmRelatorios extends JFrame {
 				FinanceiroController controle = new FinanceiroController();
 				try {
 					controle.gerarRelatorio();
+					JOptionPane.showMessageDialog(null, "Relatório gerado com sucesso!");
+					FrmRelatorios.this.dispose();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
