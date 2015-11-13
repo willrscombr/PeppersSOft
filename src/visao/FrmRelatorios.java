@@ -3,19 +3,15 @@ package visao;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import controle.ProdutoRel;
 import controle.UsuarioController;
-import controle.UsuarioREL;
-import dao.UsuarioDAO;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.view.JasperViewer;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
 
 @SuppressWarnings("serial")
 public class FrmRelatorios extends JFrame{
@@ -45,7 +41,7 @@ public class FrmRelatorios extends JFrame{
 				}
 			}
 		});
-		btnProdutos.setBounds(10, 11, 88, 57);
+		btnProdutos.setBounds(142, 11, 88, 57);
 		contentPane.add(btnProdutos);
 		
 		JButton btnRelFinanceiro = new JButton("Financeiro");
@@ -54,24 +50,23 @@ public class FrmRelatorios extends JFrame{
 				
 			}
 		});
-		btnRelFinanceiro.setBounds(108, 11, 88, 57);
+		btnRelFinanceiro.setBounds(240, 11, 88, 57);
 		contentPane.add(btnRelFinanceiro);
 		
 		JButton btnUsuarios = new JButton("Usuarios");
 		btnUsuarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UsuarioDAO dao = new UsuarioDAO();
-				UsuarioREL rel = new UsuarioREL();
 				
+				UsuarioController controle = new UsuarioController();
 				try {
-					rel.imprimir(dao.listar());
+					controle.gerarRelatorio();
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
 		});
-		btnUsuarios.setBounds(39, 115, 89, 23);
+		btnUsuarios.setBounds(45, 11, 89, 57);
 		contentPane.add(btnUsuarios);
 		
 		try {

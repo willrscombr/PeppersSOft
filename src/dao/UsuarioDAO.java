@@ -9,8 +9,24 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import modelo.Usuario;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 public class UsuarioDAO {
+
+	private String path; // Caminho base
+	private String pathToReportPackage; // Caminho para o package onde estão
+										// armazenados os relatorios Jarper
+
+	// Recupera os caminhos para que a classe possa encontrar os relatórios
+	public UsuarioDAO() {
+		this.path = this.getClass().getClassLoader().getResource("").getPath();
+		this.pathToReportPackage = this.path + "jr/";
+	}
 
 	public boolean realizarLogin(Usuario usuario) throws Exception {
 
@@ -205,6 +221,40 @@ public class UsuarioDAO {
 
 		return usuarios;
 
+	}
+
+	// Imprime/gera uma lista de Clientes
+	public void gerarRelatorio() throws Exception {
+
+		List<Usuario> usuarios = new ArrayList<>();
+
+		String sql = "SELECT * FROM usuarios";
+		Connection connection = ConnectionFactory.getConnection();
+		PreparedStatement stmt = connection.prepareStatement(sql);
+
+		ResultSet rs = stmt.executeQuery();
+
+		while (rs.next()) {
+			usuarios.add(new Usuario(rs.getString("nome"), rs.getString("usuario"), rs.getString("senha"),
+					rs.getString("nivel")));
+		}
+
+		JasperReport report = JasperCompileManager.compileReport(this.getPathToReportPackage() + "UsuariosRel.jrxml");
+		JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(usuarios));
+		JasperExportManager.exportReportToPdfFile(print, "d:/Relatorio_de_Usuarios.pdf");
+
+		rs.close();
+		stmt.close();
+		ConnectionFactory.closeConnection(connection);
+
+	}
+
+	public String getPathToReportPackage() {
+		return this.pathToReportPackage;
+	}
+
+	public String getPath() {
+		return this.path;
 	}
 
 }
