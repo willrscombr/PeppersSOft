@@ -64,7 +64,7 @@ public class FrmProducao extends JFrame {
 		getContentPane().add(scrollPane);
 		
 		btnIncluir = new JButton("Incluir");
-		btnIncluir.setIcon(new ImageIcon("C:\\Users\\Aluno\\git\\PeppersSOft\\src\\imagens\\icones\\add_16.bmp"));
+		btnIncluir.setIcon(new ImageIcon("imagens\\icones\\add_16.bmp"));
 		btnIncluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				FrmProducao.this.dispose();
