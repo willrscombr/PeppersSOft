@@ -21,36 +21,56 @@ import javax.swing.JMenuItem;
 public class FrmPrincipal extends JFrame {
 
 	private JPanel contentPane;
- 
+	private JButton btnUsuarios;
+	private JButton btnClientes;
+	private JButton btnProdutos;
+	private JButton btnPedidos;
+	private JButton btnFinanceiro;
+	private JButton btnProducao;
+	private JButton btnRelatorios;
+
 	public FrmPrincipal() {
+		inicializar();
+	}
+	
+	public FrmPrincipal(String tipo) {
+		inicializar();
+		
+		if (tipo.equals("G")) {
+		} else {
+			btnUsuarios.setEnabled(false);
+		}
+	}
+
+	public void inicializar() {
+
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				String message="Deseja realmente sair?";
-				String title="Confirmação";
-				int opc=JOptionPane.showConfirmDialog(null, message,title,JOptionPane.YES_NO_OPTION);
-				if(opc == JOptionPane.YES_OPTION){  
-		            System.exit(DISPOSE_ON_CLOSE);  
-		        }
+				String message = "Deseja realmente sair?";
+				String title = "Confirmação";
+				int opc = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+				if (opc == JOptionPane.YES_OPTION) {
+					System.exit(DISPOSE_ON_CLOSE);
+				}
 			}
 		});
-
 		setIconImage(Toolkit.getDefaultToolkit()
 				.getImage(getClass().getResource("/imagens/new icon/16x16/db_unregister_16_h.bmp")));
 		setTitle("PeeperSoft");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 884, 591);
 		setLocationRelativeTo(null);
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-		
+
 		JMenu mnCadastro = new JMenu("Cadastro");
 		menuBar.add(mnCadastro);
-		
+
 		JMenuItem mntmUsurios = new JMenuItem("Usu\u00E1rios");
 		mnCadastro.add(mntmUsurios);
-		
+
 		JMenuItem mntmProdutos = new JMenuItem("Produtos");
 		mntmProdutos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -58,10 +78,10 @@ public class FrmPrincipal extends JFrame {
 			}
 		});
 		mnCadastro.add(mntmProdutos);
-		
+
 		JMenu mnFinanceiro = new JMenu("Financeiro");
 		mnCadastro.add(mnFinanceiro);
-		
+
 		JMenuItem mntmLanamento = new JMenuItem("Lan\u00E7amento");
 		mntmLanamento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -69,7 +89,7 @@ public class FrmPrincipal extends JFrame {
 			}
 		});
 		mnFinanceiro.add(mntmLanamento);
-		
+
 		JMenuItem mntmConta = new JMenuItem("Conta");
 		mntmConta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -77,14 +97,14 @@ public class FrmPrincipal extends JFrame {
 			}
 		});
 		mnFinanceiro.add(mntmConta);
-		
+
 		JMenu mnRelatrios = new JMenu("Relat\u00F3rios");
 		menuBar.add(mnRelatrios);
-		
+
 		JMenuItem mntmProdutos_1 = new JMenuItem("Produtos");
 		mntmProdutos_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 			}
 		});
 		mnRelatrios.add(mntmProdutos_1);
@@ -93,83 +113,83 @@ public class FrmPrincipal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 867, 553);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
-		JButton btnNewButton = new JButton("");
-		btnNewButton.addActionListener(new ActionListener() {
+		btnUsuarios = new JButton("");
+		btnUsuarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				new FrmUsuarios().setVisible(true);
 			}
 		});
 
-		btnNewButton.setIcon(new ImageIcon(getClass().getResource("/imagens/couple64.png")));
-		btnNewButton.setBounds(34, 25, 105, 100);
-		panel.add(btnNewButton);
+		btnUsuarios.setIcon(new ImageIcon(getClass().getResource("/imagens/couple64.png")));
+		btnUsuarios.setBounds(34, 25, 105, 100);
+		panel.add(btnUsuarios);
 
-		JButton button = new JButton("");
-		button.addActionListener(new ActionListener() {
+		btnClientes = new JButton("");
+		btnClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new FrmClientes().setVisible(true);
 			}
 		});
-		button.setIcon(new ImageIcon(getClass().getResource("/imagens/Edit-Male-User64.png")));
-		button.setBounds(149, 25, 105, 100);
-		panel.add(button);
+		btnClientes.setIcon(new ImageIcon(getClass().getResource("/imagens/Edit-Male-User64.png")));
+		btnClientes.setBounds(149, 25, 105, 100);
+		panel.add(btnClientes);
 
-		JButton button_1 = new JButton("");
-		button_1.addActionListener(new ActionListener() {
+		btnProdutos = new JButton("");
+		btnProdutos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new FrmProdutos().setVisible(true);
 			}
 		});
 
-		button_1.setIcon(new ImageIcon(getClass().getResource("/imagens/pimenta.png")));
-		button_1.setBounds(264, 25, 105, 100);
-		panel.add(button_1);
+		btnProdutos.setIcon(new ImageIcon(getClass().getResource("/imagens/pimenta.png")));
+		btnProdutos.setBounds(264, 25, 105, 100);
+		panel.add(btnProdutos);
 
-		JButton button_2 = new JButton("");
-		button_2.addActionListener(new ActionListener() {
+		btnPedidos = new JButton("");
+		btnPedidos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new FrmPedido().setVisible(true);
 			}
 		});
-		button_2.setIcon(new ImageIcon(getClass().getResource("/imagens/money.png")));
-		button_2.setBounds(379, 25, 105, 100);
-		panel.add(button_2);
+		btnPedidos.setIcon(new ImageIcon(getClass().getResource("/imagens/money.png")));
+		btnPedidos.setBounds(379, 25, 105, 100);
+		panel.add(btnPedidos);
 
-		JButton button_3 = new JButton("");
-		button_3.addActionListener(new ActionListener() {
+		btnFinanceiro = new JButton("");
+		btnFinanceiro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new FrmFinanceiro().setVisible(true);
 			}
 		});
-		button_3.setIcon(new ImageIcon(getClass().getResource("/imagens/safety_box.png")));
-		button_3.setBounds(494, 25, 105, 100);
-		panel.add(button_3);
+		btnFinanceiro.setIcon(new ImageIcon(getClass().getResource("/imagens/safety_box.png")));
+		btnFinanceiro.setBounds(494, 25, 105, 100);
+		panel.add(btnFinanceiro);
 
-		JButton button_4 = new JButton("");
-		button_4.addActionListener(new ActionListener() {
+		btnProducao = new JButton("");
+		btnProducao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new FrmProducao().setVisible(true);
 			}
 		});
-		button_4.setIcon(new ImageIcon(getClass().getResource("/imagens/company.png")));
-		button_4.setBounds(609, 25, 105, 100);
-		panel.add(button_4);
+		btnProducao.setIcon(new ImageIcon(getClass().getResource("/imagens/company.png")));
+		btnProducao.setBounds(609, 25, 105, 100);
+		panel.add(btnProducao);
 
-		JButton button_5 = new JButton("");
-		button_5.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
+		btnRelatorios = new JButton("");
+		btnRelatorios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				new FrmRelatorios().setVisible(true);
-		    }
+			}
 		});
-		button_5.setIcon(new ImageIcon(getClass().getResource("/imagens/Rank-History64.png")));
-		button_5.setBounds(724, 25, 105, 100);
-		panel.add(button_5);
+		btnRelatorios.setIcon(new ImageIcon(getClass().getResource("/imagens/Rank-History64.png")));
+		btnRelatorios.setBounds(724, 25, 105, 100);
+		panel.add(btnRelatorios);
 
 		JLabel lblFinanceiro = new JLabel("Financeiro");
 		lblFinanceiro.setFont(new Font("Calibri", Font.BOLD, 14));

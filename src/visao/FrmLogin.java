@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import controle.UsuarioController;
 import dao.UsuarioDAO;
 import modelo.Usuario;
 
@@ -83,12 +84,13 @@ public class FrmLogin {
 					Usuario usuario = new Usuario();
 					usuario.setUsuario(textUsuario.getText());
 					usuario.setSenha(pwdSenha.getText());
-					UsuarioDAO dao = new UsuarioDAO();
+					UsuarioController controller = new UsuarioController();
 
 					try {
-						if (dao.realizarLogin(usuario)) {
+						String tipo = controller.autenticar(usuario);
+						if (tipo != null) {
 							frmPeppersoftControle.dispose();
-							FrmPrincipal framep = new FrmPrincipal();
+							FrmPrincipal framep = new FrmPrincipal(tipo);
 							framep.setVisible(true);
 						} else {
 							JOptionPane.showMessageDialog(null, "Usuario/Senha invalidos! Tente novamente!");
@@ -108,12 +110,13 @@ public class FrmLogin {
 				Usuario usuario = new Usuario();
 				usuario.setUsuario(textUsuario.getText());
 				usuario.setSenha(pwdSenha.getText());
-				UsuarioDAO dao = new UsuarioDAO();
+				UsuarioController controller = new UsuarioController();
 
 				try {
-					if (dao.realizarLogin(usuario)) {
+					String tipo = controller.autenticar(usuario);
+					if (tipo != null) {
 						frmPeppersoftControle.dispose();
-						FrmPrincipal framep = new FrmPrincipal();
+						FrmPrincipal framep = new FrmPrincipal(tipo);
 						framep.setVisible(true);
 					} else {
 						JOptionPane.showMessageDialog(null, "Usuario/Senha invalidos! Tente novamente!");

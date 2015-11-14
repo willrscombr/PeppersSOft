@@ -14,6 +14,10 @@ public class UsuarioController {
 		dao = new UsuarioDAO();
 	}
 
+	public String autenticar(Usuario usuario) throws Exception {
+		return dao.autenticar(usuario);
+	}
+	
 	public boolean realizarLogin(Usuario usuario) throws Exception {
 		return dao.realizarLogin(usuario);
 	}
