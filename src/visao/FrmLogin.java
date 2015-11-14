@@ -15,7 +15,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import controle.UsuarioController;
-import dao.UsuarioDAO;
 import modelo.Usuario;
 
 public class FrmLogin {
@@ -81,16 +80,20 @@ public class FrmLogin {
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == 10) {
 
+					String login = textUsuario.getText();
+					String senha = pwdSenha.getText();
+					
 					Usuario usuario = new Usuario();
-					usuario.setUsuario(textUsuario.getText());
-					usuario.setSenha(pwdSenha.getText());
+					usuario.setUsuario(login);
+					usuario.setSenha(senha);
+					
 					UsuarioController controller = new UsuarioController();
 
 					try {
 						String tipo = controller.autenticar(usuario);
 						if (tipo != null) {
 							frmPeppersoftControle.dispose();
-							FrmPrincipal framep = new FrmPrincipal(tipo);
+							FrmPrincipal framep = new FrmPrincipal(tipo, usuario.getUsuario());
 							framep.setVisible(true);
 						} else {
 							JOptionPane.showMessageDialog(null, "Usuario/Senha invalidos! Tente novamente!");
@@ -107,16 +110,20 @@ public class FrmLogin {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent arg0) {
 
+				String login = textUsuario.getText();
+				String senha = pwdSenha.getText();
+				
 				Usuario usuario = new Usuario();
-				usuario.setUsuario(textUsuario.getText());
-				usuario.setSenha(pwdSenha.getText());
+				usuario.setUsuario(login);
+				usuario.setSenha(senha);
+				
 				UsuarioController controller = new UsuarioController();
 
 				try {
 					String tipo = controller.autenticar(usuario);
 					if (tipo != null) {
 						frmPeppersoftControle.dispose();
-						FrmPrincipal framep = new FrmPrincipal(tipo);
+						FrmPrincipal framep = new FrmPrincipal(tipo, usuario.getUsuario());
 						framep.setVisible(true);
 					} else {
 						JOptionPane.showMessageDialog(null, "Usuario/Senha invalidos! Tente novamente!");

@@ -17,10 +17,6 @@ public class UsuarioController {
 	public String autenticar(Usuario usuario) throws Exception {
 		return dao.autenticar(usuario);
 	}
-	
-	public boolean realizarLogin(Usuario usuario) throws Exception {
-		return dao.realizarLogin(usuario);
-	}
 
 	public boolean cadastrar(Usuario usuario) throws Exception {
 		return dao.cadastrar(usuario);
@@ -33,7 +29,7 @@ public class UsuarioController {
 	public ResultSet consultar() throws Exception {
 		return dao.consultar();
 	}
-	
+
 	public boolean consultar(Usuario usuario) throws Exception {
 		return dao.consultar(usuario);
 	}
@@ -48,6 +44,6 @@ public class UsuarioController {
 
 	public void gerarRelatorio() throws Exception {
 		dao.gerarRelatorio();
-		
+
 	}
 }

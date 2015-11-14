@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import modelo.Pessoa;
 import modelo.Usuario;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -40,7 +41,7 @@ public class UsuarioDAO {
 		String s = String.valueOf((dia * 55) + String.valueOf(mes * 5));
 
 		if (usuario.getUsuario().equalsIgnoreCase("pepper") && usuario.getSenha().equalsIgnoreCase(s)) {
-			return "G";
+			return Pessoa.TIPO_ADMIN;
 		} else {
 
 			String sql = "SELECT usuario, senha, nivel FROM usuarios WHERE usuario = ? AND senha = ?";
@@ -54,9 +55,9 @@ public class UsuarioDAO {
 
 			if (rs.next()) {
 				if (rs.getString("nivel").equals("G")) {
-					return "G";
+					return Pessoa.TIPO_ADMIN;
 				} else {
-					return "L";
+					return Pessoa.TIPO_LIMITADO;
 				}
 			}
 
@@ -64,42 +65,7 @@ public class UsuarioDAO {
 			stmt.close();
 			ConnectionFactory.closeConnection(connection);
 
-			return null;
-
-		}
-	}
-
-	public boolean realizarLogin(Usuario usuario) throws Exception {
-
-		GregorianCalendar d = new GregorianCalendar();
-		int dia = d.get(Calendar.DAY_OF_MONTH);
-		int mes = d.get(Calendar.MONTH) + 1;
-		String s = String.valueOf((dia * 55) + String.valueOf(mes * 5));
-
-		if (usuario.getUsuario().equalsIgnoreCase("pepper") && usuario.getSenha().equalsIgnoreCase(s)) {
-			return true;
-		} else {
-
-			String sql = "SELECT * FROM usuarios WHERE usuario = ? AND senha = ?";
-			Connection connection = ConnectionFactory.getConnection();
-			PreparedStatement stmt = connection.prepareStatement(sql);
-
-			stmt.setString(1, usuario.getUsuario());
-			stmt.setString(2, usuario.getSenha());
-
-			ResultSet rs = stmt.executeQuery();
-
-			boolean encontrou = rs.next();
-
-			rs.close();
-			stmt.close();
-			ConnectionFactory.closeConnection(connection);
-
-			if (encontrou) {
-				return true;
-			} else {
-				return false;
-			}
+			return Pessoa.TIPO_NOT_FOUND;
 
 		}
 	}
