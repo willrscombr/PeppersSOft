@@ -6,16 +6,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import modelo.Financeiro;
 import modelo.Produto;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class FinanceiroDAO {
 
@@ -174,28 +178,34 @@ public class FinanceiroDAO {
 	}
 
 	// Imprime/gera uma lista Financeiro
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	public void gerarRelatorio() throws Exception {
 
-		List<Financeiro> financeiros = new ArrayList<>();
-
+		// estabelece conexão
 		String sql = "SELECT * FROM financeiro";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
 		ResultSet rs = stmt.executeQuery();
 
-		while (rs.next()) {
-			financeiros.add(new Financeiro(rs.getInt("id_codigo"), rs.getString("discriminacao"),
-					rs.getString("tipo_lanc"), rs.getFloat("valor")));
-		}
+		// gerando o jasper design
+		JasperDesign desenho = JRXmlLoader.load(this.getPathToReportPackage() + "FinanceiroRel.jrxml");
 
-		JasperReport report = JasperCompileManager.compileReport(this.getPathToReportPackage() + "FinanceiroRel.jrxml");
-		JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(financeiros));
-		JasperExportManager.exportReportToPdfFile(print, "relatorios/Relatorio_Financeiro.pdf");
+		// compila o relatório
+		JasperReport relatorio = JasperCompileManager.compileReport(desenho);
 
-		rs.close();
-		stmt.close();
-		ConnectionFactory.closeConnection(connection);
+		// implementação da interface JRDataSource para DataSource ResultSet
+		JRResultSetDataSource jrRS = new JRResultSetDataSource(rs);
+
+		// executa o relatório
+		@SuppressWarnings("rawtypes")
+		Map parametros = new HashMap();
+		parametros.put("nota", new Double(10));
+		JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, jrRS);
+
+		// exibe o resultado
+		JasperViewer viewer = new JasperViewer(impressao, false);
+		viewer.show();
 
 	}
 

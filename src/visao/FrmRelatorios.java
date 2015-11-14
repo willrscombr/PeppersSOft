@@ -42,8 +42,6 @@ public class FrmRelatorios extends JFrame {
 				ProdutoController controle = new ProdutoController();
 				try {
 					controle.gerarRelatorio();
-					JOptionPane.showMessageDialog(null, "Relatório gerado com sucesso!");
-					FrmRelatorios.this.dispose();
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					JOptionPane.showMessageDialog(null, "Erro ao gerar relatório!");
@@ -59,8 +57,6 @@ public class FrmRelatorios extends JFrame {
 				UsuarioController controle = new UsuarioController();
 				try {
 					controle.gerarRelatorio();
-					JOptionPane.showMessageDialog(null, "Relatório gerado com sucesso!");
-					FrmRelatorios.this.dispose();
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					JOptionPane.showMessageDialog(null, "Erro ao gerar relatório!");
@@ -74,7 +70,7 @@ public class FrmRelatorios extends JFrame {
 		btnClientes = new JButton("Clientes");
 		btnClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 			}
 		});
 		btnClientes.setBounds(162, 35, 89, 57);
@@ -88,8 +84,6 @@ public class FrmRelatorios extends JFrame {
 				FinanceiroController controle = new FinanceiroController();
 				try {
 					controle.gerarRelatorio();
-					JOptionPane.showMessageDialog(null, "Relatório gerado com sucesso!");
-					FrmRelatorios.this.dispose();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					JOptionPane.showMessageDialog(null, "Erro ao gerar relatório!");
