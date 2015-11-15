@@ -1,15 +1,16 @@
 package modelo;
 
 public class Conta {
-	private int Cod_Conta;
+	private int id_conta;
 	private String descricao;
 	private String tipo;
 	
-	public int getCod_Conta() {
-		return Cod_Conta;
+	
+	public int getId_conta() {
+		return id_conta;
 	}
-	public void setCod_Conta(int cod_Conta) {
-		Cod_Conta = cod_Conta;
+	public void setId_conta(int id_conta) {
+		this.id_conta = id_conta;
 	}
 	public String getDescricao() {
 		return descricao;

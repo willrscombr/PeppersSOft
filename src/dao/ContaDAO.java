@@ -12,7 +12,7 @@ import modelo.Conta;
 public class ContaDAO {
 	public boolean cadastrar(Conta conta) {
 
-			String sql = "INSERT INTO conta(id_codigo,descricao,tipo) values(null,?,?)";
+			String sql = "INSERT INTO conta(id_conta,descricao,tipo) values(null,?,?)";
 
 			boolean retorno = false;
 		
@@ -62,7 +62,7 @@ public class ContaDAO {
 
 		ResultSet rs = stmt.executeQuery();
 		if(rs.next()){
-		    conta.setCod_Conta(rs.getInt("id_conta"));
+		    conta.setId_conta(rs.getInt("id_conta"));
 			conta.setDescricao(rs.getString("descricao"));
 		}else{
 			JOptionPane.showMessageDialog(null, "Deu treta de novo");

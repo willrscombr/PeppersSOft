@@ -131,7 +131,7 @@ public class FrmPrincipal extends JFrame {
 		});
 
 		btnUsuarios.setIcon(new ImageIcon(getClass().getResource("/imagens/couple64.png")));
-		btnUsuarios.setBounds(35, 84, 105, 100);
+		btnUsuarios.setBounds(35, 11, 105, 100);
 		panel.add(btnUsuarios);
 
 		btnClientes = new JButton("");
@@ -141,7 +141,7 @@ public class FrmPrincipal extends JFrame {
 			}
 		});
 		btnClientes.setIcon(new ImageIcon(getClass().getResource("/imagens/Edit-Male-User64.png")));
-		btnClientes.setBounds(150, 84, 105, 100);
+		btnClientes.setBounds(150, 11, 105, 100);
 		panel.add(btnClientes);
 
 		btnProdutos = new JButton("");
@@ -152,7 +152,7 @@ public class FrmPrincipal extends JFrame {
 		});
 
 		btnProdutos.setIcon(new ImageIcon(getClass().getResource("/imagens/pimenta.png")));
-		btnProdutos.setBounds(265, 84, 105, 100);
+		btnProdutos.setBounds(265, 11, 105, 100);
 		panel.add(btnProdutos);
 
 		btnPedidos = new JButton("");
@@ -162,7 +162,7 @@ public class FrmPrincipal extends JFrame {
 			}
 		});
 		btnPedidos.setIcon(new ImageIcon(getClass().getResource("/imagens/money.png")));
-		btnPedidos.setBounds(380, 84, 105, 100);
+		btnPedidos.setBounds(380, 11, 105, 100);
 		panel.add(btnPedidos);
 
 		btnFinanceiro = new JButton("");
@@ -172,7 +172,7 @@ public class FrmPrincipal extends JFrame {
 			}
 		});
 		btnFinanceiro.setIcon(new ImageIcon(getClass().getResource("/imagens/safety_box.png")));
-		btnFinanceiro.setBounds(495, 84, 105, 100);
+		btnFinanceiro.setBounds(495, 11, 105, 100);
 		panel.add(btnFinanceiro);
 
 		btnProducao = new JButton("");
@@ -182,7 +182,7 @@ public class FrmPrincipal extends JFrame {
 			}
 		});
 		btnProducao.setIcon(new ImageIcon(getClass().getResource("/imagens/company.png")));
-		btnProducao.setBounds(610, 84, 105, 100);
+		btnProducao.setBounds(610, 11, 105, 100);
 		panel.add(btnProducao);
 
 		btnRelatorios = new JButton("");
@@ -192,54 +192,54 @@ public class FrmPrincipal extends JFrame {
 			}
 		});
 		btnRelatorios.setIcon(new ImageIcon(getClass().getResource("/imagens/Rank-History64.png")));
-		btnRelatorios.setBounds(725, 84, 105, 100);
+		btnRelatorios.setBounds(725, 11, 105, 100);
 		panel.add(btnRelatorios);
 
 		JLabel lblFinanceiro = new JLabel("Financeiro");
 		lblFinanceiro.setFont(new Font("Calibri", Font.BOLD, 14));
-		lblFinanceiro.setBounds(517, 195, 77, 14);
+		lblFinanceiro.setBounds(517, 122, 77, 14);
 		panel.add(lblFinanceiro);
 
 		JLabel lblClientes = new JLabel("Clientes");
 		lblClientes.setFont(new Font("Calibri", Font.BOLD, 14));
-		lblClientes.setBounds(178, 195, 77, 14);
+		lblClientes.setBounds(178, 122, 77, 14);
 		panel.add(lblClientes);
 
 		JLabel lblProduo = new JLabel("Produ\u00E7\u00E3o");
 		lblProduo.setFont(new Font("Calibri", Font.BOLD, 14));
-		lblProduo.setBounds(638, 195, 77, 14);
+		lblProduo.setBounds(638, 122, 77, 14);
 		panel.add(lblProduo);
 
 		JLabel lblRelatrios = new JLabel("Relat\u00F3rios");
 		lblRelatrios.setFont(new Font("Calibri", Font.BOLD, 14));
-		lblRelatrios.setBounds(753, 195, 77, 14);
+		lblRelatrios.setBounds(753, 122, 77, 14);
 		panel.add(lblRelatrios);
 
 		JLabel lblVenda = new JLabel("Pedido");
 		lblVenda.setFont(new Font("Calibri", Font.BOLD, 14));
-		lblVenda.setBounds(408, 195, 77, 14);
+		lblVenda.setBounds(408, 122, 77, 14);
 		panel.add(lblVenda);
 
 		JLabel lblProdutos = new JLabel("Produtos");
 		lblProdutos.setFont(new Font("Calibri", Font.BOLD, 14));
-		lblProdutos.setBounds(293, 195, 77, 14);
+		lblProdutos.setBounds(293, 122, 77, 14);
 		panel.add(lblProdutos);
 
 		JLabel lblUsurios = new JLabel("Usu\u00E1rios");
 		lblUsurios.setFont(new Font("Calibri", Font.BOLD, 14));
-		lblUsurios.setBounds(59, 195, 77, 14);
+		lblUsurios.setBounds(59, 122, 77, 14);
 		panel.add(lblUsurios);
 
 		JLabel lblBemVindo = new JLabel("Bem Vindo,");
 		lblBemVindo.setForeground(new Color(0, 128, 0));
 		lblBemVindo.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblBemVindo.setBounds(334, 11, 77, 39);
+		lblBemVindo.setBounds(35, 490, 77, 39);
 		panel.add(lblBemVindo);
 
 		JLabel lblUser = new JLabel("");
 		lblUser.setForeground(new Color(0, 128, 0));
 		lblUser.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblUser.setBounds(419, 11, 131, 39);
+		lblUser.setBounds(102, 490, 131, 39);
 		lblUser.setText(login);
 		panel.add(lblUser);
 	}

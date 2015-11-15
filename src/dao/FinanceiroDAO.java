@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import modelo.Financeiro;
 import modelo.Produto;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
@@ -20,6 +19,7 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
+import util.UtilFuncoes;
 
 public class FinanceiroDAO {
 
@@ -45,7 +45,7 @@ public class FinanceiroDAO {
 			stmt = connection.prepareStatement(sql);
 			stmt.setString(1, financeiro.getDiscriminacao());
 			stmt.setFloat(2, financeiro.getValor());
-			stmt.setInt(3, financeiro.getConta().getCod_Conta());
+			stmt.setInt(3, financeiro.getConta().getId_conta());
 			stmt.setString(4, financeiro.getTipo_lanc());
 			stmt.setDate(5, financeiro.getData());
 
@@ -77,15 +77,23 @@ public class FinanceiroDAO {
 		return rs;
 	}
 
-	public ResultSet consultaData(String data) throws Exception {
-		String valor = "DEVMEDIA - Java - Engenharia - Software";
-		String[] valorComSplit = valor.split("-", 2);
+	public ResultSet consulta(String datai, String dataf) throws Exception {
+		Date data = new Date(System.currentTimeMillis());
 
-		String sql = "SELECT * FROM financeiro where data = ? ";
+		UtilFuncoes u = new UtilFuncoes();
+		String dinicial=u.formataData(datai);
+		String dfinal=u.formataData(dataf);
+		
+		if(dinicial=="0"){
+			dinicial =  data.toString();
+		}
+		if(dfinal=="0"){
+			dfinal = data.toString();	
+		}
+		String sql = "SELECT * FROM financeiro where data between '"+dinicial+"' and '"+dfinal+"'";
+		
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
-
-		// stmt.setDate(1, data);
 
 		ResultSet rs = stmt.executeQuery();
 		return rs;

@@ -29,8 +29,8 @@ public class FinanceiroController {
 		return dao.consultar();
 	}
 
-	public ResultSet consultaData(String data) throws Exception {
-		return dao.consultaData(data);
+	public ResultSet consulta(String datai, String dataf) throws Exception {
+		return dao.consulta(datai,dataf);
 
 	}
 
@@ -38,4 +38,5 @@ public class FinanceiroController {
 		dao.gerarRelatorio();
 
 	}
+
 }

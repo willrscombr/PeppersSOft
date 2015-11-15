@@ -11,4 +11,22 @@ public class UtilFuncoes {
 		
 		return data;
 	}
+	public boolean isNumeric(String n){
+		try {
+			@SuppressWarnings("unused")
+			int num = Integer.parseInt(n);
+			
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
+	public String formataData(String data){
+		String datas[] = data.split("/");
+		String d="0"; 
+		if(this.isNumeric(datas[0])){
+			d = datas[2]+"-"+datas[1]+"-"+datas[0];
+		}
+		return d;  
+	}
 }

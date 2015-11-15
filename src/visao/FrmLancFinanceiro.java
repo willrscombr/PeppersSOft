@@ -15,9 +15,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import controle.ContaController;
 import modelo.Conta;
 import modelo.Financeiro;
-import dao.ContaDAO;
 import dao.FinanceiroDAO;
 
 @SuppressWarnings("serial")
@@ -52,11 +52,10 @@ public class FrmLancFinanceiro extends JFrame {
 		txtCodigo.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent arg0) {
-				ContaDAO consulta = new ContaDAO();
+				ContaController consulta = new ContaController();
 
 				try {
-					Conta conta = consulta.consultar(Integer.parseInt(txtCodigo
-							.getText()));
+					Conta conta = consulta.consultar(Integer.parseInt(txtCodigo.getText()));
 
 					txtConta.setText(String.valueOf(conta.getDescricao()));
 
@@ -157,7 +156,7 @@ public class FrmLancFinanceiro extends JFrame {
 						Financeiro financeiro = new Financeiro();
 						FinanceiroDAO cadastra = new FinanceiroDAO();
 						Conta conta = new Conta();
-						conta.setCod_Conta(Integer.parseInt(txtCodigo.getText()));
+						conta.setId_conta(Integer.parseInt(txtCodigo.getText()));
 						financeiro.setConta(conta);
 						financeiro.setDiscriminacao(txtDiscrim.getText());
 						financeiro.setTipo_lanc(tipo);

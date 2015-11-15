@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.text.ParseException;
@@ -43,7 +44,8 @@ public class FrmFinanceiro extends JFrame {
 	private JTextPane textDebito;
 	private float credito=0;
 	private float debito=0;
-	private JFormattedTextField frmtdtxtfldData;
+	private JFormattedTextField frmtdtxtfldDataF=null;
+	private JFormattedTextField frmtdtxtfldDataI=null;
 	
 	public FrmFinanceiro() {
 		
@@ -104,11 +106,9 @@ public class FrmFinanceiro extends JFrame {
 		btnPesquisar = new JButton("Filtrar");
 		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				FinanceiroController f = new FinanceiroController();
 				
-				String data = frmtdtxtfldData.getText();
 				try {
-					f.consultaData(data);
+					popularTabela();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -167,15 +167,30 @@ public class FrmFinanceiro extends JFrame {
 		lblSaldo.setBounds(240, 376, 79, 23);
 		contentPane.add(lblSaldo);
 		
-		frmtdtxtfldData = new JFormattedTextField();
-		frmtdtxtfldData.setBounds(472, 17, 112, 20);
-		contentPane.add(frmtdtxtfldData);
+		frmtdtxtfldDataF = new JFormattedTextField();
+		frmtdtxtfldDataF.setBounds(472, 17, 112, 20);
+		contentPane.add(frmtdtxtfldDataF);
+		
+		frmtdtxtfldDataI = new JFormattedTextField();
+		frmtdtxtfldDataI.setBounds(207, 17, 112, 20);
+		contentPane.add(frmtdtxtfldDataI);
 		try {
-			MaskFormatter mf;
-			mf = new MaskFormatter("##/##/####");
-			mf.install(frmtdtxtfldData);
+			MaskFormatter mfi,mff;
+			mfi = new MaskFormatter("##/##/####");
+			mff = new MaskFormatter("##/##/####");
+			mfi.install(frmtdtxtfldDataI);
+			mff.install(frmtdtxtfldDataF);
+			
+			JLabel lblDataInicial = new JLabel("Data Inicial");
+			lblDataInicial.setFont(new Font("Tahoma", Font.BOLD, 11));
+			lblDataInicial.setBounds(125, 20, 89, 14);
+			contentPane.add(lblDataInicial);
+			
+			JLabel lblDataFinal = new JLabel("Data Final");
+			lblDataFinal.setFont(new Font("Tahoma", Font.BOLD, 11));
+			lblDataFinal.setBounds(389, 20, 105, 14);
+			contentPane.add(lblDataFinal);
 		} catch (ParseException e2) {
-			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
 		
@@ -193,9 +208,16 @@ public class FrmFinanceiro extends JFrame {
 	
 	private void somaCredito(){
 		FinanceiroController consulta = new FinanceiroController();
-	
+		Date data = new Date(System.currentTimeMillis());
+		
 		try {
-         	String sql = "select sum(valor) as soma_credito from financeiro where tipo_lanc = 'C'and data = '"+data+"'";
+			String datai = frmtdtxtfldDataI.getText();
+			String dataf = frmtdtxtfldDataF.getText();
+			String di = d.formataData(datai);
+			String df = d.formataData(dataf);
+			if(di == "0"){di=data.toString();}
+			if(df == "0"){df=data.toString();}
+         	String sql = "select sum(valor) as soma_credito from financeiro where tipo_lanc = 'C'and data = '"+di+"' and '"+df+"'";
 			ResultSet rs = consulta.consultaCredito(sql);
 			
 			while(rs.next()){  
@@ -214,7 +236,9 @@ public class FrmFinanceiro extends JFrame {
 		FinanceiroController consulta = new FinanceiroController();
 
 		try {
-			String sql = "select sum(valor) as soma_debito from financeiro where tipo_lanc = 'D'and data = '"+data+"'";
+			String datai = frmtdtxtfldDataI.getText();
+			String dataf = frmtdtxtfldDataF.getText();
+			String sql = "select sum(valor) as soma_debito from financeiro where tipo_lanc = 'D'and data between '"+datai+"' and '"+dataf+"'";
 			ResultSet rs = consulta.consultaDebito(sql);
 			
 			while(rs.next()){  
@@ -231,9 +255,10 @@ public class FrmFinanceiro extends JFrame {
 	private void popularTabela() {
 
 		try {
-
+			String datai = frmtdtxtfldDataI.getText();
+			String dataf = frmtdtxtfldDataF.getText();
 			modelo = new PeppersTableModel();
-			rs = new FinanceiroDAO().consultar();
+			rs = new FinanceiroController().consulta(datai,dataf);
 			rsmt = rs.getMetaData();
 			int numerodecolunas = rsmt.getColumnCount();
 			table = new JTable();
@@ -241,7 +266,6 @@ public class FrmFinanceiro extends JFrame {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					btnExcluir.setEnabled(true);
-
 				}
 			});
 
