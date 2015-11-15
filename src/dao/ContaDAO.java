@@ -64,6 +64,7 @@ public class ContaDAO {
 		if(rs.next()){
 		    conta.setId_conta(rs.getInt("id_conta"));
 			conta.setDescricao(rs.getString("descricao"));
+			conta.setTipo(rs.getString("tipo"));
 		}else{
 			JOptionPane.showMessageDialog(null, "Deu treta de novo");
 		}

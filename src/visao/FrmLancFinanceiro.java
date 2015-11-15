@@ -1,14 +1,14 @@
 package visao;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import controle.ContaController;
+import controle.FinanceiroController;
 import modelo.Conta;
 import modelo.Financeiro;
 import dao.FinanceiroDAO;
@@ -28,10 +29,10 @@ public class FrmLancFinanceiro extends JFrame {
 	private JTextField txtConta;
 	private JTextField txtDiscrim;
 	private JTextField txtValor;
+	private JLabel lblTipo;
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public FrmLancFinanceiro() {
-		setTitle("Lan\u00E7amento");
+		setTitle("PepperSoft - Lan\u00E7amento Financeiro");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -56,8 +57,18 @@ public class FrmLancFinanceiro extends JFrame {
 
 				try {
 					Conta conta = consulta.consultar(Integer.parseInt(txtCodigo.getText()));
-
 					txtConta.setText(String.valueOf(conta.getDescricao()));
+					
+					if(conta.getTipo().equals("D")||conta.getTipo().equals("d")){
+						lblTipo.setFont(new Font("Tahoma", Font.BOLD, 11));
+						lblTipo.setForeground(Color.red);
+						lblTipo.setText("Débito");
+					}
+					else{
+						lblTipo.setFont(new Font("Tahoma", Font.BOLD, 11));
+						lblTipo.setForeground(Color.GREEN);
+						lblTipo.setText("Crédito");
+					}
 
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
@@ -82,11 +93,11 @@ public class FrmLancFinanceiro extends JFrame {
 		contentPane.add(lblCdigoConta);
 
 		JLabel lblDiscriminao = new JLabel("Discrimina\u00E7\u00E3o");
-		lblDiscriminao.setBounds(34, 88, 82, 14);
+		lblDiscriminao.setBounds(34, 102, 82, 14);
 		contentPane.add(lblDiscriminao);
 
-		JComboBox comboBox = new JComboBox();
-		comboBox.addKeyListener(new KeyAdapter() {
+		txtDiscrim = new JTextField();
+		txtDiscrim.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == 10) {
@@ -94,38 +105,14 @@ public class FrmLancFinanceiro extends JFrame {
 				}
 			}
 		});
-		comboBox.setModel(new DefaultComboBoxModel(new String[] { "Selecione",
-				"Cr\u00E9dito", "D\u00E9bito" }));
-		comboBox.setToolTipText("");
-		comboBox.setBounds(173, 113, 157, 20);
-		contentPane.add(comboBox);
-
-		txtDiscrim = new JTextField();
-		txtDiscrim.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == 10) {
-					comboBox.requestFocus();
-				}
-			}
-		});
 		txtDiscrim.setColumns(10);
-		txtDiscrim.setBounds(125, 82, 205, 20);
+		txtDiscrim.setBounds(126, 99, 205, 20);
 		contentPane.add(txtDiscrim);
-
-		JLabel lblTipoLanamento = new JLabel("Tipo Lan\u00E7amento");
-		lblTipoLanamento.setBounds(34, 120, 129, 14);
-		contentPane.add(lblTipoLanamento);
 
 		JButton btnConfirmarLanamento = new JButton("Confirmar Lan\u00E7amento");
 		btnConfirmarLanamento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					if (comboBox.getSelectedItem() == "Selecione") {
-						JOptionPane.showMessageDialog(null,
-								"Por favor escolha o tipo de lançamento!");
-						comboBox.requestFocus();
-					}
 					if (txtValor.getText() == null || txtValor.getText() == "") {
 						JOptionPane.showMessageDialog(null,
 								"Atenção! O campo valor deve ser informado!");
@@ -145,21 +132,17 @@ public class FrmLancFinanceiro extends JFrame {
 						txtCodigo.requestFocus();
 					} else {
 
-						String tipo = null;
-						if (comboBox.getSelectedItem() == "Crédito") {
-							tipo = "C";
-						}
-						if (comboBox.getSelectedItem() == "Débito") {
-							tipo = "D";
-						}
-
-						Financeiro financeiro = new Financeiro();
-						FinanceiroDAO cadastra = new FinanceiroDAO();
 						Conta conta = new Conta();
+						Financeiro financeiro = new Financeiro();
+						ContaController consulta = new ContaController();
+						FinanceiroController cadastra = new FinanceiroController();
+						
+						conta = consulta.consultar(Integer.parseInt(txtCodigo.getText()));
+
 						conta.setId_conta(Integer.parseInt(txtCodigo.getText()));
+						conta.setTipo(conta.getTipo());
 						financeiro.setConta(conta);
 						financeiro.setDiscriminacao(txtDiscrim.getText());
-						financeiro.setTipo_lanc(tipo);
 						financeiro.setValor(Float.parseFloat(txtValor.getText()));
 						
 						if (cadastra.cadastrar(financeiro)) {
@@ -195,5 +178,10 @@ public class FrmLancFinanceiro extends JFrame {
 		JLabel lblValor = new JLabel("Valor");
 		lblValor.setBounds(34, 151, 58, 14);
 		contentPane.add(lblValor);
+		
+		lblTipo = new JLabel("");
+		lblTipo.setBounds(261, 31, 82, 14);
+		contentPane.add(lblTipo);
+
 	}
 }

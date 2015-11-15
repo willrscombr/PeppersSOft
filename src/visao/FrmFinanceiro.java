@@ -37,6 +37,7 @@ public class FrmFinanceiro extends JFrame {
 	private ResultSet rs;
 	private ResultSetMetaData rsmt;
 	private JTable table;
+	private JTextPane textSaldo;
 	private JButton btnIncluir;
 	private JButton btnExcluir;
 	private JButton btnPesquisar;
@@ -48,6 +49,7 @@ public class FrmFinanceiro extends JFrame {
 	private JFormattedTextField frmtdtxtfldDataI=null;
 	
 	public FrmFinanceiro() {
+		setTitle("PepperSoft - Financeiro");
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 739, 486);
@@ -107,8 +109,11 @@ public class FrmFinanceiro extends JFrame {
 		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				try {
+				try {				
 					popularTabela();
+					somaCredito();
+					somaDebito();
+					textSaldo.setText("R$ "+String.valueOf(credito - debito));
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -136,7 +141,7 @@ public class FrmFinanceiro extends JFrame {
 		textDebito.setBounds(125, 404, 105, 32);
 		contentPane.add(textDebito);
 
-		JTextPane textSaldo = new JTextPane();
+		textSaldo = new JTextPane();
 		textSaldo.setEditable(false);
 		textSaldo.setFont(new Font("Tahoma", Font.BOLD, 14));
 		textSaldo.setForeground(Color.BLUE);
@@ -144,11 +149,6 @@ public class FrmFinanceiro extends JFrame {
 		textSaldo.setBounds(239, 404, 105, 32);
 		contentPane.add(textSaldo);
 
-		somaCredito();
-		somaDebito();
-		float saldo = credito - debito;
-		textSaldo.setText("R$ "+String.valueOf(saldo));
-		
 		JLabel lblCrdito = new JLabel("Cr\u00E9dito");
 		lblCrdito.setForeground(new Color(0, 128, 0));
 		lblCrdito.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -195,6 +195,9 @@ public class FrmFinanceiro extends JFrame {
 		}
 		
 		popularTabela();
+		somaCredito();
+		somaDebito();
+		textSaldo.setText("R$ "+String.valueOf(credito - debito));
 		
 		try {
 			setVisible(true);
@@ -217,7 +220,7 @@ public class FrmFinanceiro extends JFrame {
 			String df = d.formataData(dataf);
 			if(di == "0"){di=data.toString();}
 			if(df == "0"){df=data.toString();}
-         	String sql = "select sum(valor) as soma_credito from financeiro where tipo_lanc = 'C'and data = '"+di+"' and '"+df+"'";
+         	String sql = "select sum(valor) as soma_credito from financeiro where tipo_lanc = 'C'and data between '"+di+"' and '"+df+"'";
 			ResultSet rs = consulta.consultaCredito(sql);
 			
 			while(rs.next()){  
@@ -234,11 +237,16 @@ public class FrmFinanceiro extends JFrame {
 	
 	private void somaDebito(){
 		FinanceiroController consulta = new FinanceiroController();
+		Date data = new Date(System.currentTimeMillis());
 
 		try {
 			String datai = frmtdtxtfldDataI.getText();
 			String dataf = frmtdtxtfldDataF.getText();
-			String sql = "select sum(valor) as soma_debito from financeiro where tipo_lanc = 'D'and data between '"+datai+"' and '"+dataf+"'";
+			String di = d.formataData(datai);
+			String df = d.formataData(dataf);
+			if(di == "0"){di=data.toString();}
+			if(df == "0"){df=data.toString();}
+			String sql = "select sum(valor) as soma_debito from financeiro where tipo_lanc = 'D'and data between '"+di+"' and '"+df+"'";
 			ResultSet rs = consulta.consultaDebito(sql);
 			
 			while(rs.next()){  

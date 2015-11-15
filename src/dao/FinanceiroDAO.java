@@ -46,7 +46,7 @@ public class FinanceiroDAO {
 			stmt.setString(1, financeiro.getDiscriminacao());
 			stmt.setFloat(2, financeiro.getValor());
 			stmt.setInt(3, financeiro.getConta().getId_conta());
-			stmt.setString(4, financeiro.getTipo_lanc());
+			stmt.setString(4, financeiro.getConta().getTipo());
 			stmt.setDate(5, financeiro.getData());
 
 			stmt.executeUpdate();
@@ -121,7 +121,6 @@ public class FinanceiroDAO {
 			ConnectionFactory.closeConnection(connection);
 			while (rs.next()) {
 				financeiro.setDiscriminacao(rs.getString("discriminacao"));
-				financeiro.setTipo_lanc(rs.getString("tipo_lanc"));
 				financeiro.setValor(rs.getFloat("valor"));
 			}
 		} catch (Exception e) {
@@ -145,7 +144,7 @@ public class FinanceiroDAO {
 			ConnectionFactory.closeConnection(connection);
 			while (rs.next()) {
 				financeiro.setDiscriminacao(rs.getString("discriminacao"));
-				financeiro.setTipo_lanc(rs.getString("tipo_lanc"));
+				//financeiro.setConta().;Tipo_lanc(rs.getString("tipo_lanc"));
 				financeiro.setValor(rs.getFloat("valor"));
 			}
 		} catch (Exception e) {

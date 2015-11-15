@@ -7,17 +7,14 @@ public class Financeiro {
 	private int id_codigo;
 	private String discriminacao;
 	private float valor;
-	private String tipo_lanc;
 	private Date data;
 
 	public Financeiro() {
-		// TODO Auto-generated constructor stub
 	}
 	
-	public Financeiro(int id_codigo, String discriminacao, String tipo_lanc, float valor) {
+	public Financeiro(int id_codigo, String discriminacao,  float valor) {
 		this.setId_codigo(id_codigo);
 		this.setDiscriminacao(discriminacao);
-		this.setTipo_lanc(tipo_lanc);
 		this.setValor(valor);
 	}
 
@@ -57,13 +54,4 @@ public class Financeiro {
 	public void setValor(float valor) {
 		this.valor = valor;
 	}
-
-	public String getTipo_lanc() {
-		return tipo_lanc;
-	}
-
-	public void setTipo_lanc(String tipo_lanc) {
-		this.tipo_lanc = tipo_lanc;
-	}
-
 }
