@@ -19,9 +19,14 @@ import modelo.Produto;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JFormattedTextField;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 @SuppressWarnings("serial")
-public class FrmProducao extends JFrame {
+public class FrmcadProducao extends JFrame {
 
 	private JPanel contentPane;
 	private JScrollPane scrollPane;
@@ -33,23 +38,11 @@ public class FrmProducao extends JFrame {
 	private JButton btnEditar;
 	private JButton btnExcluir;
 	private JButton btnAbrir;
-	
-	public void abreProduto(){
-		int linha = table.getSelectedRow();
-		Produto p = new Produto();
-	    p.setId_produto(Integer.parseInt(table.getValueAt(linha, 0).toString()));
-	    p.setDescricao(table.getValueAt(linha, 1).toString());
-	    p.setEstoque(Float.parseFloat(table.getValueAt(linha, 2).toString()));
-	    p.setPr_custo(Float.parseFloat(table.getValueAt(linha, 3).toString()));
-	    p.setPr_venda(Float.parseFloat(table.getValueAt(linha, 4).toString()));
-	    p.setMargem_lucro(Float.parseFloat(table.getValueAt(linha, 5).toString()));
-	    
-		FrmProducao.this.dispose();
-		new FrmcadProdutos(p).setVisible(true);
-		
-	}
-	
-	public FrmProducao() {
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+
+	public FrmcadProducao() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 739, 486);
 		setLocationRelativeTo(null);
@@ -60,15 +53,15 @@ public class FrmProducao extends JFrame {
 		contentPane.setLayout(null);
 		table = new JTable();
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 32, 703, 335);
+		scrollPane.setBounds(10, 30, 703, 188);
 		getContentPane().add(scrollPane);
 		
 		btnIncluir = new JButton("Incluir");
 		btnIncluir.setIcon(new ImageIcon("imagens\\icones\\add_16.bmp"));
 		btnIncluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				FrmProducao.this.dispose();
-			    new FrmcadProducao().setVisible(true);
+				FrmcadProducao.this.dispose();
+			    new FrmcadProdutos(null).setVisible(true);
 			}
 		});
 		
@@ -79,7 +72,7 @@ public class FrmProducao extends JFrame {
 		btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				abreProduto();
+			
 			}
 		});
 		btnEditar.setEnabled(false);
@@ -100,8 +93,8 @@ public class FrmProducao extends JFrame {
 	
 						if(new ProdutoController().excluir(Integer.parseInt(table.getValueAt(linha, 0).toString()))){
 							UtilMenssage.msgSucesso();
-							FrmProducao.this.dispose();
-							new FrmProducao().setVisible(true);
+							FrmcadProducao.this.dispose();
+							new FrmcadProducao().setVisible(true);
 						}else{
 							UtilMenssage.msgError();
 						}
@@ -120,13 +113,54 @@ public class FrmProducao extends JFrame {
 		btnAbrir = new JButton("Abrir");
 		btnAbrir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				abreProduto();
 			}
 		});
 		btnAbrir.setEnabled(false);
 		btnAbrir.setBackground(Color.WHITE);
 		btnAbrir.setBounds(109, 394, 89, 43);
 		contentPane.add(btnAbrir);
+		
+		JLabel lblDataProduo = new JLabel("Data Produ\u00E7\u00E3o");
+		lblDataProduo.setBounds(530, 253, 81, 14);
+		contentPane.add(lblDataProduo);
+		
+		JFormattedTextField formattedTextField = new JFormattedTextField();
+		formattedTextField.setBounds(604, 250, 109, 20);
+		contentPane.add(formattedTextField);
+		
+		JLabel lblItemProduo = new JLabel("Item Produ\u00E7\u00E3o");
+		lblItemProduo.setBounds(10, 253, 79, 14);
+		contentPane.add(lblItemProduo);
+		
+		textField = new JTextField();
+		textField.setBounds(84, 250, 34, 20);
+		contentPane.add(textField);
+		textField.setColumns(10);
+		
+		textField_1 = new JTextField();
+		textField_1.setEditable(false);
+		textField_1.setBounds(121, 250, 184, 20);
+		contentPane.add(textField_1);
+		textField_1.setColumns(10);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(457, 250, 63, 20);
+		contentPane.add(textField_2);
+		textField_2.setColumns(10);
+		
+		JLabel lblQuantidade = new JLabel("Quantidade");
+		lblQuantidade.setBounds(398, 253, 63, 14);
+		contentPane.add(lblQuantidade);
+		
+		JLabel lblUnidade = new JLabel("Unidade");
+		lblUnidade.setBounds(312, 253, 46, 14);
+		contentPane.add(lblUnidade);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"UN", "CX", "KG"}));
+		comboBox.setToolTipText("");
+		comboBox.setBounds(353, 250, 41, 20);
+		contentPane.add(comboBox);
 		
 		popularTabela();
 		
@@ -152,7 +186,6 @@ public class FrmProducao extends JFrame {
 					btnEditar.setEnabled(true);
 					btnExcluir.setEnabled(true);
 					if (e.getClickCount() > 1) {  
-						abreProduto();
 					} 
 				}
 			});
