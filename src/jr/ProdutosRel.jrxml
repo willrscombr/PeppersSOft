@@ -42,6 +42,10 @@
 			<line>
 				<reportElement x="1" y="77" width="550" height="2" uuid="1f47a63a-aad0-4570-bc3c-37694759dd95"/>
 			</line>
+			<image>
+				<reportElement x="1" y="2" width="49" height="69" uuid="78a18005-1897-4206-b73e-9c3306a0d35b"/>
+				<imageExpression><![CDATA["D:\\Downloads\\pimenta1.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -116,7 +120,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="40" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="50" height="20" uuid="80c58c72-b104-4aea-900f-a03a9b074cff"/>
 				<textFieldExpression><![CDATA[$F{id_produto}]]></textFieldExpression>

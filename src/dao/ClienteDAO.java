@@ -4,16 +4,31 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.swing.JOptionPane;
-
-import util.UtilMenssage;
 import modelo.Cliente;
-import modelo.Usuario;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
+import util.UtilMenssage;
 
 public class ClienteDAO {
+
+	private String path; // Caminho base
+	private String pathToReportPackage; // Caminho para o package onde estão
+										// armazenados os relatorios Jarper
+
+	// Recupera os caminhos para que a classe possa encontrar os relatórios
+	public ClienteDAO() {
+		this.path = this.getClass().getClassLoader().getResource("").getPath();
+		this.pathToReportPackage = this.path + "jr/";
+	}
 
 	public boolean cadastrar(Cliente cliente) {
 
@@ -71,19 +86,17 @@ public class ClienteDAO {
 			stmtUpdate.setString(6, cliente.getEndereco());
 			stmtUpdate.setInt(7, cliente.getCodigo());
 
-			
 			stmtUpdate.executeUpdate();
 			return true;
 
 		} catch (Exception e) {
 			return false;
-		}finally{
-			
+		} finally {
+
 			stmtUpdate.close();
 			ConnectionFactory.closeConnection(connection);
-			
-		}
 
+		}
 
 	}
 
@@ -96,10 +109,11 @@ public class ClienteDAO {
 		return rs;
 
 	}
-	
+
 	public ResultSet Busca(String busca) throws Exception {
 
-		String sql = "select codigo,nome,numcadnac,numcadest,telefone,tipo,endereco from cliente where nome like %"+busca+"%;";
+		String sql = "select codigo,nome,numcadnac,numcadest,telefone,tipo,endereco from cliente where nome like %"
+				+ busca + "%;";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
@@ -166,6 +180,46 @@ public class ClienteDAO {
 			return false;
 		}
 
+	}
+
+	// Imprime/gera uma lista de Usuarios
+	@SuppressWarnings({ "unchecked", "deprecation" })
+	public void gerarRelatorio() throws Exception {
+
+		// estabelece conexão
+		String sql = "SELECT * FROM cliente";
+		Connection connection = ConnectionFactory.getConnection();
+		PreparedStatement stmt = connection.prepareStatement(sql);
+
+		ResultSet rs = stmt.executeQuery();
+
+		// gerando o jasper design
+		JasperDesign desenho = JRXmlLoader.load(this.getPathToReportPackage() + "ClientesRel.jrxml");
+
+		// compila o relatório
+		JasperReport relatorio = JasperCompileManager.compileReport(desenho);
+
+		// implementação da interface JRDataSource para DataSource ResultSet
+		JRResultSetDataSource jrRS = new JRResultSetDataSource(rs);
+
+		// executa o relatório
+		@SuppressWarnings("rawtypes")
+		Map parametros = new HashMap();
+		parametros.put("nota", new Double(10));
+		JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, jrRS);
+
+		// exibe o resultado
+		JasperViewer viewer = new JasperViewer(impressao, false);
+		viewer.show();
+
+	}
+
+	public String getPathToReportPackage() {
+		return this.pathToReportPackage;
+	}
+
+	public String getPath() {
+		return this.path;
 	}
 
 }

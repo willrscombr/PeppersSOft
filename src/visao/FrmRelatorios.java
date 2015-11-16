@@ -13,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 import controle.FinanceiroController;
 import controle.ProdutoController;
 import controle.UsuarioController;
+import dao.ClienteDAO;
 
 @SuppressWarnings("serial")
 public class FrmRelatorios extends JFrame {
@@ -70,7 +71,15 @@ public class FrmRelatorios extends JFrame {
 		btnClientes = new JButton("Clientes");
 		btnClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				
+				ClienteDAO controle = new ClienteDAO();
+				try {
+					controle.gerarRelatorio();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null, "Erro ao gerar relatório!");
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnClientes.setBounds(162, 35, 89, 57);

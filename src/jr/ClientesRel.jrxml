@@ -4,21 +4,27 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
-		<![CDATA[select * from usuarios]]>
+		<![CDATA[select * from cliente]]>
 	</queryString>
-	<field name="id_codigo" class="java.lang.Integer">
+	<field name="codigo" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="nome" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="usuario" class="java.lang.String">
+	<field name="numcadnac" class="java.lang.Long">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="senha" class="java.lang.String">
+	<field name="numcadest" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="nivel" class="java.lang.String">
+	<field name="endereco" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="telefone" class="java.lang.Long">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>
@@ -31,7 +37,7 @@
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Relatório de Usuários]]></text>
+				<text><![CDATA[Relatório de Clientes]]></text>
 			</staticText>
 			<line>
 				<reportElement x="1" y="0" width="550" height="2" uuid="1f13d0db-5369-4f49-a403-148bb8863c57"/>
@@ -40,7 +46,7 @@
 				<reportElement x="1" y="77" width="550" height="2" uuid="1f47a63a-aad0-4570-bc3c-37694759dd95"/>
 			</line>
 			<image>
-				<reportElement x="1" y="2" width="49" height="69" uuid="812b9790-712e-4604-aa07-da9ce73485c5"/>
+				<reportElement x="1" y="2" width="49" height="69" uuid="c60fa5d5-8a6e-4815-ac5f-e1badcf1f573"/>
 				<imageExpression><![CDATA["D:\\Downloads\\pimenta1.jpg"]]></imageExpression>
 			</image>
 		</band>
@@ -80,56 +86,78 @@
 				<text><![CDATA[Código]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="50" y="0" width="205" height="20" uuid="8a293146-d148-4289-8689-48b6739fb36e"/>
+				<reportElement x="50" y="0" width="146" height="20" uuid="8a293146-d148-4289-8689-48b6739fb36e"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nome]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="255" y="0" width="100" height="20" uuid="2f2de66d-1837-4402-80e4-03d9b02ce4e2"/>
+				<reportElement x="196" y="0" width="70" height="20" uuid="2f2de66d-1837-4402-80e4-03d9b02ce4e2"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Usuário]]></text>
+				<text><![CDATA[NumCadNac]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="355" y="0" width="100" height="20" uuid="f69f005b-2f3e-4adb-8f11-c1e74ba80562"/>
+				<reportElement x="266" y="0" width="70" height="20" uuid="f69f005b-2f3e-4adb-8f11-c1e74ba80562"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Senha]]></text>
+				<text><![CDATA[NumCadEst]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="455" y="1" width="100" height="20" uuid="2e30eb29-d837-4c3b-8a4c-688419d802dd"/>
+				<reportElement x="336" y="0" width="79" height="20" uuid="2e30eb29-d837-4c3b-8a4c-688419d802dd"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Nível]]></text>
+				<text><![CDATA[Endereço]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="415" y="0" width="70" height="20" uuid="b5c79413-97e2-46ee-ab80-89a890af31f3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="485" y="0" width="70" height="20" uuid="c6f7c8d7-3786-4e2d-91ce-ca5447fd2f8f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="50" height="20" uuid="4b486381-6352-48e5-ba89-ff620da23457"/>
-				<textFieldExpression><![CDATA[$F{id_codigo}]]></textFieldExpression>
+				<reportElement x="0" y="0" width="50" height="20" uuid="ef31273b-bbe4-4561-978d-b9b6863a856b"/>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="50" y="0" width="205" height="20" uuid="580315f3-47d1-47fd-89c3-a70375a660f6"/>
+				<reportElement x="196" y="0" width="70" height="20" uuid="e8579394-5570-41e9-ab07-6637d9e6f1c1"/>
+				<textFieldExpression><![CDATA[$F{numcadnac}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="266" y="0" width="70" height="20" uuid="869abdde-eab3-4ba8-a880-5ef6475541be"/>
+				<textFieldExpression><![CDATA[$F{numcadest}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="336" y="0" width="79" height="20" uuid="4984f732-5098-40ee-a0f0-998f5443978b"/>
+				<textFieldExpression><![CDATA[$F{endereco}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="485" y="0" width="70" height="20" uuid="b616d2eb-2c54-4932-87c1-1ee108d7262e"/>
+				<textFieldExpression><![CDATA[$F{telefone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="0" width="146" height="20" uuid="fea092ca-8642-4654-af26-83a9f63929c9"/>
 				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="255" y="0" width="100" height="20" uuid="b7b6f63b-2778-4638-8a86-cb519e5d06b9"/>
-				<textFieldExpression><![CDATA[$F{usuario}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="355" y="0" width="100" height="20" uuid="b341d2d2-725f-4940-bbea-285dd63904b8"/>
-				<textFieldExpression><![CDATA[$F{senha}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="455" y="0" width="100" height="20" uuid="c23e7d69-2320-425f-9922-f8fee48287f0"/>
-				<textFieldExpression><![CDATA[$F{nivel}]]></textFieldExpression>
+				<reportElement x="415" y="0" width="70" height="20" uuid="d8c67ec3-4606-469f-ab5c-1604b077f120"/>
+				<textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
