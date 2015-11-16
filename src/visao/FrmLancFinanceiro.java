@@ -19,7 +19,6 @@ import controle.ContaController;
 import controle.FinanceiroController;
 import modelo.Conta;
 import modelo.Financeiro;
-import dao.FinanceiroDAO;
 
 @SuppressWarnings("serial")
 public class FrmLancFinanceiro extends JFrame {

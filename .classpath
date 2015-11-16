@@ -5,14 +5,14 @@
 	<classpathentry kind="lib" path="mysql-connector-java-5.1.18-bin.jar"/>
 	<classpathentry kind="lib" path="jgoodies-forms-1.8.0.jar" sourcepath="jgoodies-forms-1.8.0-sources.jar"/>
 	<classpathentry kind="lib" path="miglayout15-swing.jar" sourcepath="miglayout-src.zip"/>
-	<classpathentry kind="lib" path="C:/Users/Vinicius/Downloads/jasperreports-6.1.1-project/jasperreports-6.1.1/lib/commons-beanutils-1.9.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Vinicius/Downloads/jasperreports-6.1.1-project/jasperreports-6.1.1/lib/commons-collections-3.2.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Vinicius/Downloads/jasperreports-6.1.1-project/jasperreports-6.1.1/lib/commons-digester-2.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Vinicius/Downloads/jasperreports-6.1.1-project/jasperreports-6.1.1/lib/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Vinicius/Downloads/jasperreports-6.1.1-project/jasperreports-6.1.1/lib/groovy-all-2.4.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Vinicius/Downloads/jasperreports-6.1.1-project/jasperreports-6.1.1/lib/itext-2.1.7.js3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Vinicius/Downloads/jasperreports-6.1.1-project/jasperreports-6.1.1/lib/poi-3.10.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Vinicius/Downloads/jasperreports-6.1.1-project/jasperreports-6.1.1/lib/servlet-api-2.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Vinicius/Downloads/jasperreports-6.1.1.jar"/>
+	<classpathentry kind="lib" path="bibliotecasJasperReport/commons-beanutils-1.7.0.jar"/>
+	<classpathentry kind="lib" path="bibliotecasJasperReport/commons-collections-3.1.jar"/>
+	<classpathentry kind="lib" path="bibliotecasJasperReport/commons-digester-1.7.jar"/>
+	<classpathentry kind="lib" path="bibliotecasJasperReport/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="bibliotecasJasperReport/itext-2.1.7.jar"/>
+	<classpathentry kind="lib" path="bibliotecasJasperReport/groovy-all-1.5.3.jar"/>
+	<classpathentry kind="lib" path="bibliotecasJasperReport/jasperreports-5.5.1.jar"/>
+	<classpathentry kind="lib" path="bibliotecasJasperReport/poi-3.9.jar"/>
+	<classpathentry kind="lib" path="bibliotecasJasperReport/servlet-api-2.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

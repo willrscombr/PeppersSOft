@@ -36,4 +36,8 @@ public class ProdutoController {
 	public void gerarRelatorio() throws Exception {
 		dao.gerarRelatorio();
 	}
+
+	public Produto consultar(int id) throws Exception {
+		return dao.consultar(id);
+	}
 }

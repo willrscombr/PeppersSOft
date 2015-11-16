@@ -13,9 +13,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import controle.ProdutoController;
+import modelo.Produto;
 import util.PeppersTableModel;
 import util.UtilMenssage;
-import modelo.Produto;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
@@ -23,7 +23,12 @@ import javax.swing.JLabel;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.ComboBoxEditor;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 @SuppressWarnings("serial")
 public class FrmcadProducao extends JFrame {
@@ -34,13 +39,14 @@ public class FrmcadProducao extends JFrame {
 	private PeppersTableModel modelo;
 	private ResultSet rs;
 	private ResultSetMetaData rsmt;
+	private JTextField textCodigoItem;
+	private JTextField textDescricao;
+	private JTextField textQtd;
+	private JComboBox comboBox;
 	private JButton btnIncluir;
-	private JButton btnEditar;
+	private JButton btnSalvar;
+	private JButton btnCancelar;
 	private JButton btnExcluir;
-	private JButton btnAbrir;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
 
 	public FrmcadProducao() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -50,117 +56,125 @@ public class FrmcadProducao extends JFrame {
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		table = new JTable();
+		contentPane.setLayout(null);
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 30, 703, 188);
+		scrollPane.setBounds(10, 37, 703, 188);
 		getContentPane().add(scrollPane);
-		
-		btnIncluir = new JButton("Incluir");
-		btnIncluir.setIcon(new ImageIcon("imagens\\icones\\add_16.bmp"));
-		btnIncluir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				FrmcadProducao.this.dispose();
-			    new FrmcadProdutos(null).setVisible(true);
-			}
-		});
-		
-		btnIncluir.setBackground(Color.WHITE);
-		btnIncluir.setBounds(10, 394, 89, 43);
-		contentPane.add(btnIncluir);
-		
-		btnEditar = new JButton("Editar");
-		btnEditar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			
-			}
-		});
-		btnEditar.setEnabled(false);
-		btnEditar.setBackground(Color.WHITE);
-		btnEditar.setBounds(208, 394, 89, 43);
-		contentPane.add(btnEditar);
-		
-		btnExcluir = new JButton("Excluir");
-		btnExcluir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				int linha = table.getSelectedRow();
-
-				String message="Deseja realmente excluir o produto?";
-				String title="Confirmação";
-				int opc=JOptionPane.showConfirmDialog(null, message,title,JOptionPane.YES_NO_OPTION);
-				if(opc == JOptionPane.YES_OPTION){
-					try {
-	
-						if(new ProdutoController().excluir(Integer.parseInt(table.getValueAt(linha, 0).toString()))){
-							UtilMenssage.msgSucesso();
-							FrmcadProducao.this.dispose();
-							new FrmcadProducao().setVisible(true);
-						}else{
-							UtilMenssage.msgError();
-						}
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
-			}	
-		});
-		btnExcluir.setEnabled(false);
-		btnExcluir.setBackground(Color.WHITE);
-		btnExcluir.setBounds(305, 394, 89, 43);
-		contentPane.add(btnExcluir);
-		
-		btnAbrir = new JButton("Abrir");
-		btnAbrir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnAbrir.setEnabled(false);
-		btnAbrir.setBackground(Color.WHITE);
-		btnAbrir.setBounds(109, 394, 89, 43);
-		contentPane.add(btnAbrir);
-		
-		JLabel lblDataProduo = new JLabel("Data Produ\u00E7\u00E3o");
-		lblDataProduo.setBounds(530, 253, 81, 14);
-		contentPane.add(lblDataProduo);
-		
-		JFormattedTextField formattedTextField = new JFormattedTextField();
-		formattedTextField.setBounds(604, 250, 109, 20);
-		contentPane.add(formattedTextField);
 		
 		JLabel lblItemProduo = new JLabel("Item Produ\u00E7\u00E3o");
 		lblItemProduo.setBounds(10, 253, 79, 14);
 		contentPane.add(lblItemProduo);
 		
-		textField = new JTextField();
-		textField.setBounds(84, 250, 34, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		textCodigoItem = new JTextField();
+		textCodigoItem.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == 10) {
+					comboBox.requestFocus();
+				}
+			}
+		});
+		textCodigoItem.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				ProdutoController consulta = new ProdutoController();
+				try {
+					Produto produto = consulta.consultar(Integer.parseInt(textCodigoItem.getText()));
+					textDescricao.setText(produto.getDescricao());
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+			}
+		});
+		textCodigoItem.setBounds(84, 250, 34, 20);
+		contentPane.add(textCodigoItem);
+		textCodigoItem.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setEditable(false);
-		textField_1.setBounds(121, 250, 184, 20);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		textDescricao = new JTextField();
+		textDescricao.setBounds(121, 250, 184, 20);
+		textDescricao.setEditable(false);
+		contentPane.add(textDescricao);
+		textDescricao.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(457, 250, 63, 20);
-		contentPane.add(textField_2);
-		textField_2.setColumns(10);
+		textQtd = new JTextField();
+		textQtd.setBounds(218, 281, 63, 20);
+		contentPane.add(textQtd);
+		textQtd.setColumns(10);
 		
 		JLabel lblQuantidade = new JLabel("Quantidade");
-		lblQuantidade.setBounds(398, 253, 63, 14);
+		lblQuantidade.setBounds(157, 289, 63, 14);
 		contentPane.add(lblQuantidade);
 		
 		JLabel lblUnidade = new JLabel("Unidade");
-		lblUnidade.setBounds(312, 253, 46, 14);
+		lblUnidade.setBounds(10, 289, 46, 14);
 		contentPane.add(lblUnidade);
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
+		comboBox.setBounds(84, 283, 63, 20);
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"UN", "CX", "KG"}));
 		comboBox.setToolTipText("");
-		comboBox.setBounds(353, 250, 41, 20);
 		contentPane.add(comboBox);
+		
+		JButton button = new JButton("Editar");
+		button.setBounds(109, 393, 89, 43);
+		button.setEnabled(false);
+		button.setBackground(Color.WHITE);
+		contentPane.add(button);
+		
+		JButton button_1 = new JButton("Salvar");
+		button_1.setBounds(10, 393, 89, 43);
+		button_1.setBackground(Color.WHITE);
+		contentPane.add(button_1);
+		
+		JButton button_2 = new JButton("Cancelar");
+		button_2.setBounds(208, 393, 89, 43);
+		button_2.setBackground(Color.WHITE);
+		contentPane.add(button_2);
+		
+		JButton button_3 = new JButton("Excluir");
+		button_3.setBounds(305, 393, 89, 43);
+		button_3.setEnabled(false);
+		button_3.setBackground(Color.WHITE);
+		contentPane.add(button_3);
+		
+		JFormattedTextField formattedTextField = new JFormattedTextField();
+		formattedTextField.setBounds(84, 11, 138, 20);
+		contentPane.add(formattedTextField);
+		
+		JLabel label = new JLabel("Data Produ\u00E7\u00E3o");
+		label.setBounds(10, 14, 81, 14);
+		contentPane.add(label);
+		
+		btnSalvar = new JButton("Salvar");
+		btnSalvar.setEnabled(false);
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnSalvar.setBounds(109, 312, 89, 23);
+		contentPane.add(btnSalvar);
+		
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setEnabled(false);
+		btnCancelar.setBounds(208, 312, 89, 23);
+		contentPane.add(btnCancelar);
+		
+		btnExcluir = new JButton("Excluir");
+		btnExcluir.setEnabled(false);
+		btnExcluir.setBounds(305, 312, 89, 23);
+		contentPane.add(btnExcluir);
+		
+		btnIncluir = new JButton("Incluir");
+		btnIncluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				btnSalvar.setEnabled(true);
+				btnCancelar.setEnabled(true);
+				btnIncluir.setEnabled(false);
+			}
+		});
+		btnIncluir.setBounds(10, 312, 89, 23);
+		contentPane.add(btnIncluir);
 		
 		popularTabela();
 		
@@ -182,9 +196,7 @@ public class FrmcadProducao extends JFrame {
 			table.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					btnAbrir.setEnabled(true);
-					btnEditar.setEnabled(true);
-					btnExcluir.setEnabled(true);
+					
 					if (e.getClickCount() > 1) {  
 					} 
 				}
