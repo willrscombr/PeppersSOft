@@ -47,6 +47,7 @@ public class FrmcadProducao extends JFrame {
 	private JButton btnSalvar;
 	private JButton btnCancelar;
 	private JButton btnExcluir;
+	private JTextField textField;
 
 	public FrmcadProducao() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -63,7 +64,7 @@ public class FrmcadProducao extends JFrame {
 		getContentPane().add(scrollPane);
 		
 		JLabel lblItemProduo = new JLabel("Item Produ\u00E7\u00E3o");
-		lblItemProduo.setBounds(10, 253, 79, 14);
+		lblItemProduo.setBounds(10, 253, 99, 14);
 		contentPane.add(lblItemProduo);
 		
 		textCodigoItem = new JTextField();
@@ -87,27 +88,27 @@ public class FrmcadProducao extends JFrame {
 				}
 			}
 		});
-		textCodigoItem.setBounds(84, 250, 34, 20);
+		textCodigoItem.setBounds(119, 247, 34, 20);
 		contentPane.add(textCodigoItem);
 		textCodigoItem.setColumns(10);
 		
 		textDescricao = new JTextField();
-		textDescricao.setBounds(121, 250, 184, 20);
+		textDescricao.setBounds(156, 247, 184, 20);
 		textDescricao.setEditable(false);
 		contentPane.add(textDescricao);
 		textDescricao.setColumns(10);
 		
 		textQtd = new JTextField();
-		textQtd.setBounds(218, 281, 63, 20);
+		textQtd.setBounds(277, 286, 63, 20);
 		contentPane.add(textQtd);
 		textQtd.setColumns(10);
 		
 		JLabel lblQuantidade = new JLabel("Quantidade");
-		lblQuantidade.setBounds(157, 289, 63, 14);
+		lblQuantidade.setBounds(187, 289, 89, 14);
 		contentPane.add(lblQuantidade);
 		
 		JLabel lblUnidade = new JLabel("Unidade");
-		lblUnidade.setBounds(10, 289, 46, 14);
+		lblUnidade.setBounds(10, 289, 64, 14);
 		contentPane.add(lblUnidade);
 		
 		comboBox = new JComboBox();
@@ -139,11 +140,11 @@ public class FrmcadProducao extends JFrame {
 		contentPane.add(button_3);
 		
 		JFormattedTextField formattedTextField = new JFormattedTextField();
-		formattedTextField.setBounds(84, 11, 138, 20);
+		formattedTextField.setBounds(103, 11, 138, 20);
 		contentPane.add(formattedTextField);
 		
 		JLabel label = new JLabel("Data Produ\u00E7\u00E3o");
-		label.setBounds(10, 14, 81, 14);
+		label.setBounds(10, 14, 89, 14);
 		contentPane.add(label);
 		
 		btnSalvar = new JButton("Salvar");
@@ -153,17 +154,17 @@ public class FrmcadProducao extends JFrame {
 				
 			}
 		});
-		btnSalvar.setBounds(109, 312, 89, 23);
+		btnSalvar.setBounds(94, 314, 89, 23);
 		contentPane.add(btnSalvar);
 		
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setEnabled(false);
-		btnCancelar.setBounds(208, 312, 89, 23);
+		btnCancelar.setBounds(187, 314, 89, 23);
 		contentPane.add(btnCancelar);
 		
 		btnExcluir = new JButton("Excluir");
 		btnExcluir.setEnabled(false);
-		btnExcluir.setBounds(305, 312, 89, 23);
+		btnExcluir.setBounds(277, 314, 89, 23);
 		contentPane.add(btnExcluir);
 		
 		btnIncluir = new JButton("Incluir");
@@ -174,10 +175,21 @@ public class FrmcadProducao extends JFrame {
 				btnIncluir.setEnabled(false);
 			}
 		});
-		btnIncluir.setBounds(10, 312, 89, 23);
+		btnIncluir.setBounds(10, 314, 79, 23);
 		contentPane.add(btnIncluir);
 		
-		popularTabela();
+		JLabel lblResponsvel = new JLabel("Respons\u00E1vel");
+		lblResponsvel.setBounds(251, 14, 89, 14);
+		contentPane.add(lblResponsvel);
+		
+		textField = new JTextField();
+		textField.setBounds(350, 11, 174, 20);
+		contentPane.add(textField);
+		textField.setColumns(10);
+		
+		JButton btnNewButton = new JButton("Editar");
+		btnNewButton.setBounds(376, 314, 89, 23);
+		contentPane.add(btnNewButton);
 		
 		try {
 			setVisible(true);
@@ -185,7 +197,7 @@ public class FrmcadProducao extends JFrame {
 			e.printStackTrace();
 		}
 	}
-	private void popularTabela(){
+private void popularTabela(){
 		
 		try {
 			
@@ -197,8 +209,11 @@ public class FrmcadProducao extends JFrame {
 			table.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					
+					//btnAbrir.setEnabled(true);
+					//btnEditar.setEnabled(true);
+					btnExcluir.setEnabled(true);
 					if (e.getClickCount() > 1) {  
+					//	abreProduto();
 					} 
 				}
 			});
