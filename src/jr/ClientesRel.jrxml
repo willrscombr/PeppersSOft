@@ -45,10 +45,6 @@
 			<line>
 				<reportElement x="1" y="77" width="550" height="2" uuid="1f47a63a-aad0-4570-bc3c-37694759dd95"/>
 			</line>
-			<image>
-				<reportElement x="60" y="10" width="64" height="64" uuid="fc22af63-45fd-49e7-825d-6707e8ff0050"/>
-				<imageExpression><![CDATA["C:\\Users\\win\\git\\PeppersSOft\\src\\imagens\\pimenta.jpg"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>
