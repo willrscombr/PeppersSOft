@@ -40,8 +40,8 @@
 				<reportElement x="1" y="77" width="550" height="2" uuid="1f47a63a-aad0-4570-bc3c-37694759dd95"/>
 			</line>
 			<image>
-				<reportElement x="1" y="2" width="49" height="69" uuid="812b9790-712e-4604-aa07-da9ce73485c5"/>
-				<imageExpression><![CDATA["D:\\Downloads\\pimenta1.jpg"]]></imageExpression>
+				<reportElement x="60" y="10" width="64" height="64" uuid="25b7d860-04f7-4067-b227-b042a8c17d95"/>
+				<imageExpression><![CDATA["C:\\Users\\win\\git\\PeppersSOft\\src\\imagens\\pimenta.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>
