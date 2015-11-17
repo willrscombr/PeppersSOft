@@ -90,7 +90,9 @@ public class FinanceiroDAO {
 		if(dfinal=="0"){
 			dfinal = data.toString();	
 		}
-		String sql = "SELECT * FROM financeiro where data between '"+dinicial+"' and '"+dfinal+"'";
+		String sql = "SELECT financeiro.id_codigo,financeiro.discriminacao,financeiro.tipo_lanc,"
+				+ "conta.descricao,financeiro.valor,financeiro.data FROM financeiro,conta where "
+				+ "financeiro.id_conta = conta.id_conta and data between '"+dinicial+"' and '"+dfinal+"'";
 		
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
