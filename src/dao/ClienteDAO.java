@@ -21,10 +21,10 @@ import util.UtilMenssage;
 public class ClienteDAO {
 
 	private String path; // Caminho base
-	private String pathToReportPackage; // Caminho para o package onde estão
+	private String pathToReportPackage; // Caminho para o package onde estï¿½o
 										// armazenados os relatorios Jarper
 
-	// Recupera os caminhos para que a classe possa encontrar os relatórios
+	// Recupera os caminhos para que a classe possa encontrar os relatï¿½rios
 	public ClienteDAO() {
 		this.path = this.getClass().getClassLoader().getResource("").getPath();
 		this.pathToReportPackage = this.path + "jr/";
@@ -112,8 +112,8 @@ public class ClienteDAO {
 
 	public ResultSet Busca(String busca) throws Exception {
 
-		String sql = "select codigo,nome,numcadnac,numcadest,telefone,tipo,endereco from cliente where nome like %"
-				+ busca + "%;";
+		String sql = "select codigo,nome,numcadnac,numcadest,telefone,tipo,endereco from cliente where nome like '%"
+				+busca+ "%';";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
@@ -186,7 +186,7 @@ public class ClienteDAO {
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	public void gerarRelatorio() throws Exception {
 
-		// estabelece conexão
+		// estabelece conexï¿½o
 		String sql = "SELECT * FROM cliente";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
@@ -196,13 +196,13 @@ public class ClienteDAO {
 		// gerando o jasper design
 		JasperDesign desenho = JRXmlLoader.load(this.getPathToReportPackage() + "ClientesRel.jrxml");
 
-		// compila o relatório
+		// compila o relatï¿½rio
 		JasperReport relatorio = JasperCompileManager.compileReport(desenho);
 
-		// implementação da interface JRDataSource para DataSource ResultSet
+		// implementaï¿½ï¿½o da interface JRDataSource para DataSource ResultSet
 		JRResultSetDataSource jrRS = new JRResultSetDataSource(rs);
 
-		// executa o relatório
+		// executa o relatï¿½rio
 		@SuppressWarnings("rawtypes")
 		Map parametros = new HashMap();
 		parametros.put("nota", new Double(10));
