@@ -179,6 +179,10 @@ public class ProdutoDAO {
 
 		return produtos;
 	}
+	public ResultSet buscar(String valor){
+		ResultSet resultSet = null;
+		return resultSet;
+	}
 
 	// Imprime/gera uma lista de Produtos
 	@SuppressWarnings({ "unchecked", "deprecation" })

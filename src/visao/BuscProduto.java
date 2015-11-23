@@ -16,26 +16,28 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import modelo.Cliente;
+import modelo.Produto;
 import util.PeppersTableModel;
 
 import java.sql.ResultSetMetaData;
 
 import dao.ClienteDAO;
+import dao.ProdutoDAO;
 
-public class BuscCliente extends JFrame{
+public class BuscProduto extends JFrame{
 	private JTextField textBusca;
 	private JTable table;
 	private PeppersTableModel modelo ;
 	private ResultSet rs;
 	private ResultSetMetaData rsmt;
 	private JScrollPane scrollPane ;
-	private Cliente cliente;
+	private Produto produto;
 	
 
-	public BuscCliente(){
-		this.cliente = new Cliente();
+	public BuscProduto(){
+		this.produto = new Produto();
 		//this.cliente.setVazio();
-		setTitle("PepperSoft - Pesquisa Cliente");
+		setTitle("PepperSoft - Pesquisa Produto");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 500, 300);
 		setLocationRelativeTo(null);
@@ -77,7 +79,7 @@ public class BuscCliente extends JFrame{
 		JButton Cancelar = new JButton("Cancelar");
 		Cancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BuscCliente.this.dispose();
+				BuscProduto.this.dispose();
 			}
 		});
 		Cancelar.setBounds(22, 228, 117, 25);
@@ -87,7 +89,7 @@ public class BuscCliente extends JFrame{
 		Confirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				SetCliente();
-				BuscCliente.this.dispose();
+				BuscProduto.this.dispose();
 				
 			}
 		});
@@ -102,7 +104,7 @@ private void popularTabela() throws Exception{
 	
 		
 		modelo = new PeppersTableModel();
-		rs = new ClienteDAO().Busca(textBusca.getText());
+		rs = new ProdutoDAO().Busca(textBusca.getText());
 		rsmt = rs.getMetaData();
 		int numerodecolunas = rsmt.getColumnCount();
 		table = new JTable();

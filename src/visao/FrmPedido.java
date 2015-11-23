@@ -1,18 +1,27 @@
 package visao;
 
 import java.awt.BorderLayout;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+
+import modelo.Cliente;
+import modelo.Pedido;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 @SuppressWarnings("serial")
 public class FrmPedido extends JFrame {
@@ -26,6 +35,7 @@ public class FrmPedido extends JFrame {
 	private JLabel lblCod; 
 	private JTextField textField_3;
 	private JTable table_1;
+	private Pedido pedido;
 
 	public FrmPedido() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -41,7 +51,7 @@ public class FrmPedido extends JFrame {
 		contentPane.add(lblProduto);
 		
 		textField = new JTextField();
-		textField.setBounds(81, 57, 156, 19);
+		textField.setBounds(67, 57, 156, 19);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
@@ -115,7 +125,20 @@ public class FrmPedido extends JFrame {
 		JButton btnBusca = new JButton("Buscar Cliente");
 		btnBusca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new BuscCliente().setVisible(true);
+			BuscCliente busccli =	new BuscCliente();
+			busccli.setVisible(true);
+			busccli.addWindowListener(new WindowAdapter(){
+				public void windowClosed(WindowEvent e){
+					//JOptionPane.showMessageDialog(null,"fechou");
+					Cliente cli = busccli.getCliente();
+					lblClie.setText(cli.getNome());
+					labelcod2.setText(String.valueOf(cli.getCodigo()));
+					lblCp.setText(String.valueOf(cli.getNumCadNacional()));
+				}
+			
+			});
+			
+			
 			}
 		});
 		btnBusca.setBounds(558, 0, 152, 25);
@@ -143,6 +166,15 @@ public class FrmPedido extends JFrame {
 		JButton btnNewButton_3 = new JButton("Finalizar Pedido");
 		btnNewButton_3.setBounds(558, 379, 169, 25);
 		contentPane.add(btnNewButton_3);
+		
+		JButton btnP = new JButton("P");
+		btnP.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
+		btnP.setBounds(226, 55, 44, 23);
+		contentPane.add(btnP);
 		
 		
 	}
