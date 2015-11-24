@@ -38,5 +38,9 @@ public class FinanceiroController {
 		dao.gerarRelatorio();
 
 	}
+	public void gerarRelDetalhado(ResultSet rs) throws Exception {
+		dao.gerarRelDetalhado(rs);
+
+	}
 
 }

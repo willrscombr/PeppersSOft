@@ -218,6 +218,38 @@ public class FinanceiroDAO {
 
 	}
 
+	// Imprime/gera uma lista Financeiro
+		@SuppressWarnings({ "unchecked", "deprecation" })
+		public void gerarRelDetalhado(ResultSet rs) throws Exception {
+
+			// estabelece conexão
+			//String sql = "SELECT * FROM financeiro";
+			//Connection connection = ConnectionFactory.getConnection();
+			//PreparedStatement stmt = connection.prepareStatement(sql);
+
+			//rs = stmt.executeQuery();
+
+			// gerando o jasper design
+			JasperDesign desenho = JRXmlLoader.load(this.getPathToReportPackage() + "FinanceiroRelDet.jrxml");
+
+			// compila o relatório
+			JasperReport relatorio = JasperCompileManager.compileReport(desenho);
+
+			// implementação da interface JRDataSource para DataSource ResultSet
+			JRResultSetDataSource jrRS = new JRResultSetDataSource(rs);
+
+			// executa o relatório
+			@SuppressWarnings("rawtypes")
+			Map parametros = new HashMap();
+			parametros.put("nota", new Double(10));
+			JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, jrRS);
+
+			// exibe o resultado
+			JasperViewer viewer = new JasperViewer(impressao, false);
+			viewer.show();
+
+		}
+
 	public String getPathToReportPackage() {
 		return this.pathToReportPackage;
 	}

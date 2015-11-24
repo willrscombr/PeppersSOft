@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.text.ParseException;
+
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -22,6 +23,7 @@ import javax.swing.JTable;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
+
 import util.PeppersTableModel;
 import util.UtilFuncoes;
 import util.UtilMenssage;
@@ -198,6 +200,25 @@ public class FrmFinanceiro extends JFrame {
 		somaCredito();
 		somaDebito();
 		textSaldo.setText("R$ "+String.valueOf(credito - debito));
+		
+		JButton btnImprimir = new JButton("Imprimir");
+		btnImprimir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				FinanceiroController controle = new FinanceiroController();
+				String datai = frmtdtxtfldDataI.getText();
+				String dataf = frmtdtxtfldDataF.getText();
+				try {
+					controle.gerarRelDetalhado(controle.consulta(datai, dataf));
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null, "Erro ao gerar relatório!");
+					e.printStackTrace();
+				}
+			}
+		});
+		btnImprimir.setBackground(Color.WHITE);
+		btnImprimir.setBounds(423, 393, 89, 43);
+		contentPane.add(btnImprimir);
 		
 		try {
 			setVisible(true);
