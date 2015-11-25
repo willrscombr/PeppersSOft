@@ -3,19 +3,19 @@ package controle;
 import java.util.ArrayList;
 import java.util.List;
 
-import modelo.ItemPedido;
+import modelo.ItemVenda;
 
 public class ItemPedidoFactory {
 	
 	@SuppressWarnings("unused")
-	private ItemPedido itempedido;
-	private List<ItemPedido> listaitempedido;
+	private ItemVenda itempedido;
+	private List<ItemVenda> listaitempedido;
 	
-	public void addItem(ItemPedido itempedido){
+	public void addItem(ItemVenda itempedido){
 	listaitempedido = new ArrayList<>();
 	listaitempedido.add(itempedido);
 	}
-	public List<ItemPedido> getItens(){
+	public List<ItemVenda> getItens(){
 		return this.listaitempedido;
 	}
 

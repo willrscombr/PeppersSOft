@@ -1,6 +1,8 @@
 package visao;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.ScrollPane;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,30 +16,58 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
+
+
+
+
+import util.PeppersTableModel;
+import dao.ClienteDAO;
 import modelo.Cliente;
-import modelo.Pedido;
+import modelo.ItemVenda;
+import modelo.Venda;
+import modelo.Produto;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.util.ArrayList;
+import java.util.List;
+
+
 
 @SuppressWarnings("serial")
 public class FrmPedido extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField textProdDes;
+	private JTextField textQuant;
+	private JTextField textProduVal;
 	private JTable table;
 	private JLabel labelcod2;
 	private JLabel lblCod; 
-	private JTextField textField_3;
 	private JTable table_1;
-	private Pedido pedido;
+	private Venda venda;
+	private JTextField textSubtotal;
+	private ResultSet rs;
+	private ResultSetMetaData rsmt;
+	private PeppersTableModel modelo;
+	private JScrollPane scrollPane;
+	private Produto produto;
+	
 
 	public FrmPedido() {
+		venda = new Venda();
+		List listaitem = new ArrayList<ItemVenda>();
+		
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 739, 486);
 		setLocationRelativeTo(null);
@@ -50,28 +80,34 @@ public class FrmPedido extends JFrame {
 		lblProduto.setBounds(12, 59, 70, 15);
 		contentPane.add(lblProduto);
 		
-		textField = new JTextField();
-		textField.setBounds(67, 57, 156, 19);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		textProdDes = new JTextField();
+		textProdDes.setBounds(67, 57, 156, 19);
+		contentPane.add(textProdDes);
+		textProdDes.setColumns(10);
 		
 		JLabel lblQuantidade = new JLabel("Quanti: ");
 		lblQuantidade.setBounds(292, 57, 64, 15);
 		contentPane.add(lblQuantidade);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(347, 57, 53, 19);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		textQuant = new JTextField();
+		textQuant.setBounds(342, 57, 53, 19);
+		contentPane.add(textQuant);
+		textQuant.setColumns(10);
 		
 		JLabel lblValor = new JLabel("Valor:");
 		lblValor.setBounds(405, 59, 70, 15);
 		contentPane.add(lblValor);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(451, 57, 92, 19);
-		contentPane.add(textField_2);
-		textField_2.setColumns(10);
+		textProduVal = new JTextField();
+		textProduVal.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				textSubtotal.setText(String.valueOf(Float.valueOf(textQuant.getText())*Float.valueOf(textProduVal.getText())));
+			}
+		});
+		textProduVal.setBounds(439, 57, 92, 19);
+		contentPane.add(textProduVal);
+		textProduVal.setColumns(10);
 		
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setBounds(142, 6, 70, 15);
@@ -97,7 +133,7 @@ public class FrmPedido extends JFrame {
 		labelcod2.setBounds(59, 6, 70, 15);
 		contentPane.add(labelcod2);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		scrollPane.setBounds(59, 280, 286, -136);
 		contentPane.add(scrollPane);
 		
@@ -117,11 +153,6 @@ public class FrmPedido extends JFrame {
 		lblSubtotal.setBounds(556, 57, 70, 15);
 		contentPane.add(lblSubtotal);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(635, 57, 83, 19);
-		contentPane.add(textField_3);
-		textField_3.setColumns(10);
-		
 		JButton btnBusca = new JButton("Buscar Cliente");
 		btnBusca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -134,6 +165,7 @@ public class FrmPedido extends JFrame {
 					lblClie.setText(cli.getNome());
 					labelcod2.setText(String.valueOf(cli.getCodigo()));
 					lblCp.setText(String.valueOf(cli.getNumCadNacional()));
+					venda.setCliente(cli);
 				}
 			
 			});
@@ -151,15 +183,15 @@ public class FrmPedido extends JFrame {
 		table_1 = new JTable();
 		scrollPane_1.setViewportView(table_1);
 		
-		JButton btnIncluirItem = new JButton("incluir");
-		btnIncluirItem.setBounds(22, 379, 117, 25);
-		contentPane.add(btnIncluirItem);
+		
 		
 		JButton btnAlterarItem = new JButton("alterar");
+		btnAlterarItem.setEnabled(false);
 		btnAlterarItem.setBounds(150, 379, 117, 25);
 		contentPane.add(btnAlterarItem);
 		
 		JButton btnExcluirItem = new JButton("excluir");
+		btnExcluirItem.setEnabled(false);
 		btnExcluirItem.setBounds(281, 379, 117, 25);
 		contentPane.add(btnExcluirItem);
 		
@@ -170,12 +202,80 @@ public class FrmPedido extends JFrame {
 		JButton btnP = new JButton("P");
 		btnP.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				BuscProduto bproduto = new BuscProduto();
+				bproduto.setVisible(true);
+				bproduto.addWindowListener(new WindowAdapter(){
+						public void windowClosed(WindowEvent e){
+							produto = bproduto.getProduto();
+							textProdDes.setText(String.valueOf(produto.getDescricao()));
+							textQuant.setText("0");
+							textProduVal.setText(String.valueOf(produto.getPr_venda()));
+						}
+				});
+			
+				
+				
 				
 			}
 		});
 		btnP.setBounds(226, 55, 44, 23);
 		contentPane.add(btnP);
 		
+
+		JButton btnIncluirItem = new JButton("incluir");
+		btnIncluirItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				listaitem.add(new ItemVenda(produto,Float.valueOf(textQuant.getText())));
+				
+			}
+		});
+		btnIncluirItem.setBounds(22, 379, 117, 25);
+		contentPane.add(btnIncluirItem);
 		
+		textSubtotal = new JTextField("");
+		textSubtotal.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+			}
+		});
+		textSubtotal.setBounds(612, 57, 70, 17);
+		contentPane.add(textSubtotal);
+		
+		
+	}
+private void popularTabela(){
+		
+		try {
+			
+			modelo = new PeppersTableModel();
+			table = new JTable();
+			table.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					
+					if (e.getClickCount() > 1) {  
+						
+					} 
+				}
+			});
+			
+			table.setForeground(Color.RED);
+			table.setModel(modelo);
+			Object[] linha = null;
+			
+			modelo.addColumn("codigo");
+			modelo.addColumn("descricao");
+			modelo.addColumn("quantidade");
+			modelo.addColumn("valor");
+			modelo.addColumn("subtotal");
+			//modelo.addColumn("tipo");
+			//modelo.addColumn("endereco");
+			
+		
+			//scrollPane.setViewportView(table);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "Erro! Verifique a conex�o!");
+		}
 	}
 }

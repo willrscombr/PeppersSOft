@@ -114,6 +114,16 @@ public class ProdutoDAO {
 		return rs;
 
 	}
+	
+	public ResultSet Busca(String param) throws Exception {
+
+		String sql = "SELECT * FROM produto where descricao like '%"+param+"%'";
+		Connection connection = ConnectionFactory.getConnection();
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		return rs;
+
+	}
 
 	public Produto consultar(int id) throws Exception {
 		Produto produto = null;

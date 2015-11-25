@@ -88,7 +88,7 @@ public class BuscProduto extends JFrame{
 		JButton Confirmar = new JButton("Confirmar");
 		Confirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				SetCliente();
+				SetProduto();
 				BuscProduto.this.dispose();
 				
 			}
@@ -114,13 +114,12 @@ private void popularTabela() throws Exception{
 		table.setModel(modelo);
 		Object[] linha = null;
 		
-		modelo.addColumn("codigo");
-		modelo.addColumn("nome");
-		modelo.addColumn("CPF/CNPJ");
-		modelo.addColumn("RG/IE");
-		modelo.addColumn("telefone");
-		modelo.addColumn("tipo");
-		modelo.addColumn("endereco");
+		modelo.addColumn("código");
+		modelo.addColumn("descrição");
+		modelo.addColumn("preço custo");
+		modelo.addColumn("preço venda");
+		modelo.addColumn("estoque");
+		modelo.addColumn("margem lucro");
 		
 		while (rs.next()) {
 			linha = new Object[numerodecolunas];
@@ -143,20 +142,18 @@ private void popularTabela() throws Exception{
 }
 
 
-private void SetCliente(){
+private void SetProduto(){
 	int linha = table.getSelectedRow();
 	
-	this.cliente.setCodigo(Integer.parseInt(table.getValueAt(linha, 0).toString()));
-	this.cliente.setNome(table.getValueAt(linha, 1).toString());
-	this.cliente.setNumCadNacional(Long.valueOf(table.getValueAt(linha, 2).toString()));
-	this.cliente.setNumCadEstadual(Integer.valueOf(table.getValueAt(linha, 3).toString()));
-	this.cliente.setTelefone(Integer.valueOf(table.getValueAt(linha, 4).toString()));
-	this.cliente.setEndereco(table.getValueAt(linha, 5).toString());
-	this.cliente.setEndereco(table.getValueAt(linha, 6).toString());
+	this.produto.setId_produto(Integer.parseInt(table.getValueAt(linha, 0).toString()));
+	this.produto.setDescricao(table.getValueAt(linha, 1).toString());
+	this.produto.setPr_venda(Float.valueOf(table.getValueAt(linha, 2).toString()));
+	this.produto.setEstoque(Float.valueOf(table.getValueAt(linha, 3).toString()));
+	
 	
 }
-public Cliente getCliente(){
+public Produto getProduto(){
 	
-	return this.cliente;
+	return this.produto;
 }
 }

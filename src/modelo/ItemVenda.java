@@ -1,21 +1,33 @@
 package modelo;
 
-public class ItemPedido {
+public class ItemVenda {
 	private int coditempedido;
-	private Pedido pedido; 
+	private Venda pedido; 
 	private Produto produto;
+	private Float quantidade;
 	
+	public ItemVenda(Produto produto,Float quantidade){
+		this.produto = produto;
+		this.quantidade = quantidade;
+		
+	}
 	
 	public int getCodItempedido() {
 		return coditempedido;
 	}
+	public Float getQuantidade() {
+		return quantidade;
+	}
+	public void setQuantidade(Float quantidade) {
+		this.quantidade = quantidade;
+	}
 	public void setCodItempedido(int coditempedido) {
 		this.coditempedido = coditempedido;
 	}
-	public Pedido getPedido() {
+	public Venda getPedido() {
 		return pedido;
 	}
-	public void setPedido(Pedido pedido) {
+	public void setPedido(Venda pedido) {
 		this.pedido = pedido;
 	}
 	public Produto getProduto() {
