@@ -3,8 +3,12 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="sql" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA[$P{sql}]]></defaultValueExpression>
+	</parameter>
 	<queryString>
-		<![CDATA[select financeiro.id_codigo,financeiro.discriminacao,financeiro.tipo_lanc,conta.descricao,financeiro.valor,financeiro.data FROM financeiro, conta where financeiro.id_conta = conta.id_conta and data between :dinicial and :dfinal]]>
+		<![CDATA[[code]$P{sql}[code]]]>
 	</queryString>
 	<field name="id_codigo" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>

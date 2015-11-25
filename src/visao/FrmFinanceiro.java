@@ -208,7 +208,7 @@ public class FrmFinanceiro extends JFrame {
 				String datai = frmtdtxtfldDataI.getText();
 				String dataf = frmtdtxtfldDataF.getText();
 				try {
-					controle.gerarRelDetalhado(controle.consulta(datai, dataf));
+					controle.gerarRelDetalhado(controle.consultaSql(datai, dataf));
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					JOptionPane.showMessageDialog(null, "Erro ao gerar relatório!");

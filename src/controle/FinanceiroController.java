@@ -33,12 +33,17 @@ public class FinanceiroController {
 		return dao.consulta(datai,dataf);
 
 	}
+	
+	public String consultaSql(String datai, String dataf) throws Exception {
+		return dao.consultaSql(datai,dataf);
+		
+	}
 
 	public void gerarRelatorio() throws Exception {
 		dao.gerarRelatorio();
 
 	}
-	public void gerarRelDetalhado(ResultSet rs) throws Exception {
+	public void gerarRelDetalhado(String rs) throws Exception {
 		dao.gerarRelDetalhado(rs);
 
 	}
