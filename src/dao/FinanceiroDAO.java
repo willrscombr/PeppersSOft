@@ -100,26 +100,6 @@ public class FinanceiroDAO {
 		ResultSet rs = stmt.executeQuery();
 		return rs;
 	}
-	
-	public String consultaSql(String datai, String dataf) throws Exception {
-		Date data = new Date(System.currentTimeMillis());
-		
-		UtilFuncoes u = new UtilFuncoes();
-		String dinicial=u.formataData(datai);
-		String dfinal=u.formataData(dataf);
-		
-		if(dinicial=="0"){
-			dinicial =  data.toString();
-		}
-		if(dfinal=="0"){
-			dfinal = data.toString();	
-		}
-		String sql = "SELECT financeiro.id_codigo,financeiro.discriminacao,financeiro.tipo_lanc,"
-				+ "conta.descricao,financeiro.valor,financeiro.data FROM financeiro,conta where "
-				+ "financeiro.id_conta = conta.id_conta and data between '"+dinicial+"' and '"+dfinal+"'";
-		
-		return sql;
-	}
 
 	public ResultSet consultaSQL(String sql) throws Exception {
 
@@ -240,9 +220,11 @@ public class FinanceiroDAO {
 
 	// Imprime/gera uma lista Financeiro
 		@SuppressWarnings({ "unchecked", "deprecation" })
-		public void gerarRelDetalhado(String sql) throws Exception {
+		public void gerarRelDetalhado(String datai,String dataf) throws Exception {
 
+			String sql = "SELECT * FROM financeiro data between '"+datai+"' and '"+dataf+"'";
 			// estabelece conexão
+			
 			Connection connection = ConnectionFactory.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(sql);
 
@@ -260,7 +242,8 @@ public class FinanceiroDAO {
 			// executa o relatório
 			@SuppressWarnings("rawtypes")
 			Map parametros = new HashMap();
-			parametros.put("data", sql);
+			parametros.put("datai", datai);
+			parametros.put("dataf", dataf);
 			JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, jrRS);
 
 			// exibe o resultado

@@ -3,12 +3,12 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="sql" class="java.lang.String">
-		<parameterDescription><![CDATA[]]></parameterDescription>
-		<defaultValueExpression><![CDATA[$P{sql}]]></defaultValueExpression>
+	<parameter name="datai" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="dataf" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[[code]$P{sql}[code]]]>
+		<![CDATA[select * from financeiro where data between '$P{datai}' and '$P{dataf}']]>
 	</queryString>
 	<field name="id_codigo" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>

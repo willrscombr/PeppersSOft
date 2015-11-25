@@ -205,10 +205,16 @@ public class FrmFinanceiro extends JFrame {
 		btnImprimir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				FinanceiroController controle = new FinanceiroController();
+				Date data = new Date(System.currentTimeMillis());
+				
 				String datai = frmtdtxtfldDataI.getText();
 				String dataf = frmtdtxtfldDataF.getText();
+				String di = d.formataData(datai);
+				String df = d.formataData(dataf);
+				if(di == "0"){di=data.toString();}
+				if(df == "0"){df=data.toString();}
 				try {
-					controle.gerarRelDetalhado(controle.consultaSql(datai, dataf));
+					controle.gerarRelDetalhado(di, df);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					JOptionPane.showMessageDialog(null, "Erro ao gerar relatório!");
