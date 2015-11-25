@@ -3,12 +3,13 @@ package modelo;
 
 import java.util.Date;
 import java.util.List;
+import modelo.Cliente;
 
-public class Pedido {
+public class Venda {
 	private int cod_pedido;
 	private Date data_criacao;
-	private Cliente cliente;
-	private List<ItemPedido> listaitempedido;
+	private Cliente cliente = null;
+	private List<ItemVenda> listaitempedido;
 	
 	
 	
@@ -30,10 +31,10 @@ public class Pedido {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-	public List<ItemPedido> getListaitempedido() {
+	public List<ItemVenda> getListaitempedido() {
 		return listaitempedido;
 	}
-	public void setListaitempedido(List<ItemPedido> listaitempedido) {
+	public void setListaitempedido(List<ItemVenda> listaitempedido) {
 		this.listaitempedido = listaitempedido;
 	}
 }
