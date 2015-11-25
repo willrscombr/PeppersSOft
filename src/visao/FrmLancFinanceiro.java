@@ -88,11 +88,11 @@ public class FrmLancFinanceiro extends JFrame {
 		txtConta.setColumns(10);
 
 		JLabel lblCdigoConta = new JLabel("C\u00F3digo Conta");
-		lblCdigoConta.setBounds(34, 59, 82, 14);
+		lblCdigoConta.setBounds(22, 59, 82, 14);
 		contentPane.add(lblCdigoConta);
 
 		JLabel lblDiscriminao = new JLabel("Discrimina\u00E7\u00E3o");
-		lblDiscriminao.setBounds(34, 102, 82, 14);
+		lblDiscriminao.setBounds(22, 102, 82, 14);
 		contentPane.add(lblDiscriminao);
 
 		txtDiscrim = new JTextField();
@@ -175,12 +175,21 @@ public class FrmLancFinanceiro extends JFrame {
 		contentPane.add(txtValor);
 
 		JLabel lblValor = new JLabel("Valor");
-		lblValor.setBounds(34, 151, 58, 14);
+		lblValor.setBounds(22, 151, 58, 14);
 		contentPane.add(lblValor);
 		
 		lblTipo = new JLabel("");
 		lblTipo.setBounds(261, 31, 82, 14);
 		contentPane.add(lblTipo);
+		
+		JButton btnC = new JButton("c");
+		btnC.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new FrmConta().setVisible(true);
+			}
+		});
+		btnC.setBounds(335, 55, 52, 23);
+		contentPane.add(btnC);
 
 	}
 }

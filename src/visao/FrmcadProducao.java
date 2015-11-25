@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.text.ParseException;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -12,12 +14,16 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
+
 import controle.ProdutoController;
 import modelo.Produto;
 import util.PeppersTableModel;
 import util.UtilMenssage;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JFormattedTextField;
@@ -25,6 +31,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.ComboBoxEditor;
 import javax.swing.DefaultComboBoxModel;
+
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
@@ -48,6 +55,7 @@ public class FrmcadProducao extends JFrame {
 	private JButton btnCancelar;
 	private JButton btnExcluir;
 	private JTextField textField;
+	private JFormattedTextField formattedTextField;
 
 	public FrmcadProducao() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -68,6 +76,7 @@ public class FrmcadProducao extends JFrame {
 		contentPane.add(lblItemProduo);
 		
 		textCodigoItem = new JTextField();
+		textCodigoItem.setEnabled(false);
 		textCodigoItem.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -99,6 +108,7 @@ public class FrmcadProducao extends JFrame {
 		textDescricao.setColumns(10);
 		
 		textQtd = new JTextField();
+		textQtd.setEnabled(false);
 		textQtd.setBounds(277, 286, 63, 20);
 		contentPane.add(textQtd);
 		textQtd.setColumns(10);
@@ -112,6 +122,7 @@ public class FrmcadProducao extends JFrame {
 		contentPane.add(lblUnidade);
 		
 		comboBox = new JComboBox();
+		comboBox.setEnabled(false);
 		comboBox.setBounds(84, 283, 63, 20);
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"UN", "CX", "KG"}));
 		comboBox.setToolTipText("");
@@ -139,9 +150,19 @@ public class FrmcadProducao extends JFrame {
 		button_3.setBackground(Color.WHITE);
 		contentPane.add(button_3);
 		
-		JFormattedTextField formattedTextField = new JFormattedTextField();
+		formattedTextField = new JFormattedTextField();
 		formattedTextField.setBounds(103, 11, 138, 20);
 		contentPane.add(formattedTextField);
+		
+		MaskFormatter mf;
+		try {
+			mf = new MaskFormatter("##/##/####");
+			mf.install(formattedTextField);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		
 		JLabel label = new JLabel("Data Produ\u00E7\u00E3o");
 		label.setBounds(10, 14, 89, 14);
@@ -158,6 +179,13 @@ public class FrmcadProducao extends JFrame {
 		contentPane.add(btnSalvar);
 		
 		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				btnCancelar.setEnabled(false);
+				btnSalvar.setEnabled(false);
+				btnIncluir.setEnabled(true);
+			}
+		});
 		btnCancelar.setEnabled(false);
 		btnCancelar.setBounds(187, 314, 89, 23);
 		contentPane.add(btnCancelar);
@@ -173,6 +201,9 @@ public class FrmcadProducao extends JFrame {
 				btnSalvar.setEnabled(true);
 				btnCancelar.setEnabled(true);
 				btnIncluir.setEnabled(false);
+				textCodigoItem.setEnabled(true);
+				textDescricao.setEnabled(true);
+				textQtd.setEnabled(true);
 			}
 		});
 		btnIncluir.setBounds(10, 314, 79, 23);
@@ -188,7 +219,8 @@ public class FrmcadProducao extends JFrame {
 		textField.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Editar");
-		btnNewButton.setBounds(376, 314, 89, 23);
+		btnNewButton.setEnabled(false);
+		btnNewButton.setBounds(367, 314, 89, 23);
 		contentPane.add(btnNewButton);
 		
 		try {

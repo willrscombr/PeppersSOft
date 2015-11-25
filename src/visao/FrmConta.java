@@ -73,11 +73,11 @@ public class FrmConta extends JFrame {
 		txtCodigo.setColumns(10);
 
 		JLabel lblCdigoConta = new JLabel("C\u00F3digo Conta");
-		lblCdigoConta.setBounds(46, 59, 70, 14);
+		lblCdigoConta.setBounds(24, 59, 102, 14);
 		contentPane.add(lblCdigoConta);
 
 		JLabel lblDiscriminao = new JLabel("Descri\u00E7\u00E3o");
-		lblDiscriminao.setBounds(66, 90, 52, 14);
+		lblDiscriminao.setBounds(44, 90, 85, 14);
 		contentPane.add(lblDiscriminao);
 
 		comboBox = new JComboBox();
@@ -109,7 +109,7 @@ public class FrmConta extends JFrame {
 		contentPane.add(txtDesc);
 
 		JLabel lblTipoLanamento = new JLabel("Tipo Lan\u00E7amento");
-		lblTipoLanamento.setBounds(34, 120, 129, 14);
+		lblTipoLanamento.setBounds(10, 120, 109, 14);
 		contentPane.add(lblTipoLanamento);
 
 		btnConfirmarLanamento = new JButton("Cadastrar Conta");
