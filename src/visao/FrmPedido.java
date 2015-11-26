@@ -50,16 +50,15 @@ public class FrmPedido extends JFrame {
 	private JTextField textProdDes;
 	private JTextField textQuant;
 	private JTextField textProduVal;
-	private JTable table;
 	private JLabel labelcod2;
 	private JLabel lblCod; 
-	private JTable table_1;
+	private JTable table;
+	private JScrollPane  scrollPane;
 	private Venda venda;
 	private JTextField textSubtotal;
 	private ResultSet rs;
 	private ResultSetMetaData rsmt;
 	private PeppersTableModel modelo;
-	private JScrollPane scrollPane;
 	private Produto produto;
 	
 
@@ -133,22 +132,6 @@ public class FrmPedido extends JFrame {
 		labelcod2.setBounds(59, 6, 70, 15);
 		contentPane.add(labelcod2);
 		
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(59, 280, 286, -136);
-		contentPane.add(scrollPane);
-		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"4", "4", "1", "asdasda", "1"},
-				{"3", "3", "1", "zxczxc", "2"},
-			},
-			new String[] {
-				"Subtotal", "Valor", "Quant", "Descricao", "CodProduto"
-			}
-		));
-		scrollPane.setViewportView(table);
-		
 		JLabel lblSubtotal = new JLabel("SubTotal:");
 		lblSubtotal.setBounds(556, 57, 70, 15);
 		contentPane.add(lblSubtotal);
@@ -176,12 +159,12 @@ public class FrmPedido extends JFrame {
 		btnBusca.setBounds(558, 0, 152, 25);
 		contentPane.add(btnBusca);
 		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(12, 112, 699, 255);
-		contentPane.add(scrollPane_1);
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(12, 112, 699, 255);
+		contentPane.add(scrollPane);
 		
-		table_1 = new JTable();
-		scrollPane_1.setViewportView(table_1);
+		popularTabela();
+		//scrollPane.setViewportView(table);
 		
 		
 		
@@ -226,6 +209,14 @@ public class FrmPedido extends JFrame {
 		btnIncluirItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				listaitem.add(new ItemVenda(produto,Float.valueOf(textQuant.getText())));
+				List rowlist = new ArrayList<String>();
+				rowlist.add(produto.getId_produto());
+				rowlist.add(produto.getDescricao());
+				rowlist.add(textQuant.getText());
+				rowlist.add(produto.getPr_venda());
+				rowlist.add(Float.valueOf(textQuant.getText()) * produto.getPr_venda());
+				modelo.addRow(rowlist.toArray());
+				
 				
 			}
 		});
@@ -246,7 +237,7 @@ public class FrmPedido extends JFrame {
 private void popularTabela(){
 		
 		try {
-			
+			JOptionPane.showMessageDialog(null, "teste");
 			modelo = new PeppersTableModel();
 			table = new JTable();
 			table.addMouseListener(new MouseAdapter() {
@@ -272,7 +263,7 @@ private void popularTabela(){
 			//modelo.addColumn("endereco");
 			
 		
-			//scrollPane.setViewportView(table);
+			scrollPane.setViewportView(table);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(null, "Erro! Verifique a conex�o!");
