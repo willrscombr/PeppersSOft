@@ -4,9 +4,9 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.text.ParseException;
-
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -15,15 +15,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
-
 import controle.ProdutoController;
+import modelo.ItemProducao;
 import modelo.Produto;
 import util.PeppersTableModel;
 import util.UtilMenssage;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JFormattedTextField;
@@ -31,7 +29,6 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.ComboBoxEditor;
 import javax.swing.DefaultComboBoxModel;
-
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
@@ -45,7 +42,6 @@ public class FrmcadProducao extends JFrame {
 	private JTable table;
 	private PeppersTableModel modelo;
 	private ResultSet rs;
-	private ResultSetMetaData rsmt;
 	private JTextField textCodigoItem;
 	private JTextField textDescricao;
 	private JTextField textQtd;
@@ -56,7 +52,13 @@ public class FrmcadProducao extends JFrame {
 	private JButton btnExcluir;
 	private JTextField textField;
 	private JFormattedTextField formattedTextField;
-
+	private JButton btnEditar;
+	private JButton button_1;
+	private JButton button;
+	private JButton button_2;
+	private JButton button_3;
+	private List<ItemProducao> listaitens=new ArrayList<ItemProducao>();
+	private ItemProducao itens = new ItemProducao();
 	public FrmcadProducao() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 739, 486);
@@ -91,7 +93,7 @@ public class FrmcadProducao extends JFrame {
 				ProdutoController consulta = new ProdutoController();
 				try {
 					Produto produto = consulta.consultar(Integer.parseInt(textCodigoItem.getText()));
-					textDescricao.setText(produto.getDescricao());
+					textDescricao.setText(String.valueOf(produto.getDescricao()));
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
@@ -108,43 +110,59 @@ public class FrmcadProducao extends JFrame {
 		textDescricao.setColumns(10);
 		
 		textQtd = new JTextField();
+		textQtd.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == 10) {
+					btnSalvar.requestFocus();
+				}
+			}
+		});
 		textQtd.setEnabled(false);
-		textQtd.setBounds(277, 286, 63, 20);
+		textQtd.setBounds(220, 278, 63, 20);
 		contentPane.add(textQtd);
 		textQtd.setColumns(10);
 		
 		JLabel lblQuantidade = new JLabel("Quantidade");
-		lblQuantidade.setBounds(187, 289, 89, 14);
+		lblQuantidade.setBounds(156, 281, 89, 14);
 		contentPane.add(lblQuantidade);
 		
 		JLabel lblUnidade = new JLabel("Unidade");
-		lblUnidade.setBounds(10, 289, 64, 14);
+		lblUnidade.setBounds(10, 281, 64, 14);
 		contentPane.add(lblUnidade);
 		
 		comboBox = new JComboBox();
+		comboBox.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == 10) {
+					textQtd.requestFocus();
+				}
+			}
+		});
 		comboBox.setEnabled(false);
-		comboBox.setBounds(84, 283, 63, 20);
+		comboBox.setBounds(67, 278, 63, 20);
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"UN", "CX", "KG"}));
 		comboBox.setToolTipText("");
 		contentPane.add(comboBox);
 		
-		JButton button = new JButton("Editar");
+		button = new JButton("Editar");
 		button.setBounds(109, 393, 89, 43);
 		button.setEnabled(false);
 		button.setBackground(Color.WHITE);
 		contentPane.add(button);
 		
-		JButton button_1 = new JButton("Salvar");
+		button_1 = new JButton("Salvar");
 		button_1.setBounds(10, 393, 89, 43);
 		button_1.setBackground(Color.WHITE);
 		contentPane.add(button_1);
 		
-		JButton button_2 = new JButton("Cancelar");
+		button_2 = new JButton("Cancelar");
 		button_2.setBounds(208, 393, 89, 43);
 		button_2.setBackground(Color.WHITE);
 		contentPane.add(button_2);
 		
-		JButton button_3 = new JButton("Excluir");
+		button_3 = new JButton("Excluir");
 		button_3.setBounds(305, 393, 89, 43);
 		button_3.setEnabled(false);
 		button_3.setBackground(Color.WHITE);
@@ -169,10 +187,19 @@ public class FrmcadProducao extends JFrame {
 		contentPane.add(label);
 		
 		btnSalvar = new JButton("Salvar");
+		btnSalvar.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == 10) {
+					
+				}
+			}
+		});
 		btnSalvar.setEnabled(false);
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				incluiItem();
+				popularTabela();
 			}
 		});
 		btnSalvar.setBounds(94, 314, 89, 23);
@@ -184,6 +211,13 @@ public class FrmcadProducao extends JFrame {
 				btnCancelar.setEnabled(false);
 				btnSalvar.setEnabled(false);
 				btnIncluir.setEnabled(true);
+				textCodigoItem.setEnabled(false);
+				textCodigoItem.setText("");
+				textDescricao.setEnabled(false);
+				textDescricao.setText("");
+				textQtd.setEnabled(false);
+				textQtd.setText("");
+				comboBox.setEnabled(false);
 			}
 		});
 		btnCancelar.setEnabled(false);
@@ -204,6 +238,8 @@ public class FrmcadProducao extends JFrame {
 				textCodigoItem.setEnabled(true);
 				textDescricao.setEnabled(true);
 				textQtd.setEnabled(true);
+				comboBox.setEnabled(true);
+				textCodigoItem.requestFocus();
 			}
 		});
 		btnIncluir.setBounds(10, 314, 79, 23);
@@ -218,10 +254,12 @@ public class FrmcadProducao extends JFrame {
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
-		JButton btnNewButton = new JButton("Editar");
-		btnNewButton.setEnabled(false);
-		btnNewButton.setBounds(367, 314, 89, 23);
-		contentPane.add(btnNewButton);
+		btnEditar = new JButton("Editar");
+		btnEditar.setEnabled(false);
+		btnEditar.setBounds(367, 314, 89, 23);
+		contentPane.add(btnEditar);
+		
+		popularTabela();
 		
 		try {
 			setVisible(true);
@@ -229,49 +267,40 @@ public class FrmcadProducao extends JFrame {
 			e.printStackTrace();
 		}
 	}
+private void incluiItem(){
+	itens.setCoditemprod(Integer.parseInt(textCodigoItem.getText()));
+	itens.setItemdesc(textDescricao.getText());
+	itens.setItemund(comboBox.getSelectedItem().toString());
+	itens.setQtdprod(Integer.parseInt(textQtd.getText()));
+	listaitens.add(itens);
+}	
 private void popularTabela(){
 		
 		try {
+			if(listaitens!=null){
 			
 			modelo = new PeppersTableModel();
-			rs = new ProdutoController().consultar();
-			rsmt = rs.getMetaData();
-			int numerodecolunas = rsmt.getColumnCount();
 			table = new JTable();
 			table.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					//btnAbrir.setEnabled(true);
-					//btnEditar.setEnabled(true);
+					btnEditar.setEnabled(true);
 					btnExcluir.setEnabled(true);
-					if (e.getClickCount() > 1) {  
-					//	abreProduto();
-					} 
 				}
 			});
 			
 			table.setForeground(Color.RED);
-			table.setModel(modelo);
-			Object[] linha = null;
-			
-			modelo.addColumn("código");
-			modelo.addColumn("descrição");
-			modelo.addColumn("preço custo");
-			modelo.addColumn("preço venda");
-			modelo.addColumn("estoque");
-			modelo.addColumn("margem lucro");
+			table.setModel(modelo);		
+			modelo.addColumn("Codigo");
+			modelo.addColumn("Descrição");
+			modelo.addColumn("Quantidade");
+			modelo.addColumn("Unidade");
 
-			
-			while (rs.next()) {
-				linha = new Object[numerodecolunas];
-	
-				for (int j = 0; j < rsmt.getColumnCount(); j++) {
-					linha[j] = rs.getObject(j + 1);
-	
+				for (int j = 0; j < listaitens.size(); j++) {
+				    modelo.addRow(new Object[]{itens});
 				}
-				modelo.addRow(linha);
-			}
 			scrollPane.setViewportView(table);
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(null, "Erro! Verifique a conexão!");
