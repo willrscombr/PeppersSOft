@@ -20,6 +20,7 @@ import javax.swing.JComboBox;
 
 
 
+
 import util.PeppersTableModel;
 import dao.ClienteDAO;
 import modelo.Cliente;
@@ -60,11 +61,20 @@ public class FrmPedido extends JFrame {
 	private ResultSetMetaData rsmt;
 	private PeppersTableModel modelo;
 	private Produto produto;
+	private List listaitemvenda;
+	private JButton btnExcluirItem;
+	private JButton btnAlterarItem ;
+	private List rowlist;
+	private Cliente cliente ;
+	private int cont = 0;
+	
 	
 
 	public FrmPedido() {
 		venda = new Venda();
-		List listaitem = new ArrayList<ItemVenda>();
+		listaitemvenda = new ArrayList<ItemVenda>();
+		modelo = new PeppersTableModel();
+		table = new JTable();
 		
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -144,11 +154,11 @@ public class FrmPedido extends JFrame {
 			busccli.addWindowListener(new WindowAdapter(){
 				public void windowClosed(WindowEvent e){
 					//JOptionPane.showMessageDialog(null,"fechou");
-					Cliente cli = busccli.getCliente();
-					lblClie.setText(cli.getNome());
-					labelcod2.setText(String.valueOf(cli.getCodigo()));
-					lblCp.setText(String.valueOf(cli.getNumCadNacional()));
-					venda.setCliente(cli);
+					cliente = busccli.getCliente();
+					lblClie.setText(cliente.getNome());
+					labelcod2.setText(String.valueOf(cliente.getCodigo()));
+					lblCp.setText(String.valueOf(cliente.getNumCadNacional()));
+					
 				}
 			
 			});
@@ -168,17 +178,32 @@ public class FrmPedido extends JFrame {
 		
 		
 		
-		JButton btnAlterarItem = new JButton("alterar");
+		btnAlterarItem = new JButton("alterar");
 		btnAlterarItem.setEnabled(false);
 		btnAlterarItem.setBounds(150, 379, 117, 25);
 		contentPane.add(btnAlterarItem);
 		
-		JButton btnExcluirItem = new JButton("excluir");
+		btnExcluirItem = new JButton("excluir");
+		btnExcluirItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int linha = table.getSelectedRow();
+				listaitemvenda.remove(linha-1);
+				modelo.removeRow(linha);
+				System.out.println(rowlist.size());
+				
+			}
+		});
 		btnExcluirItem.setEnabled(false);
 		btnExcluirItem.setBounds(281, 379, 117, 25);
 		contentPane.add(btnExcluirItem);
 		
 		JButton btnNewButton_3 = new JButton("Finalizar Pedido");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				venda.setCliente(cliente);
+				venda.setListaitempedido(listaitemvenda);
+			}
+		});
 		btnNewButton_3.setBounds(558, 379, 169, 25);
 		contentPane.add(btnNewButton_3);
 		
@@ -206,16 +231,20 @@ public class FrmPedido extends JFrame {
 		
 
 		JButton btnIncluirItem = new JButton("incluir");
+		
 		btnIncluirItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				listaitem.add(new ItemVenda(produto,Float.valueOf(textQuant.getText())));
-				List rowlist = new ArrayList<String>();
+				cont = cont+1;
+				rowlist = new ArrayList<String>();
+				rowlist.add(cont);
 				rowlist.add(produto.getId_produto());
 				rowlist.add(produto.getDescricao());
 				rowlist.add(textQuant.getText());
 				rowlist.add(produto.getPr_venda());
 				rowlist.add(Float.valueOf(textQuant.getText()) * produto.getPr_venda());
 				modelo.addRow(rowlist.toArray());
+				listaitemvenda.add(new ItemVenda(produto,Float.valueOf(textQuant.getText())));
+				
 				
 				
 			}
@@ -238,12 +267,12 @@ private void popularTabela(){
 		
 		try {
 			JOptionPane.showMessageDialog(null, "teste");
-			modelo = new PeppersTableModel();
-			table = new JTable();
+			
 			table.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					
+						btnAlterarItem.setEnabled(true);
+						btnExcluirItem.setEnabled(true);
 					if (e.getClickCount() > 1) {  
 						
 					} 
@@ -253,8 +282,8 @@ private void popularTabela(){
 			table.setForeground(Color.RED);
 			table.setModel(modelo);
 			Object[] linha = null;
-			
-			modelo.addColumn("codigo");
+			modelo.addColumn("Indice");
+			modelo.addColumn("cod Produto");
 			modelo.addColumn("descricao");
 			modelo.addColumn("quantidade");
 			modelo.addColumn("valor");
@@ -268,5 +297,8 @@ private void popularTabela(){
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(null, "Erro! Verifique a conex�o!");
 		}
+	}
+	public void atualizarTabela(){
+		
 	}
 }

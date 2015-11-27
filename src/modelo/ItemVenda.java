@@ -6,6 +6,10 @@ public class ItemVenda {
 	private Produto produto;
 	private Float quantidade;
 	
+	public ItemVenda(){
+		
+	}
+	
 	public ItemVenda(Produto produto,Float quantidade){
 		this.produto = produto;
 		this.quantidade = quantidade;
