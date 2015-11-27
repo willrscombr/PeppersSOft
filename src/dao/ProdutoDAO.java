@@ -126,26 +126,26 @@ public class ProdutoDAO {
 	}
 
 	public Produto consultar(int id) throws Exception {
-		Produto produto = null;
+		Produto produto = new Produto();
 		try {
-			produto = new Produto();
-			String sql = "SELECT * FROM cliente WHERE codigo = ?";
+			
+			String sql = "SELECT * FROM produto WHERE id_produto = ?";
 			Connection connection = ConnectionFactory.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(sql);
 
 			stmt.setInt(1, id);
 
 			ResultSet rs = stmt.executeQuery();
-			ConnectionFactory.closeConnection(connection);
-			while (rs.next()) {
-				JOptionPane.showMessageDialog(null, rs.getString("nome"));
+			
+			if(rs.next()) {
 				produto.setId_produto(rs.getInt("id_produto"));
 				produto.setDescricao(rs.getString("descricao"));
 				produto.setEstoque(rs.getFloat("estoque"));
-				produto.setGrupo(rs.getString("grupo"));
 				produto.setMargem_lucro(rs.getFloat("margem_lucro"));
 				produto.setPr_custo(rs.getFloat("pr_custo"));
 				produto.setPr_venda(rs.getFloat("pr_venda"));
+			}else{
+				JOptionPane.showMessageDialog(null, "Deu treta de novo");
 			}
 		} catch (Exception e) {
 
