@@ -11,12 +11,6 @@ public class Financeiro {
 
 	public Financeiro() {
 	}
-	
-	public Financeiro(int id_codigo, String discriminacao,  float valor) {
-		this.setId_codigo(id_codigo);
-		this.setDiscriminacao(discriminacao);
-		this.setValor(valor);
-	}
 
 	public Date getData() {
 		data = new Date(System.currentTimeMillis());

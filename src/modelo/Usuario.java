@@ -7,30 +7,23 @@ public class Usuario {
 	private String usuario;
 	private String senha;
 	private String nivel;
-	
+
 	public Usuario() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public Usuario(int codigo) {
 		this.setId_codigo(codigo);
 	}
-	
+
 	public Usuario(String login, String senha) {
 		this.setUsuario(login);
 		this.setSenha(senha);
 	}
-	
+
 	public Usuario(int codigo, String nome) {
 		this(codigo);
 		this.setNome(nome);
-	}
-
-	public Usuario(String nome, String usuario, String senha, String nivel) {
-		this.setNome(nome);
-		this.setUsuario(usuario);
-		this.setSenha(senha);
-		this.setNivel(nivel);
 	}
 
 	public int getId_codigo() {
@@ -72,7 +65,5 @@ public class Usuario {
 	public void setNivel(String nivel) {
 		this.nivel = nivel;
 	}
-
-	
 
 }

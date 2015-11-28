@@ -218,8 +218,7 @@ public class UsuarioDAO {
 		ResultSet rs = stmt.executeQuery();
 
 		while (rs.next()) {
-			usuarios.add(new Usuario(rs.getString("nome"), rs.getString("usuario"), rs.getString("senha"),
-					rs.getString("nivel")));
+			usuarios.add(new Usuario(rs.getString("usuario"), rs.getString("senha")));
 		}
 
 		rs.close();

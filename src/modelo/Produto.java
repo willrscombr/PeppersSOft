@@ -15,16 +15,6 @@ public class Produto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Produto(int id_codigo, String descricao, float preco_custo, float preco_venda, float margem_lucro,
-			float estoque) {
-		this.setId_produto(id_codigo);
-		this.setDescricao(descricao);
-		this.setPr_custo(preco_custo);
-		this.setPr_venda(preco_venda);
-		this.setMargem_lucro(margem_lucro);
-		this.setEstoque(estoque);
-	}
-
 	public int getId_produto() {
 		return id_produto;
 	}
