@@ -216,11 +216,6 @@ public class UsuarioDAO {
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
 		ResultSet rs = stmt.executeQuery();
-
-		while (rs.next()) {
-			usuarios.add(new Usuario(rs.getString("usuario"), rs.getString("senha")));
-		}
-
 		rs.close();
 		stmt.close();
 		ConnectionFactory.closeConnection(connection);
