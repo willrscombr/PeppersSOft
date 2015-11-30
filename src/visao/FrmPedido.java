@@ -67,8 +67,6 @@ public class FrmPedido extends JFrame {
 	private List rowlist;
 	private Cliente cliente ;
 	private int cont = 0;
-	
-	
 
 	public FrmPedido() {
 		venda = new Venda();

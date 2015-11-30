@@ -57,6 +57,7 @@ public class FrmcadProducao extends JFrame {
 	private JButton button;
 	private JButton button_2;
 	private JButton button_3;
+	private List<String> listitens = new ArrayList<String>();
 	private List<ItemProducao> listaitens=new ArrayList<ItemProducao>();
 	private ItemProducao itens = new ItemProducao();
 	public FrmcadProducao() {
@@ -200,6 +201,16 @@ public class FrmcadProducao extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				incluiItem();
 				popularTabela();
+				btnCancelar.setEnabled(false);
+				btnSalvar.setEnabled(false);
+				btnIncluir.setEnabled(true);
+				textCodigoItem.setEnabled(false);
+				textCodigoItem.setText("");
+				textDescricao.setEnabled(false);
+				textDescricao.setText("");
+				textQtd.setEnabled(false);
+				textQtd.setText("");
+				comboBox.setEnabled(false);
 			}
 		});
 		btnSalvar.setBounds(94, 314, 89, 23);
@@ -272,7 +283,11 @@ private void incluiItem(){
 	itens.setItemdesc(textDescricao.getText());
 	itens.setItemund(comboBox.getSelectedItem().toString());
 	itens.setQtdprod(Integer.parseInt(textQtd.getText()));
-	listaitens.add(itens);
+
+	listitens.add(String.valueOf(itens.getCoditemprod()));
+	listitens.add(String.valueOf(itens.getItemdesc()));
+	listitens.add(String.valueOf(itens.getItemund()));
+	listitens.add(String.valueOf(itens.getQtdprod()));
 }	
 private void popularTabela(){
 		
@@ -295,10 +310,8 @@ private void popularTabela(){
 			modelo.addColumn("Descrição");
 			modelo.addColumn("Quantidade");
 			modelo.addColumn("Unidade");
-
-				for (int j = 0; j < listaitens.size(); j++) {
-				    modelo.addRow(new Object[]{itens});
-				}
+			modelo.addRow(listitens.toArray());
+			
 			scrollPane.setViewportView(table);
 			}
 		} catch (Exception e) {
@@ -306,5 +319,6 @@ private void popularTabela(){
 			JOptionPane.showMessageDialog(null, "Erro! Verifique a conexão!");
 		}
 	}
+
 }
 
