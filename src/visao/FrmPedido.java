@@ -21,8 +21,12 @@ import javax.swing.JComboBox;
 
 
 
+
+
 import util.PeppersTableModel;
+import util.UtilMenssage;
 import dao.ClienteDAO;
+import dao.VendasDao;
 import modelo.Cliente;
 import modelo.ItemVenda;
 import modelo.Venda;
@@ -187,9 +191,9 @@ public class FrmPedido extends JFrame {
 		btnExcluirItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int linha = table.getSelectedRow();
-				listaitemvenda.remove(linha-1);
+				listaitemvenda.remove(linha);
 				modelo.removeRow(linha);
-				System.out.println(rowlist.size());
+				System.out.println(listaitemvenda.size());
 				
 			}
 		});
@@ -202,6 +206,12 @@ public class FrmPedido extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				venda.setCliente(cliente);
 				venda.setListaitempedido(listaitemvenda);
+				if(new VendasDao().cadastrar(venda)){
+					UtilMenssage.msgSucesso();
+					FrmPedido.this.dispose();
+				}else{
+					UtilMenssage.msgError();
+				}
 			}
 		});
 		btnNewButton_3.setBounds(558, 379, 169, 25);
