@@ -41,9 +41,4 @@ public class UsuarioController {
 	public List<Usuario> listar() throws Exception {
 		return dao.listar();
 	}
-
-	public void gerarRelatorio() throws Exception {
-		dao.gerarRelatorio();
-
-	}
 }

@@ -37,17 +37,22 @@ REPLACE INTO `cliente` (`codigo`, `nome`, `numcadnac`, `numcadest`, `endereco`, 
 
 -- Copiando estrutura para tabela pepper.conta
 CREATE TABLE IF NOT EXISTS `conta` (
-  `id_conta` int(11) NOT NULL,
+  `id_conta` int(11) NOT NULL AUTO_INCREMENT,
   `descricao` varchar(50) NOT NULL,
-  `tipo` char(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `tipo` char(50) NOT NULL,
+  PRIMARY KEY (`id_conta`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela pepper.conta: ~3 rows (aproximadamente)
+-- Copiando dados para a tabela pepper.conta: ~7 rows (aproximadamente)
 /*!40000 ALTER TABLE `conta` DISABLE KEYS */;
 REPLACE INTO `conta` (`id_conta`, `descricao`, `tipo`) VALUES
 	(1, 'PAGAMENTOS', 'D'),
 	(2, 'RECEBIMENTOS', 'C'),
-	(3, 'VENDAS', 'C');
+	(3, 'VENDAS', 'C'),
+	(4, 'teste', 'C'),
+	(5, 'teste', 'C'),
+	(6, 'testee', 'D'),
+	(7, '', 'C');
 /*!40000 ALTER TABLE `conta` ENABLE KEYS */;
 
 

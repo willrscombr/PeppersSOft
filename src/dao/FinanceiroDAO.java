@@ -222,7 +222,7 @@ public class FinanceiroDAO {
 		@SuppressWarnings({ "unchecked", "deprecation" })
 		public void gerarRelDetalhado(String datai,String dataf) throws Exception {
 
-			String sql = "SELECT * FROM financeiro data between '"+datai+"' and '"+dataf+"'";
+			String sql = "SELECT * FROM financeiro WHERE data between '"+datai+"' and '"+dataf+"'";
 			// estabelece conexão
 			
 			Connection connection = ConnectionFactory.getConnection();
@@ -231,7 +231,7 @@ public class FinanceiroDAO {
 			ResultSet rs = stmt.executeQuery();
 
 			// gerando o jasper design
-			JasperDesign desenho = JRXmlLoader.load(this.getPathToReportPackage() + "FinanceiroRelDet.jrxml");
+			JasperDesign desenho = JRXmlLoader.load(this.getPathToReportPackage() + "FinanceiroRel.jrxml");
 
 			// compila o relatório
 			JasperReport relatorio = JasperCompileManager.compileReport(desenho);
@@ -242,8 +242,6 @@ public class FinanceiroDAO {
 			// executa o relatório
 			@SuppressWarnings("rawtypes")
 			Map parametros = new HashMap();
-			parametros.put("datai", datai);
-			parametros.put("dataf", dataf);
 			JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, jrRS);
 
 			// exibe o resultado

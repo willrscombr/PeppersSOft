@@ -33,11 +33,12 @@ public class ProdutoController {
 		return dao.listar();
 	}
 
-	public void gerarRelatorio() throws Exception {
-		dao.gerarRelatorio();
-	}
-
 	public Produto consultar(int id) throws Exception {
 		return dao.consultar(id);
+	}
+
+	public void gerarRelatorio(int op) throws Exception {
+		dao.gerarRelatorio(op);
+
 	}
 }
