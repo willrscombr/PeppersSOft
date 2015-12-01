@@ -22,7 +22,6 @@ import dao.ClienteDAO;
 public class FrmRelatorios extends JFrame {
 
 	private JPanel contentPane;
-	private JButton btnUsuarios;
 	private JButton btnProdutos;
 	private JButton btnFinanceiro;
 	private JButton btnPedidos;
@@ -70,23 +69,6 @@ public class FrmRelatorios extends JFrame {
 				}
 			}
 		});
-
-		btnUsuarios = new JButton("Usuarios");
-		btnUsuarios.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				UsuarioController controle = new UsuarioController();
-				try {
-					controle.gerarRelatorio();
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					JOptionPane.showMessageDialog(null, "Erro ao gerar relatório!");
-					e1.printStackTrace();
-				}
-			}
-		});
-		btnUsuarios.setBounds(442, 376, 89, 57);
-		contentPane.add(btnUsuarios);
 
 		btnClientes = new JButton("Clientes");
 		btnClientes.addActionListener(new ActionListener() {
