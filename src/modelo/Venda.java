@@ -6,18 +6,18 @@ import java.util.List;
 import modelo.Cliente;
 
 public class Venda {
-	private int cod_pedido;
+	private Long codvenda;
 	private Date data_criacao;
 	private Cliente cliente = null;
 	private List<ItemVenda> listaitempedido;
 	
 	
 	
-	public int getCod_pedido() {
-		return cod_pedido;
+	public Long getCodVenda() {
+		return codvenda;
 	}
-	public void setCod_pedido(int cod_pedido) {
-		this.cod_pedido = cod_pedido;
+	public void setCodVenda(Long codvenda) {
+		this.codvenda = codvenda;
 	}
 	public Date getData_criacao() {
 		return data_criacao;
