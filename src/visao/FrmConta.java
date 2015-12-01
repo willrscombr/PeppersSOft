@@ -122,7 +122,7 @@ public class FrmConta extends JFrame {
 						comboBox.requestFocus();
 					}
 
-					if (txtDesc.getText() == null || txtDesc.getText() == "") {
+					if (txtDesc.getText().isEmpty() || txtDesc.getText() == "") {
 						JOptionPane
 								.showMessageDialog(null,
 										"Atenção! O campo descrição deve ser informado!");
@@ -147,7 +147,7 @@ public class FrmConta extends JFrame {
 							JOptionPane.showMessageDialog(null,
 									"Lançamento realizado com sucesso!");
 							FrmConta.this.dispose();
-							new FrmConta().setVisible(true);
+							
 						}
 
 					}

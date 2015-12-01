@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,15 +12,19 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
 import java.awt.Color;
 
 @SuppressWarnings("serial")
 public class FrmPrincipal extends JFrame {
+
 
 	private JPanel contentPane;
 	private JButton btnUsuarios;
@@ -112,6 +117,16 @@ public class FrmPrincipal extends JFrame {
 			}
 		});
 		mnRelatrios.add(mntmProdutos_1);
+		
+		JMenuItem mntmLogin = new JMenuItem("Login");
+		mntmLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {		
+				FrmPrincipal.this.setVisible(false);
+				FrmLogin.main(null);
+				
+			}
+		});
+		menuBar.add(mntmLogin);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

@@ -17,6 +17,7 @@ import dao.ClienteDAO;
 import javax.swing.JSeparator;
 import javax.swing.JRadioButton;
 import javax.swing.JLabel;
+import javax.swing.JRadioButtonMenuItem;
 
 @SuppressWarnings("serial")
 public class FrmRelatorios extends JFrame {
