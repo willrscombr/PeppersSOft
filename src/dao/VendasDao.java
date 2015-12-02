@@ -38,7 +38,8 @@ public class VendasDao {
 		stmt.close();
 		venda.setCodVenda(buscarUltimaVenda());
 		
-		return inserirItemVenda(venda);
+		 inserirItemVenda(venda);
+		 return alterarEstoque(venda);
 		
 	}public Long buscarUltimaVenda() throws Exception{
 		conn = ConnectionFactory.getConnection();
@@ -70,6 +71,24 @@ public class VendasDao {
 		System.out.println("sql = "+sql);
 		stmt = conn.prepareStatement(sql);
 		stmt.executeUpdate();
+		
+		
+		return true;
+	}
+	public boolean alterarEstoque(Venda venda) throws Exception{
+		
+		conn = ConnectionFactory.getConnection();
+		String sql = "update produto set estoque = ? where id_produto = ?";
+		stmt = conn.prepareStatement(sql);
+		Iterator itevenda = venda.getListaitempedido().iterator(); 
+		while(itevenda.hasNext()){
+			ItemVenda item = (ItemVenda) itevenda.next();
+			stmt.setFloat(1, item.getProduto().getEstoque());
+			stmt.setInt(2,item.getProduto().getId_produto());
+			stmt.executeUpdate();
+		}
+		
+		
 		
 		
 		return true;
