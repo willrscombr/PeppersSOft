@@ -17,10 +17,6 @@ public class ProducaoController {
 		return dao.cadastrar(producao);
 	}
 
-	public boolean alterar(Producao producao) throws Exception {
-		return dao.alterar(producao);
-	}
-
 	public ResultSet consultar() throws Exception {
 		return dao.consultar();
 	}
@@ -28,16 +24,9 @@ public class ProducaoController {
 	public boolean excluir(int id) throws Exception {
 		return dao.excluir(id);
 	}
-
-	public List<Producao> listar() throws Exception {
-		return dao.listar();
-	}
-
 	public void gerarRelatorio() throws Exception {
-		dao.gerarRelatorio();
+	//	dao.gerarRelatorio();
 	}
 
-	public Producao consultar(int id) throws Exception {
-		return dao.consultar(id);
-	}
+	
 }
