@@ -167,13 +167,10 @@ public class FrmProducao extends JFrame {
 			Object[] linha = null;
 			
 			modelo.addColumn("Codigo");
-			modelo.addColumn("descrição");
-			modelo.addColumn("preço custo");
-			modelo.addColumn("preço venda");
+			modelo.addColumn("Data Produção");
+			modelo.addColumn("Data lançamento");
+			modelo.addColumn("Responsável");
 
-		
-
-			
 			while (rs.next()) {
 				linha = new Object[numerodecolunas];
 	
