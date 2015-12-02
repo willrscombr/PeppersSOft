@@ -5,6 +5,7 @@ public class ItemVenda {
 	private Venda pedido; 
 	private Produto produto;
 	private Float quantidade;
+	private Float subtotal;
 	
 	public ItemVenda(){
 		
@@ -14,6 +15,7 @@ public class ItemVenda {
 		this.coditempedido = codigo;
 		this.produto = produto;
 		this.quantidade = quantidade;
+		this.subtotal = this.quantidade * this.produto.getPr_venda();
 		
 	}
 	
@@ -40,6 +42,9 @@ public class ItemVenda {
 	}
 	public void setProduto(Produto produto) {
 		this.produto = produto;
+	}
+	public Float getSubtotal(){
+	return	this.subtotal;
 	}
 	
 	
