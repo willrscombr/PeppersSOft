@@ -91,11 +91,48 @@ CREATE TABLE IF NOT EXISTS `itemvenda` (
   `venda` bigint(20) NOT NULL,
   `quantidade` bigint(20) NOT NULL,
   `produto` bigint(20) NOT NULL,
+  `preco` float NOT NULL,
   PRIMARY KEY (`codigo`,`venda`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela pepper.itemvenda: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela pepper.itemvenda: ~14 rows (aproximadamente)
 /*!40000 ALTER TABLE `itemvenda` DISABLE KEYS */;
+REPLACE INTO `itemvenda` (`codigo`, `venda`, `quantidade`, `produto`, `preco`) VALUES
+	(1, 42, 50, 1, 0),
+	(1, 43, 5, 2, 0),
+	(1, 45, 58, 2, 100),
+	(1, 46, 1, 1, 100),
+	(1, 47, 18, 2, 100),
+	(2, 42, 50, 1, 0),
+	(2, 43, 5, 2, 0),
+	(2, 45, 58, 2, 100),
+	(2, 46, 1, 1, 100),
+	(2, 47, 18, 2, 100),
+	(3, 42, 1, 1, 0),
+	(3, 43, 5, 2, 0),
+	(3, 45, 58, 2, 100),
+	(3, 46, 1, 1, 100),
+	(3, 47, 18, 2, 100),
+	(4, 42, 8, 2, 0),
+	(4, 43, 5, 2, 0),
+	(4, 45, 58, 2, 100),
+	(4, 46, 1, 1, 100),
+	(4, 47, 18, 2, 100),
+	(5, 42, 8, 2, 0),
+	(5, 43, 5, 2, 0),
+	(5, 45, 58, 2, 100),
+	(5, 46, 1, 1, 100),
+	(5, 47, 18, 2, 100),
+	(6, 42, 8, 2, 0),
+	(6, 43, 5, 2, 0),
+	(6, 45, 58, 2, 100),
+	(6, 46, 1, 1, 100),
+	(6, 47, 18, 2, 100),
+	(7, 42, 8, 2, 0),
+	(7, 43, 7, 2, 0),
+	(7, 46, 1, 1, 100),
+	(7, 47, 18, 2, 100),
+	(8, 47, 18, 2, 100);
 /*!40000 ALTER TABLE `itemvenda` ENABLE KEYS */;
 
 
@@ -171,16 +208,27 @@ CREATE TABLE IF NOT EXISTS `venda` (
   `codigo` bigint(20) NOT NULL AUTO_INCREMENT,
   `cliente` bigint(20) NOT NULL DEFAULT '0',
   PRIMARY KEY (`codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela pepper.venda: ~5 rows (aproximadamente)
+-- Copiando dados para a tabela pepper.venda: ~11 rows (aproximadamente)
 /*!40000 ALTER TABLE `venda` DISABLE KEYS */;
 REPLACE INTO `venda` (`codigo`, `cliente`) VALUES
 	(33, 61),
 	(34, 61),
 	(35, 61),
 	(36, 1),
-	(37, 61);
+	(37, 61),
+	(38, 61),
+	(39, 61),
+	(40, 61),
+	(41, 61),
+	(42, 61),
+	(43, 61),
+	(44, 61),
+	(45, 61),
+	(46, 61),
+	(47, 61),
+	(48, 0);
 /*!40000 ALTER TABLE `venda` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
