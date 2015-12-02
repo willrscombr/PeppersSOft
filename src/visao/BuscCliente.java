@@ -147,8 +147,8 @@ private void SetCliente(){
 	this.cliente.setCodigo(Integer.parseInt(table.getValueAt(linha, 0).toString()));
 	this.cliente.setNome(table.getValueAt(linha, 1).toString());
 	this.cliente.setNumCadNacional(Long.valueOf(table.getValueAt(linha, 2).toString()));
-	this.cliente.setNumCadEstadual(Integer.valueOf(table.getValueAt(linha, 3).toString()));
-	this.cliente.setTelefone(Integer.valueOf(table.getValueAt(linha, 4).toString()));
+	this.cliente.setNumCadEstadual(Long.valueOf(table.getValueAt(linha, 3).toString()));
+	this.cliente.setTelefone(Long.valueOf(table.getValueAt(linha, 4).toString()));
 	this.cliente.setEndereco(table.getValueAt(linha, 5).toString());
 	this.cliente.setEndereco(table.getValueAt(linha, 6).toString());
 	

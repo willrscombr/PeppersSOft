@@ -116,11 +116,10 @@ private void popularTabela() throws Exception{
 		
 		modelo.addColumn("código");
 		modelo.addColumn("descrição");
-		modelo.addColumn("preço custo");
-		modelo.addColumn("preço venda");
 		modelo.addColumn("estoque");
-		modelo.addColumn("margem lucro");
-		
+		//modelo.addColumn("preço custo");
+		modelo.addColumn("preço venda");
+			
 		while (rs.next()) {
 			linha = new Object[numerodecolunas];
 
@@ -147,9 +146,8 @@ private void SetProduto(){
 	
 	this.produto.setId_produto(Integer.parseInt(table.getValueAt(linha, 0).toString()));
 	this.produto.setDescricao(table.getValueAt(linha, 1).toString());
-	this.produto.setPr_venda(Float.valueOf(table.getValueAt(linha, 2).toString()));
-	this.produto.setEstoque(Float.valueOf(table.getValueAt(linha, 3).toString()));
-	
+	this.produto.setEstoque(Float.valueOf(table.getValueAt(linha, 2).toString()));
+	this.produto.setPr_venda(Float.valueOf(table.getValueAt(linha, 3).toString()));
 	
 }
 public Produto getProduto(){

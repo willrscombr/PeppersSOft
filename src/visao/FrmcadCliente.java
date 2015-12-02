@@ -251,9 +251,9 @@ public class FrmcadCliente extends JFrame {
 				//cliente.setCodigo(Integer.valueOf(textCodigo.getText()));
 				cliente.setEndereco(textEndereco.getText());
 				cliente.setNome(textNome.getText());
-				cliente.setNumCadEstadual(Integer.valueOf(textNumCadEst.getText()));
-				cliente.setNumCadNacional(Integer.valueOf(textNumCadNac.getText()));
-				cliente.setTelefone(Integer.valueOf(textTelefone.getText()));
+				cliente.setNumCadEstadual(Long.valueOf(textNumCadEst.getText()));
+				cliente.setNumCadNacional(Long.valueOf(textNumCadNac.getText()));
+				cliente.setTelefone(Long.valueOf(textTelefone.getText()));
 				
 				cliente.setTipo(comboBoxPessoa.getSelectedIndex());
 				

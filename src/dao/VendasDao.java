@@ -22,9 +22,18 @@ public class VendasDao {
 	
 	public boolean cadastrar(Venda venda) throws Exception{
 		conn = ConnectionFactory.getConnection();
-		String sql = "insert into venda(cliente) values(?);";
+		String sql = "insert into venda(cliente,totalvenda) values(?,?);";
 		stmt = conn.prepareStatement(sql);
+		Iterator  itotalvenda = venda.getListaitempedido().iterator();
+		Float totalvenda = (float) 0;
+		while (itotalvenda.hasNext()) {
+			ItemVenda itemvenda = (ItemVenda) itotalvenda.next();
+			totalvenda = totalvenda + itemvenda.getSubtotal();
+			
+		}
 		stmt.setInt(1, venda.getCliente().getCodigo());
+		stmt.setFloat(2,totalvenda);
+		totalvenda = (float) 0;
 		Long cod = Long.valueOf(stmt.executeUpdate());
 		stmt.close();
 		venda.setCodVenda(buscarUltimaVenda());

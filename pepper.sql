@@ -26,12 +26,16 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   `telefone` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`codigo`),
   UNIQUE KEY `codigo` (`codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=latin7;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=latin7;
 
 -- Copiando dados para a tabela pepper.cliente: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
 REPLACE INTO `cliente` (`codigo`, `nome`, `numcadnac`, `numcadest`, `endereco`, `tipo`, `telefone`) VALUES
-	(61, 'asdfasdf', 3456345634, 567856, 'dsfgfg', 0, 4634563);
+	(61, 'asdfasdf', 3456345634, 567856, 'dsfgfg', 0, 4634563),
+	(62, 'Wilton Ribeiro Silva', 480283, 1245789, 'Ipora', 0, 64923),
+	(63, 'Fabio Naves', 0, 12458, 'Ipora', 0, 0),
+	(64, 'lauro Henrique', 0, 0, 'Ipora', 1, 0),
+	(65, 'IF GOIANO ', 123456789012312, 123456789, 'Ipora', 1, 516436740004);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 
 
@@ -65,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `financeiro` (
   `valor` float NOT NULL,
   `data` date DEFAULT NULL,
   PRIMARY KEY (`id_codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 -- Copiando dados para a tabela pepper.financeiro: ~12 rows (aproximadamente)
 /*!40000 ALTER TABLE `financeiro` DISABLE KEYS */;
@@ -81,7 +85,18 @@ REPLACE INTO `financeiro` (`id_codigo`, `discriminacao`, `tipo_lanc`, `id_conta`
 	(11, 'teste', 'D', 2, 2000, '2015-11-05'),
 	(12, 'lançamento', 'C', 1, 100, '2015-11-09'),
 	(13, 'teste', 'C', 1, 100, '2015-11-12'),
-	(14, 'teste', 'D', 2, 25, '2015-11-12');
+	(14, 'teste', 'D', 2, 25, '2015-11-12'),
+	(15, ' : Venda58', 'C', 3, 1600, '2015-12-02'),
+	(16, ' Venda : 59Cliente: IF GOIANO ', 'C', 3, 1430, '2015-12-02'),
+	(17, ' Venda : 60Cliente: lauro Henrique', 'C', 3, 4340, '2015-12-02'),
+	(18, ' Venda : 61Cliente: Wilton Ribeiro Silva', 'C', 3, 525.6, '2015-12-02'),
+	(19, ' Venda : 62Cliente: IF GOIANO ', 'C', 3, 100, '2015-12-02'),
+	(20, ' Venda : 63Cliente: Wilton Ribeiro Silva', 'C', 3, 139.2, '2015-12-02'),
+	(21, ' Venda : 64Cliente: Wilton Ribeiro Silva', 'C', 3, 490, '2015-12-02'),
+	(22, ' Venda : 65Cliente: Wilton Ribeiro Silva', 'C', 3, 35, '2015-12-02'),
+	(23, ' Venda : 66Cliente: Wilton Ribeiro Silva', 'C', 3, 79, '2015-12-02'),
+	(24, ' Venda : 67Cliente: Fabio Naves', 'C', 3, 80, '2015-12-02'),
+	(25, ' Venda : 68Cliente: Wilton Ribeiro Silva', 'C', 3, 9, '2015-12-02');
 /*!40000 ALTER TABLE `financeiro` ENABLE KEYS */;
 
 
@@ -95,44 +110,25 @@ CREATE TABLE IF NOT EXISTS `itemvenda` (
   PRIMARY KEY (`codigo`,`venda`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela pepper.itemvenda: ~14 rows (aproximadamente)
+-- Copiando dados para a tabela pepper.itemvenda: ~41 rows (aproximadamente)
 /*!40000 ALTER TABLE `itemvenda` DISABLE KEYS */;
 REPLACE INTO `itemvenda` (`codigo`, `venda`, `quantidade`, `produto`, `preco`) VALUES
-	(1, 42, 50, 1, 0),
-	(1, 43, 5, 2, 0),
-	(1, 45, 58, 2, 100),
-	(1, 46, 1, 1, 100),
-	(1, 47, 18, 2, 100),
-	(2, 42, 50, 1, 0),
-	(2, 43, 5, 2, 0),
-	(2, 45, 58, 2, 100),
-	(2, 46, 1, 1, 100),
-	(2, 47, 18, 2, 100),
-	(3, 42, 1, 1, 0),
-	(3, 43, 5, 2, 0),
-	(3, 45, 58, 2, 100),
-	(3, 46, 1, 1, 100),
-	(3, 47, 18, 2, 100),
-	(4, 42, 8, 2, 0),
-	(4, 43, 5, 2, 0),
-	(4, 45, 58, 2, 100),
-	(4, 46, 1, 1, 100),
-	(4, 47, 18, 2, 100),
-	(5, 42, 8, 2, 0),
-	(5, 43, 5, 2, 0),
-	(5, 45, 58, 2, 100),
-	(5, 46, 1, 1, 100),
-	(5, 47, 18, 2, 100),
-	(6, 42, 8, 2, 0),
-	(6, 43, 5, 2, 0),
-	(6, 45, 58, 2, 100),
-	(6, 46, 1, 1, 100),
-	(6, 47, 18, 2, 100),
-	(7, 42, 8, 2, 0),
-	(7, 43, 7, 2, 0),
-	(7, 46, 1, 1, 100),
-	(7, 47, 18, 2, 100),
-	(8, 47, 18, 2, 100);
+	(1, 62, 1, 5, 12),
+	(1, 63, 12, 0, 10),
+	(1, 64, 10, 0, 24),
+	(1, 65, 1, 0, 5),
+	(1, 66, 1, 0, 4),
+	(1, 67, 10, 0, 8),
+	(1, 68, 1, 2, 5),
+	(2, 62, 10, 2, 5.2),
+	(2, 63, 2, 0, 12),
+	(2, 64, 10, 0, 10),
+	(2, 65, 15, 0, 2),
+	(2, 66, 15, 0, 5),
+	(2, 68, 1, 5, 4),
+	(3, 64, 15, 0, 10),
+	(4, 62, 1, 4, 24),
+	(5, 62, 1, 5, 12);
 /*!40000 ALTER TABLE `itemvenda` ENABLE KEYS */;
 
 
@@ -174,13 +170,16 @@ CREATE TABLE IF NOT EXISTS `produto` (
   `pr_venda` float NOT NULL,
   `margem_lucro` float NOT NULL,
   PRIMARY KEY (`id_produto`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 -- Copiando dados para a tabela pepper.produto: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `produto` DISABLE KEYS */;
 REPLACE INTO `produto` (`id_produto`, `descricao`, `estoque`, `pr_custo`, `pr_venda`, `margem_lucro`) VALUES
-	(1, 'teset', 100, 100, 150, 50),
-	(2, 'teste', 100, 100, 200, 100);
+	(1, 'teset', 100, 2, 3, 50),
+	(2, 'teste', 100, 5, 5.2, 4),
+	(3, 'Pimenta de cheiro', 2, 2, 10, 400),
+	(4, 'Pimenta Rosa', 100, 8, 24, 200),
+	(5, 'Pimenta Dedo de Moça', 100, 4, 12, 200);
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 
 
@@ -207,28 +206,20 @@ REPLACE INTO `usuarios` (`id_codigo`, `nome`, `usuario`, `senha`, `nivel`) VALUE
 CREATE TABLE IF NOT EXISTS `venda` (
   `codigo` bigint(20) NOT NULL AUTO_INCREMENT,
   `cliente` bigint(20) NOT NULL DEFAULT '0',
+  `totalvenda` float NOT NULL,
   PRIMARY KEY (`codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela pepper.venda: ~11 rows (aproximadamente)
+-- Copiando dados para a tabela pepper.venda: ~10 rows (aproximadamente)
 /*!40000 ALTER TABLE `venda` DISABLE KEYS */;
-REPLACE INTO `venda` (`codigo`, `cliente`) VALUES
-	(33, 61),
-	(34, 61),
-	(35, 61),
-	(36, 1),
-	(37, 61),
-	(38, 61),
-	(39, 61),
-	(40, 61),
-	(41, 61),
-	(42, 61),
-	(43, 61),
-	(44, 61),
-	(45, 61),
-	(46, 61),
-	(47, 61),
-	(48, 0);
+REPLACE INTO `venda` (`codigo`, `cliente`, `totalvenda`) VALUES
+	(62, 65, 100),
+	(63, 62, 139.2),
+	(64, 62, 490),
+	(65, 62, 35),
+	(66, 62, 79),
+	(67, 63, 80),
+	(68, 62, 9);
 /*!40000 ALTER TABLE `venda` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
