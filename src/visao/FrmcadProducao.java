@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -23,13 +24,16 @@ import modelo.Producao;
 import modelo.Produto;
 import util.PeppersTableModel;
 import util.UtilFuncoes;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.JLabel;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
@@ -177,15 +181,20 @@ public class FrmcadProducao extends JFrame {
 		button_1 = new JButton("Salvar");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					salvaProducao();
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
+					try {
+						if(salvaProducao()){
+							FrmcadProducao.this.dispose();	
+						}else{
+							JOptionPane.showMessageDialog(null,"Ocorreu um erro ao salvar a produção!");
+						}
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 			}
 
-			private void salvaProducao() throws Exception {
+			private boolean salvaProducao() throws Exception {
 				String dt = formattedTextField.getText();	
 				String data = d.formataData(dt);
 
@@ -199,8 +208,14 @@ public class FrmcadProducao extends JFrame {
 				producao.setData("2015-12-02");
 				producao.setListaitens(listaitens);
 				producao.setResponsavel("vinicius");
-				p.cadastrar(producao);
+				try {
+					p.cadastrar(producao);
+					return true;
+				} catch (Exception e) {
+					return false;
+				    }
 				}
+				return false;
 			}
 		});
 		button_1.setBounds(10, 393, 89, 43);

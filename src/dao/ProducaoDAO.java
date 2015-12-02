@@ -34,7 +34,7 @@ public class ProducaoDAO {
 
 	public boolean cadastrar(Producao producao) {
 
-		String sql = "INSERT INTO producao (id_produto,descricao,estoque,pr_custo,pr_venda,margem_lucro) values(null,?,?,?,?,?)";
+		String sql = "INSERT INTO producao (id_codigo,data_producao,data_lanc,responsavel) values(null,?,?,?)";
 
 		boolean retorno = false;
 

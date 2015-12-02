@@ -161,9 +161,9 @@ public class FrmProdutos extends JFrame {
 			
 			modelo.addColumn("código");
 			modelo.addColumn("descrição");
-			modelo.addColumn("preço custo");
-			modelo.addColumn("preço venda");
 			modelo.addColumn("estoque");
+			modelo.addColumn("preço custo");
+			modelo.addColumn("preço venda");	
 			modelo.addColumn("margem lucro");
 
 			
