@@ -29,6 +29,7 @@ import javax.swing.JComboBox;
 
 
 
+
 import controle.FinanceiroController;
 import util.PeppersTableModel;
 import util.UtilMenssage;
@@ -231,6 +232,8 @@ public class FrmPedido extends JFrame {
 		btnExcluirItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int linha = table.getSelectedRow();
+				totalpedido = (totalpedido - Float.valueOf(table.getValueAt(linha, 5).toString()));
+				lblValorTotal.setText(String.valueOf(totalpedido));
 				listaitemvenda.remove(linha);
 				modelo.removeRow(linha);
 				//lblValorTotal.setText(String.valueOf(totalpedido - (((ItemVenda) listaitemvenda.get(linha-1)).getProduto().getPr_venda())));
@@ -264,7 +267,7 @@ public class FrmPedido extends JFrame {
 				conta.setDescricao("VENDAS");
 				conta.setTipo("C");
 				finan.setConta(conta);
-				finan.setDiscriminacao(" Venda : " + venda.getCodVenda()+"Cliente: "+venda.getCliente().getNome());
+				finan.setDiscriminacao(" Venda : " + venda.getCodVenda()+" Cliente: "+venda.getCliente().getNome());
 				finan.setValor(totalvenda);
 				new FinanceiroController().cadastrar(finan);
 			} catch (Exception e) {

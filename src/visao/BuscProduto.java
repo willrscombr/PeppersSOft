@@ -32,7 +32,7 @@ public class BuscProduto extends JFrame{
 	private ResultSetMetaData rsmt;
 	private JScrollPane scrollPane ;
 	private Produto produto;
-	
+	private JButton Confirmar;
 
 	public BuscProduto(){
 		this.produto = new Produto();
@@ -66,6 +66,7 @@ public class BuscProduto extends JFrame{
 				//ClienteDAO dao = new ClienteDAO();
 				try {
 					popularTabela();
+					Confirmar.setEnabled(false);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -85,7 +86,8 @@ public class BuscProduto extends JFrame{
 		Cancelar.setBounds(22, 228, 117, 25);
 		getContentPane().add(Cancelar);
 		
-		JButton Confirmar = new JButton("Confirmar");
+		Confirmar = new JButton("Confirmar");
+		Confirmar.setEnabled(false);
 		Confirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				SetProduto();
@@ -108,6 +110,15 @@ private void popularTabela() throws Exception{
 		rsmt = rs.getMetaData();
 		int numerodecolunas = rsmt.getColumnCount();
 		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Confirmar.setEnabled(true);
+				if (e.getClickCount() > 1) {  
+				
+				} 
+			}
+		});
 		
 		
 		table.setForeground(Color.RED);

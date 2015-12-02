@@ -7,6 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 
+import javax.security.auth.callback.ConfirmationCallback;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -30,6 +31,7 @@ public class BuscCliente extends JFrame{
 	private ResultSetMetaData rsmt;
 	private JScrollPane scrollPane ;
 	private Cliente cliente;
+	private JButton Confirmar ;
 	
 
 	public BuscCliente(){
@@ -56,6 +58,7 @@ public class BuscCliente extends JFrame{
 		getContentPane().add(scrollPane);
 		
 		table = new JTable();
+		
 		scrollPane.setViewportView(table);
 		
 		JButton Buscar = new JButton("Buscar");
@@ -64,6 +67,7 @@ public class BuscCliente extends JFrame{
 				//ClienteDAO dao = new ClienteDAO();
 				try {
 					popularTabela();
+					Confirmar.setEnabled(false);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -83,7 +87,8 @@ public class BuscCliente extends JFrame{
 		Cancelar.setBounds(22, 228, 117, 25);
 		getContentPane().add(Cancelar);
 		
-		JButton Confirmar = new JButton("Confirmar");
+		Confirmar = new JButton("Confirmar");
+		Confirmar.setEnabled(false);
 		Confirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				SetCliente();
@@ -106,7 +111,15 @@ private void popularTabela() throws Exception{
 		rsmt = rs.getMetaData();
 		int numerodecolunas = rsmt.getColumnCount();
 		table = new JTable();
-		
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+					Confirmar.setEnabled(true);
+				if (e.getClickCount() > 1) {  
+					
+				} 
+			}
+		});
 		
 		table.setForeground(Color.RED);
 		table.setModel(modelo);
