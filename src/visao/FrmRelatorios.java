@@ -46,6 +46,8 @@ public class FrmRelatorios extends JFrame {
 	private JLabel lblDataFinal;
 	private JFormattedTextField frmtdtxtfldDataInicial;
 	private JFormattedTextField frmtdtxtfldDataFinal;
+	private JRadioButton rdbtnPedidosGeral;
+	private JRadioButton rdbtnPedidosDetalhado;
 
 	public FrmRelatorios() {
 
@@ -278,6 +280,14 @@ public class FrmRelatorios extends JFrame {
 			mf1.install(frmtdtxtfldDataInicial);
 			MaskFormatter mf2 = new MaskFormatter("##/##/####");
 			mf2.install(frmtdtxtfldDataFinal);
+			
+			rdbtnPedidosGeral = new JRadioButton("Geral");
+			rdbtnPedidosGeral.setBounds(260, 171, 140, 23);
+			contentPane.add(rdbtnPedidosGeral);
+			
+			rdbtnPedidosDetalhado = new JRadioButton("Detalhado");
+			rdbtnPedidosDetalhado.setBounds(260, 200, 140, 23);
+			contentPane.add(rdbtnPedidosDetalhado);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
