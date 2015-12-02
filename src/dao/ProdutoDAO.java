@@ -114,10 +114,10 @@ public class ProdutoDAO {
 		return rs;
 
 	}
-	
+
 	public ResultSet Busca(String param) throws Exception {
 
-		String sql = "SELECT * FROM produto where descricao like '%"+param+"%'";
+		String sql = "SELECT * FROM produto where descricao like '%" + param + "%'";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
@@ -128,7 +128,7 @@ public class ProdutoDAO {
 	public Produto consultar(int id) throws Exception {
 		Produto produto = new Produto();
 		try {
-			
+
 			String sql = "SELECT * FROM produto WHERE id_produto = ?";
 			Connection connection = ConnectionFactory.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -136,15 +136,15 @@ public class ProdutoDAO {
 			stmt.setInt(1, id);
 
 			ResultSet rs = stmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				produto.setId_produto(rs.getInt("id_produto"));
 				produto.setDescricao(rs.getString("descricao"));
 				produto.setEstoque(rs.getFloat("estoque"));
 				produto.setMargem_lucro(rs.getFloat("margem_lucro"));
 				produto.setPr_custo(rs.getFloat("pr_custo"));
 				produto.setPr_venda(rs.getFloat("pr_venda"));
-			}else{
+			} else {
 				JOptionPane.showMessageDialog(null, "Deu treta de novo");
 			}
 		} catch (Exception e) {
@@ -189,17 +189,25 @@ public class ProdutoDAO {
 
 		return produtos;
 	}
-	public ResultSet buscar(String valor){
+
+	public ResultSet buscar(String valor) {
 		ResultSet resultSet = null;
 		return resultSet;
 	}
 
 	// Imprime/gera uma lista de Produtos
 	@SuppressWarnings({ "unchecked", "deprecation" })
-	public void gerarRelatorio() throws Exception {
+	public void gerarRelatorio(int op) throws Exception {
+
+		String sql = "SELECT * FROM produto";
+
+		if (op == 1) {
+			sql = "SELECT * FROM produto WHERE estoque > 0";
+		} else if (op == 2) {
+			sql = "SELECT * FROM produto WHERE estoque <= 0";
+		}
 
 		// estabelece conexão
-		String sql = "SELECT * FROM produto";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
@@ -233,5 +241,5 @@ public class ProdutoDAO {
 	public String getPath() {
 		return this.path;
 	}
-	
+
 }

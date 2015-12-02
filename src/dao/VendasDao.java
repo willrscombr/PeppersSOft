@@ -3,71 +3,55 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Iterator;
-import java.util.List;
 
-import modelo.ItemVenda;
 import modelo.Venda;
 
 public class VendasDao {
-
+	
+	private Connection conn = null ;
+	private PreparedStatement stmt = null;
+	
+	
 	public VendasDao() {
 
 	}
 	
-	public boolean cadastrar(Venda venda) {
-		boolean retorno = false;
-		String sql = "INSERT INTO `pepper`.`venda` (`cliente`) VALUES (?);";
-		try {
-			Connection connection;
-			ResultSet rs;
-			PreparedStatement stmt;
-			connection = ConnectionFactory.getConnection();
-			stmt = connection.prepareStatement(sql);
-			stmt.setLong(1, venda.getCliente().getCodigo());
-			stmt.executeUpdate();
-			
-			 sql = "SELECT LAST_INSERT_ID();";
-			 stmt = connection.prepareStatement(sql);
-			 rs = stmt.executeQuery();
-			 Long codvenda = rs.getLong(0);
-
-			sql = "INSERT INTO itemcarrinho (venda, quantidade, produto) VALUES(?,?,?)";
-			stmt = connection.prepareStatement(sql);
-			stmt.executeUpdate();
-			
-			
-				
-			
-			
-			stmt.close();
-			ConnectionFactory.closeConnection(connection);
-			Long codigovenda = ultimoRegistroAdicionado();
-			venda.setCodVenda(codigovenda);
-			
-			
-		} catch (Exception e) {
-			e.getStackTrace();	
-		}
-		return retorno;
-	}
-	
-	public Long ultimoRegistroAdicionado() {
-	
-		String sql = "SELECT LAST_INSERT_ID();";
-		Long retorno = Long.valueOf(0);
-		try {
-			Connection connection = ConnectionFactory.getConnection();
-			PreparedStatement stmt = connection.prepareStatement(sql);
-			ResultSet rs = stmt.executeQuery();
-			retorno = rs.getLong(0);
-			
-		} catch (Exception e) {
-			e.getStackTrace();
-		}
-		return 	retorno;
+	public long cadastrar(Venda venda) throws Exception{
+		conn = ConnectionFactory.getConnection();
+		String sql = "insert into venda(cliente) values(?);";
+		stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, venda.getCliente().getCodigo());
+		Long cod = Long.valueOf(stmt.executeUpdate());
+		stmt.close();
+		return cod;
 		
-
+	}public Long buscarUltimaVenda() throws Exception{
+		conn = ConnectionFactory.getConnection();
+		String sql = "select max(codigo) from venda";
+		stmt = conn.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		Long cod = null;
+		if(rs.next()) {
+			cod = rs.getLong(1);
+		}
+		stmt.close();
+		return cod;
 	}
-
+	public boolean inserirItemVenda(Venda venda) throws Exception{
+		
+		conn = ConnectionFactory.getConnection();
+		String sql = "insert into itemvenda(codigo,venda,quantidade,produto) values(?,?,?,?);";
+		Iterator itevenda = venda.getListaitempedido().iterator(); 
+		while(itevenda.hasNext()){
+			sql += "(?,?,?,?),";
+		}
+		stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, venda.getCliente().getCodigo());
+		stmt.executeUpdate();
+		
+		
+		return true;
+	}
 }

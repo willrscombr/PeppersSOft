@@ -6,20 +6,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import modelo.Pessoa;
 import modelo.Usuario;
-import net.sf.jasperreports.engine.JRResultSetDataSource;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.view.JasperViewer;
 
 public class UsuarioDAO {
 
@@ -221,38 +211,6 @@ public class UsuarioDAO {
 		ConnectionFactory.closeConnection(connection);
 
 		return usuarios;
-
-	}
-
-	// Imprime/gera uma lista de Usuarios
-	@SuppressWarnings({ "unchecked", "deprecation" })
-	public void gerarRelatorio() throws Exception {
-
-		// estabelece conexão
-		String sql = "SELECT * FROM usuarios";
-		Connection connection = ConnectionFactory.getConnection();
-		PreparedStatement stmt = connection.prepareStatement(sql);
-
-		ResultSet rs = stmt.executeQuery();
-
-		// gerando o jasper design
-		JasperDesign desenho = JRXmlLoader.load(this.getPathToReportPackage() + "UsuariosRel.jrxml");
-
-		// compila o relatório
-		JasperReport relatorio = JasperCompileManager.compileReport(desenho);
-
-		// implementação da interface JRDataSource para DataSource ResultSet
-		JRResultSetDataSource jrRS = new JRResultSetDataSource(rs);
-
-		// executa o relatório
-		@SuppressWarnings("rawtypes")
-		Map parametros = new HashMap();
-		parametros.put("nota", new Double(10));
-		JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, jrRS);
-
-		// exibe o resultado
-		JasperViewer viewer = new JasperViewer(impressao, false);
-		viewer.show();
 
 	}
 

@@ -10,7 +10,8 @@ public class ItemVenda {
 		
 	}
 	
-	public ItemVenda(Produto produto,Float quantidade){
+	public ItemVenda(int codigo, Produto produto,Float quantidade){
+		this.coditempedido = codigo;
 		this.produto = produto;
 		this.quantidade = quantidade;
 		

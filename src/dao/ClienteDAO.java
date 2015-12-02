@@ -113,7 +113,7 @@ public class ClienteDAO {
 	public ResultSet Busca(String busca) throws Exception {
 
 		String sql = "select codigo,nome,numcadnac,numcadest,telefone,tipo,endereco from cliente where nome like '%"
-				+busca+ "%';";
+				+ busca + "%';";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
@@ -184,10 +184,17 @@ public class ClienteDAO {
 
 	// Imprime/gera uma lista de Usuarios
 	@SuppressWarnings({ "unchecked", "deprecation" })
-	public void gerarRelatorio() throws Exception {
+	public void gerarRelatorio(int op) throws Exception {
 
-		// estabelece conexï¿½o
 		String sql = "SELECT * FROM cliente";
+
+		if (op == 1) {
+			sql = "SELECT * FROM cliente WHERE tipo = 0";
+		} else if (op == 2) {
+			sql = "SELECT * FROM cliente WHERE tipo = 1";
+		}
+
+		// estabelece conexão
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
