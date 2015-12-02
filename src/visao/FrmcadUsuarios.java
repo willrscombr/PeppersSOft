@@ -256,7 +256,7 @@ public class FrmcadUsuarios extends JFrame {
 					FrmcadUsuarios.this.dispose();
 					new FrmUsuarios().setVisible(true);
 				} else {
-					UtilMenssage.msgError();
+					UtilMenssage.msgJaExiste();
 				}
 			}
 		} else {

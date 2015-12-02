@@ -10,5 +10,9 @@ public class UtilMenssage {
 	public static void msgError(){
 		JOptionPane.showMessageDialog(null, "Ocorreu um erro, entre em contato com o Administrador do Sistema");
 	}
+	
+	public static void msgJaExiste(){
+		JOptionPane.showMessageDialog(null, "Atenção. Registro já existente na base de dados!");
+	}
 
 }

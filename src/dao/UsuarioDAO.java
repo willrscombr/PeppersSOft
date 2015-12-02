@@ -143,26 +143,15 @@ public class UsuarioDAO {
 
 	public boolean consultar(Usuario usuario) throws Exception {
 
-		String sql = "SELECT * FROM usuarios WHERE id_codigo = ?";
+		String sql = "SELECT * FROM usuarios WHERE usuario = ?";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
-		stmt.setInt(1, usuario.getId_codigo());
+		stmt.setString(1, usuario.getUsuario());
 
 		ResultSet rs = stmt.executeQuery();
 
 		boolean encontrou = rs.next();
-
-		if (encontrou) {
-			String nome = rs.getString("nome");
-			usuario.setNome(nome);
-			String email = rs.getString("usuario");
-			usuario.setUsuario(email);
-			String login = rs.getString("senha");
-			usuario.setSenha(login);
-			String senha = rs.getString("nivel");
-			usuario.setNivel(senha);
-		}
 
 		rs.close();
 		stmt.close();

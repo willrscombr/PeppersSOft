@@ -135,6 +135,9 @@
 			</textField>
 			<textField>
 				<reportElement x="455" y="0" width="100" height="20" uuid="24ed9117-e27a-4508-8575-e3d488eb6a0e"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
 			</textField>
 			<textField>
