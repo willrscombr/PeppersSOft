@@ -104,7 +104,7 @@ public class ProducaoDAO {
 
 	public ResultSet consultar() throws Exception {
 
-		String sql = "SELECT * FROM produto";
+		String sql = "SELECT * FROM producao";
 		Connection connection = ConnectionFactory.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
@@ -124,7 +124,7 @@ public class ProducaoDAO {
 
 	public Producao consultar(int id) throws Exception {
 		Producao producao = new Producao();
-		ItemProducao iproducao = new ItemProducao();
+		//ItemProducao iproducao = new ItemProducao(null);
 		try {
 			
 			String sql = "SELECT * FROM produto WHERE id_produto = ?";

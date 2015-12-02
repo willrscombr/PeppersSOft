@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -17,24 +16,20 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
+import controle.ProducaoController;
 import controle.ProdutoController;
 import modelo.ItemProducao;
+import modelo.Producao;
 import modelo.Produto;
 import util.PeppersTableModel;
 import util.UtilFuncoes;
-import util.UtilMenssage;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
-import javax.swing.ComboBoxEditor;
 import javax.swing.DefaultComboBoxModel;
-
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
@@ -66,7 +61,10 @@ public class FrmcadProducao extends JFrame {
 	private int cont=0;
 	private List<String> listitens = new ArrayList<String>();
 	private List<ItemProducao> listaitens=new ArrayList<ItemProducao>();
+	private ProducaoController p = new ProducaoController();
 	private ItemProducao itens = new ItemProducao();
+	
+	private Producao producao = new Producao();
 	public FrmcadProducao() {
 		setTitle("PepperSoft - Lan\u00E7amento de Produ\u00E7\u00E3o");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -179,10 +177,15 @@ public class FrmcadProducao extends JFrame {
 		button_1 = new JButton("Salvar");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				salvaProducao();
+				try {
+					salvaProducao();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 
-			private void salvaProducao() {
+			private void salvaProducao() throws Exception {
 				String dt = formattedTextField.getText();	
 				String data = d.formataData(dt);
 
@@ -192,9 +195,12 @@ public class FrmcadProducao extends JFrame {
 					JOptionPane.showMessageDialog(null, "É necessário informar o responsavel da produção!!!");
 				}else if(listitens.size()==0){
 					JOptionPane.showMessageDialog(null, "É necessário incluir ao menos algum item!!!");
+				}else{//se tudo der certo
+				producao.setData("2015-12-02");
+				producao.setListaitens(listaitens);
+				producao.setResponsavel("vinicius");
+				p.cadastrar(producao);
 				}
-
-				
 			}
 		});
 		button_1.setBounds(10, 393, 89, 43);
@@ -266,6 +272,8 @@ public class FrmcadProducao extends JFrame {
 				textQtd.setEnabled(false);
 				textQtd.setText("");
 				comboBox.setEnabled(false);
+				
+				
 			}
 		});
 		btnCancelar.setEnabled(false);
@@ -330,12 +338,14 @@ private void incluiItem(){
 	
 	
 	modelo.addRow(listitens.toArray());
+	
+	listaitens.add(new ItemProducao(itens.getCoditemprod(),itens.getItemdesc(),itens.getItemund(),itens.getProduto(),itens.getQtdprod()));
 }	
 private void popularTabela(){
 		
 		try {
 			if(listaitens!=null){
-			
+
 			modelo = new PeppersTableModel();
 			table = new JTable();
 			table.addMouseListener(new MouseAdapter() {
@@ -344,17 +354,13 @@ private void popularTabela(){
 					btnEditar.setEnabled(true);
 					btnExcluir.setEnabled(true);
 				}
-			});
-			
+			});	
 			table.setForeground(Color.RED);
 			table.setModel(modelo);		
 			modelo.addColumn("Codigo");
 			modelo.addColumn("Descrição");
 			modelo.addColumn("Quantidade");
 			modelo.addColumn("Unidade");
-			
-			
-			
 			scrollPane.setViewportView(table);
 			}
 		} catch (Exception e) {

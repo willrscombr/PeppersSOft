@@ -7,6 +7,17 @@ public class ItemProducao {
 	private String itemdesc;
 	private String itemund;
 	
+	public ItemProducao(){
+		
+	}
+	
+	public ItemProducao(int codigo,String descricao,String und, Produto produto,Float quantidade){
+		this.coditemprod = codigo;
+		this.produto = produto;
+		this.qtdprod = quantidade;
+		this.itemdesc = descricao;
+		this.itemund = und;
+	}
 	public int getCoditemprod() {
 		return coditemprod;
 	}
