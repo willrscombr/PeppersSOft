@@ -25,6 +25,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
@@ -159,7 +160,7 @@ public class FrmcadCliente extends JFrame {
 		textCodigo.setColumns(10);
 		textCodigo.setBounds(121, 41, 54, 19);
 		contentPane.add(textCodigo);
-		
+				
 		textNome = new JTextField();
 		textNome.setEnabled(false);
 		textNome.setColumns(10);
@@ -179,12 +180,30 @@ public class FrmcadCliente extends JFrame {
 		textNumCadNac.setColumns(10);
 		textNumCadNac.setBounds(121, 114, 131, 20);
 		contentPane.add(textNumCadNac);
+		textNumCadNac.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent ev) {
+				String caracteres="0987654321";
+			       if(!caracteres.contains(ev.getKeyChar()+"")){
+			              ev.consume();
+			       }
+			}
+		});
 		
 		textNumCadEst = new JTextField();
 		textNumCadEst.setEnabled(false);
 		textNumCadEst.setColumns(10);
 		textNumCadEst.setBounds(347, 111, 131, 20);
 		contentPane.add(textNumCadEst);
+		textNumCadEst.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent ev) {
+				String caracteres="0987654321";
+			       if(!caracteres.contains(ev.getKeyChar()+"")){
+			              ev.consume();
+			       }
+			}
+		});
 		
 		JLabel label_6 = new JLabel("Endereço: ");
 		label_6.setBounds(49, 157, 110, 14);
@@ -205,6 +224,15 @@ public class FrmcadCliente extends JFrame {
 		textTelefone.setColumns(10);
 		textTelefone.setBounds(121, 197, 177, 20);
 		contentPane.add(textTelefone);
+		textTelefone.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent ev) {
+				String caracteres="0987654321";
+			       if(!caracteres.contains(ev.getKeyChar()+"")){
+			              ev.consume();
+			       }
+			}
+		});
 		
 		lblTipo = new JLabel("Tipo Pessoa:");
 		lblTipo.setBounds(47, 229, 89, 15);

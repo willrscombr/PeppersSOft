@@ -90,6 +90,7 @@ public class FrmPedido extends JFrame {
 	private JButton btnIncluirItem ;
 
 	public FrmPedido() {
+		setTitle("PepperSoft - Registro de Venda");
 		venda = new Venda();
 		listaitemvenda = new ArrayList<ItemVenda>();
 		modelo = new PeppersTableModel();
@@ -253,7 +254,7 @@ public class FrmPedido extends JFrame {
 					venda.setCliente(cliente);
 				
 			try {
-				System.out.println(	new VendasDao().cadastrar(venda));
+				new VendasDao().cadastrar(venda);
 				Iterator  itotalvenda = venda.getListaitempedido().iterator();
 				Float totalvenda = (float) 0;
 				while (itotalvenda.hasNext()) {

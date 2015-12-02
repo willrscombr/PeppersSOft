@@ -230,7 +230,7 @@ public class FrmPrincipal extends JFrame {
 		lblRelatrios.setBounds(753, 122, 77, 14);
 		panel.add(lblRelatrios);
 
-		JLabel lblVenda = new JLabel("Pedido");
+		JLabel lblVenda = new JLabel("Venda");
 		lblVenda.setFont(new Font("Calibri", Font.BOLD, 14));
 		lblVenda.setBounds(408, 122, 77, 14);
 		panel.add(lblVenda);
