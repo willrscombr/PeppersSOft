@@ -23,6 +23,7 @@ import javax.swing.JComboBox;
 
 
 
+
 import util.PeppersTableModel;
 import util.UtilMenssage;
 import dao.ClienteDAO;
@@ -204,12 +205,15 @@ public class FrmPedido extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				venda.setCliente(cliente);
 				venda.setListaitempedido(listaitemvenda);
-				if(new VendasDao().cadastrar(venda)){
-					UtilMenssage.msgSucesso();
-					FrmPedido.this.dispose();
-				}else{
-					UtilMenssage.msgError();
-				}
+			try {
+				System.out.println(	new VendasDao().buscarUltimaVenda());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+					
+					//FrmPedido.this.dispose();
+				
 			}
 		});
 		btnNewButton_3.setBounds(558, 379, 169, 25);
@@ -251,7 +255,7 @@ public class FrmPedido extends JFrame {
 				rowlist.add(produto.getPr_venda());
 				rowlist.add(Float.valueOf(textQuant.getText()) * produto.getPr_venda());
 				modelo.addRow(rowlist.toArray());
-				listaitemvenda.add(new ItemVenda(produto,Float.valueOf(textQuant.getText())));
+				listaitemvenda.add(new ItemVenda(cont,produto,Float.valueOf(textQuant.getText())));
 				
 				
 				
@@ -274,7 +278,7 @@ public class FrmPedido extends JFrame {
 private void popularTabela(){
 		
 		try {
-			JOptionPane.showMessageDialog(null, "teste");
+			//JOptionPane.showMessageDialog(null, "teste");
 			
 			table.addMouseListener(new MouseAdapter() {
 				@Override

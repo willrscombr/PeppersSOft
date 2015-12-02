@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -15,13 +16,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
+
 import controle.ProdutoController;
 import modelo.ItemProducao;
 import modelo.Produto;
 import util.PeppersTableModel;
+import util.UtilFuncoes;
 import util.UtilMenssage;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JFormattedTextField;
@@ -29,6 +34,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.ComboBoxEditor;
 import javax.swing.DefaultComboBoxModel;
+
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
@@ -50,17 +56,19 @@ public class FrmcadProducao extends JFrame {
 	private JButton btnSalvar;
 	private JButton btnCancelar;
 	private JButton btnExcluir;
-	private JTextField textField;
+	private JTextField textResponsavel;
 	private JFormattedTextField formattedTextField;
 	private JButton btnEditar;
 	private JButton button_1;
 	private JButton button;
 	private JButton button_2;
 	private JButton button_3;
+	private int cont=0;
 	private List<String> listitens = new ArrayList<String>();
 	private List<ItemProducao> listaitens=new ArrayList<ItemProducao>();
 	private ItemProducao itens = new ItemProducao();
 	public FrmcadProducao() {
+		setTitle("PepperSoft - Lan\u00E7amento de Produ\u00E7\u00E3o");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 739, 486);
 		setLocationRelativeTo(null);
@@ -153,12 +161,53 @@ public class FrmcadProducao extends JFrame {
 		button.setBackground(Color.WHITE);
 		contentPane.add(button);
 		
+		formattedTextField = new JFormattedTextField();
+		formattedTextField.setBounds(103, 11, 138, 20);
+		contentPane.add(formattedTextField);
+		UtilFuncoes d = new UtilFuncoes();
+		
+		MaskFormatter mf;
+		try {
+			mf = new MaskFormatter("##/##/####");
+			mf.install(formattedTextField);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
 		button_1 = new JButton("Salvar");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				salvaProducao();
+			}
+
+			private void salvaProducao() {
+				String dt = formattedTextField.getText();	
+				String data = d.formataData(dt);
+
+				if(data == "0"){
+					JOptionPane.showMessageDialog(null, "É necessário informar a data da produção!!!");
+				}else if(textResponsavel.getText().isEmpty()){
+					JOptionPane.showMessageDialog(null, "É necessário informar o responsavel da produção!!!");
+				}else if(listitens.size()==0){
+					JOptionPane.showMessageDialog(null, "É necessário incluir ao menos algum item!!!");
+				}
+
+				
+			}
+		});
 		button_1.setBounds(10, 393, 89, 43);
 		button_1.setBackground(Color.WHITE);
 		contentPane.add(button_1);
 		
 		button_2 = new JButton("Cancelar");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				FrmcadProducao.this.dispose();
+				new FrmProducao().setVisible(true);
+			}
+		});
 		button_2.setBounds(208, 393, 89, 43);
 		button_2.setBackground(Color.WHITE);
 		contentPane.add(button_2);
@@ -169,18 +218,6 @@ public class FrmcadProducao extends JFrame {
 		button_3.setBackground(Color.WHITE);
 		contentPane.add(button_3);
 		
-		formattedTextField = new JFormattedTextField();
-		formattedTextField.setBounds(103, 11, 138, 20);
-		contentPane.add(formattedTextField);
-		
-		MaskFormatter mf;
-		try {
-			mf = new MaskFormatter("##/##/####");
-			mf.install(formattedTextField);
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		
 		
 		JLabel label = new JLabel("Data Produ\u00E7\u00E3o");
@@ -200,7 +237,7 @@ public class FrmcadProducao extends JFrame {
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				incluiItem();
-				popularTabela();
+				//popularTabela();
 				btnCancelar.setEnabled(false);
 				btnSalvar.setEnabled(false);
 				btnIncluir.setEnabled(true);
@@ -260,10 +297,10 @@ public class FrmcadProducao extends JFrame {
 		lblResponsvel.setBounds(251, 14, 89, 14);
 		contentPane.add(lblResponsvel);
 		
-		textField = new JTextField();
-		textField.setBounds(350, 11, 174, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		textResponsavel = new JTextField();
+		textResponsavel.setBounds(350, 11, 174, 20);
+		contentPane.add(textResponsavel);
+		textResponsavel.setColumns(10);
 		
 		btnEditar = new JButton("Editar");
 		btnEditar.setEnabled(false);
@@ -284,10 +321,15 @@ private void incluiItem(){
 	itens.setItemund(comboBox.getSelectedItem().toString());
 	itens.setQtdprod(Integer.parseInt(textQtd.getText()));
 
+	cont = cont + 1;
+	listitens = new ArrayList<String>();
 	listitens.add(String.valueOf(itens.getCoditemprod()));
 	listitens.add(String.valueOf(itens.getItemdesc()));
-	listitens.add(String.valueOf(itens.getItemund()));
 	listitens.add(String.valueOf(itens.getQtdprod()));
+	listitens.add(String.valueOf(itens.getItemund()));
+	
+	
+	modelo.addRow(listitens.toArray());
 }	
 private void popularTabela(){
 		
@@ -310,7 +352,8 @@ private void popularTabela(){
 			modelo.addColumn("Descrição");
 			modelo.addColumn("Quantidade");
 			modelo.addColumn("Unidade");
-			modelo.addRow(listitens.toArray());
+			
+			
 			
 			scrollPane.setViewportView(table);
 			}
