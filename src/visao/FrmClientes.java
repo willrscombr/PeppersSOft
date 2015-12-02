@@ -47,8 +47,8 @@ public class FrmClientes extends JFrame {
 		cliente.setCodigo(Integer.parseInt(table.getValueAt(linha, 0).toString()));
 		cliente.setNome(table.getValueAt(linha, 1).toString());
 		cliente.setNumCadNacional(Long.valueOf(table.getValueAt(linha, 2).toString()));
-		cliente.setNumCadEstadual(Integer.valueOf(table.getValueAt(linha, 3).toString()));
-		cliente.setTelefone(Integer.valueOf(table.getValueAt(linha, 4).toString()));
+		cliente.setNumCadEstadual(Long.valueOf(table.getValueAt(linha, 3).toString()));
+		cliente.setTelefone(Long.valueOf(table.getValueAt(linha, 4).toString()));
 		cliente.setEndereco(table.getValueAt(linha, 5).toString());
 		cliente.setEndereco(table.getValueAt(linha, 6).toString());
 		
