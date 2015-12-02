@@ -70,7 +70,7 @@ public class FrmPedido extends JFrame {
 	private JButton btnExcluirItem;
 	private JButton btnAlterarItem ;
 	private List rowlist;
-	private Cliente cliente ;
+	private Cliente cliente = null;
 	private int cont = 0;
 
 	public FrmPedido() {
@@ -93,6 +93,7 @@ public class FrmPedido extends JFrame {
 		contentPane.add(lblProduto);
 		
 		textProdDes = new JTextField();
+		textProdDes.setEditable(false);
 		textProdDes.setBounds(67, 57, 156, 19);
 		contentPane.add(textProdDes);
 		textProdDes.setColumns(10);
@@ -102,6 +103,7 @@ public class FrmPedido extends JFrame {
 		contentPane.add(lblQuantidade);
 		
 		textQuant = new JTextField();
+		textQuant.setText("1");
 		textQuant.setBounds(342, 57, 53, 19);
 		contentPane.add(textQuant);
 		textQuant.setColumns(10);
@@ -111,6 +113,7 @@ public class FrmPedido extends JFrame {
 		contentPane.add(lblValor);
 		
 		textProduVal = new JTextField();
+		textProduVal.setEditable(false);
 		textProduVal.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent arg0) {
@@ -203,17 +206,22 @@ public class FrmPedido extends JFrame {
 		JButton btnNewButton_3 = new JButton("Finalizar Pedido");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				if((!cliente.equals(null)) || venda.getListaitempedido().size() != 0 ){
 				venda.setCliente(cliente);
 				venda.setListaitempedido(listaitemvenda);
 			try {
-				System.out.println(	new VendasDao().buscarUltimaVenda());
+				System.out.println(	new VendasDao().cadastrar(venda));
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 					
-					//FrmPedido.this.dispose();
+					FrmPedido.this.dispose();
 				
+			}else{
+				JOptionPane.showMessageDialog(null,"Cliente ou item vazio");
+			}
 			}
 		});
 		btnNewButton_3.setBounds(558, 379, 169, 25);
@@ -228,7 +236,7 @@ public class FrmPedido extends JFrame {
 						public void windowClosed(WindowEvent e){
 							produto = bproduto.getProduto();
 							textProdDes.setText(String.valueOf(produto.getDescricao()));
-							textQuant.setText("0");
+							
 							textProduVal.setText(String.valueOf(produto.getPr_venda()));
 						}
 				});
@@ -265,6 +273,7 @@ public class FrmPedido extends JFrame {
 		contentPane.add(btnIncluirItem);
 		
 		textSubtotal = new JTextField("");
+		textSubtotal.setEditable(false);
 		textSubtotal.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent arg0) {
