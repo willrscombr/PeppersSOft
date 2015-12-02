@@ -238,7 +238,12 @@ public class FrmPedido extends JFrame {
 				listaitemvenda.remove(linha);
 				modelo.removeRow(linha);
 				//lblValorTotal.setText(String.valueOf(totalpedido - (((ItemVenda) listaitemvenda.get(linha-1)).getProduto().getPr_venda())));
-				System.out.println(listaitemvenda.size());
+				//System.out.println(listaitemvenda.size());
+				textProdDes.setText(null);
+				textQuant.setText(String.valueOf(1));
+				textProduVal.setText(null);
+				textSubtotal.setText(null);
+
 				
 			}
 		});
@@ -284,7 +289,7 @@ public class FrmPedido extends JFrame {
 			}
 			}
 		});
-		btnNewButton_3.setBounds(558, 403, 169, 25);
+		btnNewButton_3.setBounds(547, 403, 180, 25);
 		contentPane.add(btnNewButton_3);
 		
 		JButton btnP = new JButton("P");
@@ -315,6 +320,14 @@ public class FrmPedido extends JFrame {
 		btnIncluirItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if((!textProdDes.getText().equals(null)) && (!(produto.getId_produto() == 0))){
+					boolean encontrou = false;
+					for(int i = 0; i < listaitemvenda.size(); i++){
+						if(((ItemVenda) listaitemvenda.get(i)).getProduto().getId_produto() == produto.getId_produto()){
+							encontrou = true;
+						}
+					}
+				if(!encontrou){
+					if(!(produto.getEstoque() - Float.valueOf(textQuant.getText()) < 0)){
 				cont = cont+1;
 				rowlist = new ArrayList<String>();
 				rowlist.add(cont);
@@ -324,6 +337,9 @@ public class FrmPedido extends JFrame {
 				rowlist.add(produto.getPr_venda());
 				rowlist.add(Float.valueOf(textQuant.getText()) * produto.getPr_venda());
 				modelo.addRow(rowlist.toArray());
+				//Altera o estoque dentro do objeto produto para atualizar no banco de dados
+				produto.setEstoque(produto.getEstoque() - Float.valueOf(textQuant.getText()));
+				
 				listaitemvenda.add(new ItemVenda(cont,produto,Float.valueOf(textQuant.getText())));
 				totalpedido = totalpedido + (Float.valueOf(textQuant.getText()) * produto.getPr_venda());
 				lblValorTotal.setText(String.valueOf(totalpedido));
@@ -332,6 +348,12 @@ public class FrmPedido extends JFrame {
 				textProduVal.setText(null);
 				textSubtotal.setText(null);
 				btnIncluirItem.setEnabled(false);
+					}else{
+						JOptionPane.showMessageDialog(null,"Estoque Insuficiente");
+					}
+				}else{
+					JOptionPane.showMessageDialog(null,"Produto ja adicionado");
+				}	
 				}else{
 					JOptionPane.showMessageDialog(null,"Produto nao selecionado");
 				}
@@ -360,16 +382,16 @@ public class FrmPedido extends JFrame {
 				FrmPedido.this.dispose();
 			}
 		});
-		btnCancelar.setBounds(442, 404, 89, 23);
+		btnCancelar.setBounds(410, 404, 121, 23);
 		contentPane.add(btnCancelar);
 		
 		lblvalordes = new JLabel("Valor Total: R$ ");
-		lblvalordes.setBounds(487, 378, 101, 14);
+		lblvalordes.setBounds(439, 378, 149, 14);
 		contentPane.add(lblvalordes);
 		
 		lblValorTotal = new JLabel("");
 		lblValorTotal.setForeground(Color.GREEN);
-		lblValorTotal.setBounds(612, 378, 101, 14);
+		lblValorTotal.setBounds(564, 378, 101, 14);
 		contentPane.add(lblValorTotal);
 		
 		
@@ -412,7 +434,7 @@ private void popularTabela(){
 			scrollPane.setViewportView(table);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			JOptionPane.showMessageDialog(null, "Erro! Verifique a conexão!");
+			JOptionPane.showMessageDialog(null, "Erro! Verifique a conexï¿½o!");
 		}
 	}
 	public void atualizarTabela(){
