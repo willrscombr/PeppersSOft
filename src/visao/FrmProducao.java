@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -12,12 +13,16 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+
+import controle.ProducaoController;
 import controle.ProdutoController;
 import util.PeppersTableModel;
 import util.UtilMenssage;
 import modelo.Produto;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
@@ -141,7 +146,7 @@ public class FrmProducao extends JFrame {
 		try {
 			
 			modelo = new PeppersTableModel();
-			rs = new ProdutoController().consultar();
+			rs = new ProducaoController().consultar();
 			rsmt = rs.getMetaData();
 			int numerodecolunas = rsmt.getColumnCount();
 			table = new JTable();
@@ -161,12 +166,12 @@ public class FrmProducao extends JFrame {
 			table.setModel(modelo);
 			Object[] linha = null;
 			
-			modelo.addColumn("código");
+			modelo.addColumn("Codigo");
 			modelo.addColumn("descrição");
 			modelo.addColumn("preço custo");
 			modelo.addColumn("preço venda");
-			modelo.addColumn("estoque");
-			modelo.addColumn("margem lucro");
+
+		
 
 			
 			while (rs.next()) {
