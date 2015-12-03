@@ -16,6 +16,8 @@ import javax.swing.JTextField;
 
 import controle.UsuarioController;
 import modelo.Usuario;
+import javax.swing.SwingConstants;
+import javax.swing.JPanel;
 
 public class FrmLogin {
 
@@ -58,19 +60,19 @@ public class FrmLogin {
 				}
 			}
 		});
-		textUsuario.setBounds(173, 75, 156, 20);
+		textUsuario.setBounds(172, 95, 156, 20);
 		frmPeppersoftControle.getContentPane().add(textUsuario);
 		textUsuario.setColumns(10);
 		frmPeppersoftControle.setLocationRelativeTo(null);
 
 		JLabel lblUsuario = new JLabel("Usuario");
 		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblUsuario.setBounds(77, 78, 46, 14);
+		lblUsuario.setBounds(76, 98, 46, 14);
 		frmPeppersoftControle.getContentPane().add(lblUsuario);
 
 		JLabel lblSenha = new JLabel("Senha");
 		lblSenha.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblSenha.setBounds(77, 126, 46, 14);
+		lblSenha.setBounds(76, 146, 46, 14);
 		frmPeppersoftControle.getContentPane().add(lblSenha);
 
 		btnEntrar = new JButton("Entrar");
@@ -134,7 +136,7 @@ public class FrmLogin {
 				}
 			}
 		});
-		btnEntrar.setBounds(173, 176, 156, 23);
+		btnEntrar.setBounds(172, 196, 156, 23);
 		frmPeppersoftControle.getContentPane().add(btnEntrar);
 
 		pwdSenha = new JPasswordField();
@@ -146,8 +148,14 @@ public class FrmLogin {
 				}
 			}
 		});
-		pwdSenha.setBounds(173, 124, 156, 20);
+		pwdSenha.setBounds(172, 144, 156, 20);
 		frmPeppersoftControle.getContentPane().add(pwdSenha);
+		
+		JLabel lblControleDeAcesso = new JLabel("Controle de Acesso");
+		lblControleDeAcesso.setFont(new Font("Calibri", Font.BOLD, 22));
+		lblControleDeAcesso.setHorizontalAlignment(SwingConstants.CENTER);
+		lblControleDeAcesso.setBounds(127, 24, 227, 51);
+		frmPeppersoftControle.getContentPane().add(lblControleDeAcesso);
 
 	}
 }

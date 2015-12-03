@@ -20,6 +20,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+import controle.ProdutoController;
+
 import java.awt.Color;
 
 @SuppressWarnings("serial")
@@ -113,7 +115,15 @@ public class FrmPrincipal extends JFrame {
 		JMenuItem mntmProdutos_1 = new JMenuItem("Produtos");
 		mntmProdutos_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				ProdutoController controle = new ProdutoController();
+				int op=1;
+				try {
+					controle.gerarRelatorio(op);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null, "Erro ao gerar relatório!");
+					e1.printStackTrace();
+				}
 			}
 		});
 		mnRelatrios.add(mntmProdutos_1);
