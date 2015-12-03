@@ -6,8 +6,10 @@ import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.sql.Date;
 import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -16,20 +18,25 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
+
 import controle.ProducaoController;
 import controle.ProdutoController;
 import modelo.ItemProducao;
+import modelo.ItemVenda;
 import modelo.Producao;
 import modelo.Produto;
 import util.PeppersTableModel;
 import util.UtilFuncoes;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.JLabel;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
@@ -177,7 +184,7 @@ public class FrmcadProducao extends JFrame {
 		button_1 = new JButton("Salvar");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 					try {
 						if(salvaProducao()){
 							FrmcadProducao.this.dispose();	
@@ -187,7 +194,7 @@ public class FrmcadProducao extends JFrame {
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}
+					}	
 			}
 
 			private boolean salvaProducao() throws Exception {
@@ -204,17 +211,15 @@ public class FrmcadProducao extends JFrame {
 				producao.setData(data);
 				producao.setListaitens(listaitens);
 				producao.setResponsavel(textResponsavel.getText());
-				Date da = new Date(System.currentTimeMillis());
 				try {
 					
-					JOptionPane.showMessageDialog(null, da);
 					p.cadastrar(producao);
-					return true;
+					
 				} catch (Exception e) {
 					return false;
 				    }
 				}
-				return false;
+				return true;
 			}
 		});
 		button_1.setBounds(10, 393, 89, 43);

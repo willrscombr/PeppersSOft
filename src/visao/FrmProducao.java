@@ -103,7 +103,7 @@ public class FrmProducao extends JFrame {
 				if(opc == JOptionPane.YES_OPTION){
 					try {
 	
-						if(new ProdutoController().excluir(Integer.parseInt(table.getValueAt(linha, 0).toString()))){
+						if(new ProducaoController().excluir(Integer.parseInt(table.getValueAt(linha, 0).toString()))){
 							UtilMenssage.msgSucesso();
 							FrmProducao.this.dispose();
 							new FrmProducao().setVisible(true);
