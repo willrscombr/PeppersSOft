@@ -24,6 +24,9 @@ public class ProducaoController {
 	public boolean excluir(int id) throws Exception {
 		return dao.excluir(id);
 	}
+	public boolean inserirItem(Producao producao) throws Exception {
+		return dao.inserirItemProducao(producao);
+	}
 	public void gerarRelatorio() throws Exception {
 	//	dao.gerarRelatorio();
 	}

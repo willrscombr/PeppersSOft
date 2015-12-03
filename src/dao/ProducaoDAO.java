@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Iterator;
 
+import javax.swing.JOptionPane;
+
 import modelo.ItemProducao;
 import modelo.Producao;
 
@@ -44,7 +46,7 @@ public class ProducaoDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		producao.setId_producao(buscarIdProducao());
 		
 		return inserirItemProducao(producao);
@@ -70,14 +72,15 @@ public class ProducaoDAO {
 			ItemProducao item = (ItemProducao) itemproducao.next();
 				
 				sql	+= "("+producao.getId_producao()+",";
-				sql += ""+item.getProduto().getId_produto() +",";
-				sql+= ""+item.getItemdesc()+",";
+				sql += ""+item.getProduto().getId_produto()+",";
+				sql+= "'"+item.getItemdesc()+"',";
 				sql+= ""+item.getQtdprod()+",";
-				sql+= ""+item.getItemund()+"),";
+				sql+= "'"+item.getItemund()+"'),";
 		}
 		int tamSql = sql.length();
 		sql = sql.substring(0,tamSql -1);
 		System.out.println("sql = "+sql);
+		JOptionPane.showMessageDialog(null, sql);
 		stmt = conn.prepareStatement(sql);
 		stmt.executeUpdate();
 		

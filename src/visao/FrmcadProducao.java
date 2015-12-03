@@ -187,7 +187,8 @@ public class FrmcadProducao extends JFrame {
 
 					try {
 						if(salvaProducao()){
-							FrmcadProducao.this.dispose();	
+							FrmcadProducao.this.dispose();
+							new FrmProducao().setVisible(true);
 						}else{
 							JOptionPane.showMessageDialog(null,"Ocorreu um erro ao salvar a produção!");
 						}
@@ -212,9 +213,9 @@ public class FrmcadProducao extends JFrame {
 				producao.setListaitens(listaitens);
 				producao.setResponsavel(textResponsavel.getText());
 				try {
-					
-					p.cadastrar(producao);
-					
+					//p.cadastrar(producao);
+					p.inserirItem(producao);
+					return true;
 				} catch (Exception e) {
 					return false;
 				    }

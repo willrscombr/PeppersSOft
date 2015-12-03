@@ -320,7 +320,6 @@ public class FrmFinanceiro extends JFrame {
 
 				for (int j = 0; j < rsmt.getColumnCount(); j++) {
 					linha[j] = rs.getObject(j + 1);
-
 				}
 				modelo.addRow(linha);
 			}
